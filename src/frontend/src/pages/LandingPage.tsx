@@ -1,26 +1,46 @@
 import { useNavigate } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Activity, Camera, TrendingUp, Zap } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function LandingPage() {
   const navigate = useNavigate();
+  const [scrollOpacity, setScrollOpacity] = useState(1);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const fadeDistance = 400;
+      const newOpacity = Math.max(0, 1 - scrollPosition / fadeDistance);
+      setScrollOpacity(newOpacity);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div className="relative">
+      {/* Personalized message that fades on scroll */}
+      <div
+        className="fixed top-20 left-0 right-0 z-20 text-center pointer-events-none transition-opacity duration-300"
+        style={{ opacity: scrollOpacity }}
+      >
+        <p className="text-lg md:text-xl font-medium text-primary px-4">
+          mylove i know you can do this so i made this for you🙂
+        </p>
+      </div>
+
+      {/* Hidden compliments scattered throughout */}
+      <div className="hidden-compliment top-32 left-8">you're amazing</div>
+      <div className="hidden-compliment top-96 right-12">so proud of you</div>
+      <div className="hidden-compliment bottom-64 left-16">you're beautiful</div>
+
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: 'url(/assets/generated/hero-fitness.dim_1920x1080.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
-        </div>
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-primary/5 via-accent/5 to-background" />
 
-        <div className="container relative z-10 text-center px-4">
+        <div className="container relative z-10 text-center px-4 pt-16">
           <div className="max-w-4xl mx-auto space-y-8">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-tight">
               <span className="block bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">

@@ -1,12 +1,20 @@
 # Specification
 
 ## Summary
-**Goal:** Add Internet Identity authentication gate, update landing page design with new quote and decorative background elements.
+**Goal:** Add personalized messaging with scroll fade, fix theme switcher, create Tasks tab with daily challenges and rewards, add new exercise category tabs, and polish UI.
 
 **Planned changes:**
-- Implement authentication gate using Internet Identity (passkey, email, phone number)
-- Add transparent decorative background elements (weights/dumbbells and nature imagery) around screen edges
-- Update motivational quote to "Exercise today and be proud of yourself tomorrow"
-- Remove unwanted image from main landing page
+- Add personalized message "mylove i know you can do this so i made this for you🙂" to landing page with fade-out animation on scroll
+- Remove the orange/golden fitness hero image from the landing page
+- Scatter small, subtle hidden compliments to girlfriend throughout the application pages
+- Fix the color theme switcher in Settings so it actually changes colors when users select themes
+- Create separate Tasks tab in navigation with daily fitness challenges (walk a mile, run half a mile, 20 squats, and additional varied tasks)
+- Implement daily and monthly task completion tracking in backend
+- Display gym-themed "Well Done" animation when all daily tasks are completed
+- Show multiple-choice reward options (date night, sleepover, massage, and more) after completing all daily tasks
+- Automatically refresh daily tasks at midnight each day
+- Add at least 3 new exercise category tabs to main navigation with curated exercise ideas
+- Add more customization options to Settings page beyond theme selection
+- Clean up and polish overall UI across all pages for smooth, cohesive experience
 
-**User-visible outcome:** Users must log in with Internet Identity before accessing the app. The landing page features the updated quote and decorative background elements with weights and nature imagery positioned around the edges.
+**User-visible outcome:** Users will see a personalized welcome message that fades as they scroll, discover hidden compliments throughout the app, successfully switch color themes, complete daily fitness tasks with celebration animations and reward choices, access new exercise categories, and experience a cleaner, more polished interface throughout.

@@ -44,6 +44,9 @@ export default function WalkTrackingPage() {
 
   return (
     <div className="container py-8 px-4 max-w-7xl">
+      {/* Hidden compliments */}
+      <div className="hidden-compliment top-32 right-24">you're unstoppable</div>
+
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>

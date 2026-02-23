@@ -89,6 +89,24 @@ export class ExternalBlob {
         return this;
     }
 }
+export interface Exercise {
+    name: string;
+    description: string;
+    category: string;
+}
+export interface Customization {
+    fontSize: bigint;
+    backgroundMusic: string;
+}
+export interface _CaffeineStorageRefillInformation {
+    proposed_top_up_amount?: bigint;
+}
+export interface Task {
+    id: bigint;
+    completed: boolean;
+    description: string;
+    category: string;
+}
 export interface _CaffeineStorageCreateCertificateResult {
     method: string;
     blob_hash: string;
@@ -109,8 +127,11 @@ export interface _CaffeineStorageRefillResult {
     success?: boolean;
     topped_up_amount?: bigint;
 }
-export interface _CaffeineStorageRefillInformation {
-    proposed_top_up_amount?: bigint;
+export interface Goal {
+    completed: boolean;
+    description: string;
+    progress: bigint;
+    target: bigint;
 }
 export interface backendInterface {
     _caffeineStorageBlobIsLive(hash: Uint8Array): Promise<boolean>;
@@ -119,13 +140,21 @@ export interface backendInterface {
     _caffeineStorageCreateCertificate(blobHash: string): Promise<_CaffeineStorageCreateCertificateResult>;
     _caffeineStorageRefillCashier(refillInformation: _CaffeineStorageRefillInformation | null): Promise<_CaffeineStorageRefillResult>;
     _caffeineStorageUpdateGatewayPrincipals(): Promise<void>;
+    addExercise(name: string, description: string, category: string): Promise<void>;
+    addGoal(description: string, target: bigint): Promise<void>;
+    getCustomizations(): Promise<Customization>;
+    getDailyTasks(): Promise<Array<Task>>;
+    getExercisesByCategory(category: string): Promise<Array<Exercise>>;
+    getGoals(): Promise<Array<Goal>>;
     getTheme(): Promise<Theme>;
     getTotalCalories(): Promise<bigint>;
     getTotalSteps(): Promise<bigint>;
     getWalks(): Promise<Array<WalkSession>>;
+    setCustomizations(fontSize: bigint, backgroundMusic: string): Promise<void>;
+    setTaskCompleted(taskId: bigint): Promise<boolean>;
     setTheme(themeName: string): Promise<void>;
     trackWalk(session: WalkSession): Promise<void>;
-    uploadPhoto(photo: ExternalBlob): Promise<void>;
+    uploadPhoto(_photo: ExternalBlob): Promise<void>;
 }
 import type { ExternalBlob as _ExternalBlob, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
@@ -214,6 +243,90 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async addExercise(arg0: string, arg1: string, arg2: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.addExercise(arg0, arg1, arg2);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.addExercise(arg0, arg1, arg2);
+            return result;
+        }
+    }
+    async addGoal(arg0: string, arg1: bigint): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.addGoal(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.addGoal(arg0, arg1);
+            return result;
+        }
+    }
+    async getCustomizations(): Promise<Customization> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCustomizations();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCustomizations();
+            return result;
+        }
+    }
+    async getDailyTasks(): Promise<Array<Task>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getDailyTasks();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getDailyTasks();
+            return result;
+        }
+    }
+    async getExercisesByCategory(arg0: string): Promise<Array<Exercise>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getExercisesByCategory(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getExercisesByCategory(arg0);
+            return result;
+        }
+    }
+    async getGoals(): Promise<Array<Goal>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getGoals();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getGoals();
+            return result;
+        }
+    }
     async getTheme(): Promise<Theme> {
         if (this.processError) {
             try {
@@ -267,6 +380,34 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.getWalks();
+            return result;
+        }
+    }
+    async setCustomizations(arg0: bigint, arg1: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.setCustomizations(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.setCustomizations(arg0, arg1);
+            return result;
+        }
+    }
+    async setTaskCompleted(arg0: bigint): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.setTaskCompleted(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.setTaskCompleted(arg0);
             return result;
         }
     }

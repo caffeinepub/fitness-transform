@@ -1,120 +1,268 @@
 {
   "kind": "build_request",
-  "title": "Add authentication gate with Internet Identity and update landing page design",
-  "projectName": "Fitness Transformation",
+  "title": "Add personalized messaging, fix theme switcher, create Tasks tab, and add exercise category tabs",
+  "projectName": "Fitness Companion",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-9",
-      "text": "Implement an authentication gate using Internet Identity that requires users to log in before accessing any app routes beyond the login page. Support passkey, email, and phone number authentication methods.",
+      "id": "REQ-14",
+      "text": "Add the personalized message 'mylove i know you can do this so i made this for you🙂' to the landing page with fade-out animation that triggers on scroll",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-login-request",
-          "msg-user-passkey-clarification"
+          "msg-1",
+          "msg-3",
+          "msg-5"
         ],
         "quotes": [
-          "Use pass keys email or phone number"
+          "mylove i know you can do this so i made this for you🙂",
+          "make it fade away as i scroll down the page"
         ]
       },
       "acceptanceCriteria": [
-        "Users are redirected to a login page when not authenticated",
-        "Internet Identity authentication supports passkey, email, and phone number methods",
-        "After successful login, users can access all app routes",
-        "Authentication state persists across page refreshes"
+        "The message 'mylove i know you can do this so i made this for you🙂' appears on the landing page",
+        "The message fades out smoothly as the user scrolls down the page",
+        "The fade effect uses opacity transition and is triggered by scroll position"
       ]
     },
     {
-      "id": "REQ-10",
-      "text": "Add transparent decorative background elements featuring weights/dumbbells and nature imagery (leaves, mountains, trees) positioned around the screen edges throughout the application.",
+      "id": "REQ-15",
+      "text": "Add small, subtle hidden compliments to the girlfriend scattered throughout the application pages that are hard to see but still readable",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-decoration-request",
-          "msg-user-decoration-clarification"
+          "msg-6"
         ],
         "quotes": [
-          "add weights and nature around the screen make them transparent",
-          "yes as background decoration"
+          "could u add small compliments to my girlfriend accross the page make it small and hard to see but not impossible"
         ]
       },
       "acceptanceCriteria": [
-        "Decorative weight/dumbbell images are visible with transparency around screen edges",
-        "Nature elements (leaves, mountains, trees) are visible with transparency around screen edges",
-        "Decorative elements do not interfere with interactive UI components",
-        "Elements are positioned consistently across all pages"
+        "Multiple small compliment texts are scattered across different pages of the application",
+        "The compliments use subtle styling (low opacity, small font size) making them hard to spot but readable when found",
+        "Compliments are positioned in various locations to create a hidden treasure hunt effect"
       ]
     },
     {
-      "id": "REQ-11",
-      "text": "Update the motivational quote on the landing page from 'Make a change today and thank you for tomorrow' to 'Exercise today and be proud of yourself tomorrow'.",
+      "id": "REQ-16",
+      "text": "Remove the orange/golden fitness hero image from the landing page (the dramatic transformation image shown in the uploaded screenshot)",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-quote-update"
+          "msg-1",
+          "msg-3"
         ],
         "quotes": [
-          "add the quote excercise today and be proud or yourself tomorrow"
+          "Remove the orange/golden fitness hero image"
         ]
       },
       "acceptanceCriteria": [
-        "Landing page displays the new quote 'Exercise today and be proud of yourself tomorrow'",
-        "Quote maintains prominent visual styling consistent with existing design"
+        "The orange/golden dramatic fitness transformation hero image is completely removed from the landing page",
+        "No broken image references or empty containers remain after removal",
+        "The landing page layout adjusts gracefully without the hero image"
       ]
     },
     {
-      "id": "REQ-12",
-      "text": "Remove the unwanted image from the main landing page that was not part of the original user request.",
+      "id": "REQ-17",
+      "text": "Fix the color theme switcher in Settings page so it actually switches colors when users select different themes",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-user-remove-picture"
+          "msg-2",
+          "msg-8"
         ],
         "quotes": [
-          "Could u also remove the picture of the main screen i dint ask for that"
+          "Doesent let me switch colours at all fix it please",
+          "Color changer issue"
         ]
       },
       "acceptanceCriteria": [
-        "Unwanted image element is removed from the landing page",
-        "Page layout remains intact after image removal",
-        "No broken image links or placeholders remain"
+        "Clicking on different theme options in Settings successfully changes the application's color scheme",
+        "The selected theme is applied immediately across all components",
+        "The theme selection persists after page refresh",
+        "Visual feedback indicates which theme is currently active"
       ]
     },
     {
-      "id": "REQ-13",
-      "text": "Generate decorative images for transparent weight/dumbbell illustrations and nature elements (leaves, mountains, trees) to be used as static assets for the background decoration feature.",
-      "target": "frontend",
+      "id": "REQ-18",
+      "text": "Create a separate Tasks tab in the navigation with daily fitness challenges including walk a mile, run half a mile, 20 squats, and additional varied tasks",
+      "target": "both",
       "source": {
         "messageIds": [
-          "msg-user-decoration-request"
+          "msg-7",
+          "msg-9"
+        ],
+        "quotes": [
+          "add a seperate tab away from the others name it tasks",
+          "Daily tasks to complete such as walk a mile run half a mile 20 squats"
         ]
       },
       "acceptanceCriteria": [
-        "Generated images are saved to frontend/public/assets/generated directory",
-        "Images have transparent backgrounds suitable for overlay decoration",
-        "Weight and nature images are visually cohesive with the fitness app theme"
+        "A new 'Tasks' tab appears in the main navigation separate from existing tabs",
+        "The Tasks page displays daily fitness challenges with checkboxes",
+        "Default tasks include: walk a mile, run half a mile, 20 squats, and at least 3 additional varied fitness challenges",
+        "Each task can be marked as complete with a checkbox"
+      ]
+    },
+    {
+      "id": "REQ-19",
+      "text": "Implement daily and monthly task completion tracking that stores user progress over time",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-7",
+          "msg-9"
+        ],
+        "quotes": [
+          "track there completion at the end of the month they have a chance to have a big reward"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The backend stores daily task completion status for each user",
+        "Task completion data is tracked and aggregated monthly",
+        "Users can view their completion history for the current month",
+        "At month's end, users with consistent completion are identified for big reward eligibility"
+      ]
+    },
+    {
+      "id": "REQ-20",
+      "text": "Display a gym-themed 'Well Done' animation when users complete all daily tasks for the day",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-9"
+        ],
+        "quotes": [
+          "show animation \"well done\" make it a gym theme when completed"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When all daily tasks are checked off, a celebration animation appears",
+        "The animation has a gym theme with fitness-related visual elements",
+        "The animation displays 'Well Done' as the primary message",
+        "The animation is visually distinct and rewarding"
+      ]
+    },
+    {
+      "id": "REQ-21",
+      "text": "Show multiple-choice reward options (date night, sleepover, massage, and additional options) after completing all daily tasks for the day",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-7",
+          "msg-9"
+        ],
+        "quotes": [
+          "make the rewards like a date night or sleepever or massage",
+          "show up a multiple choice answer with different rewards only when completed all daily tasks for that day"
+        ]
+      },
+      "acceptanceCriteria": [
+        "After completing all daily tasks, a multiple-choice reward selection appears",
+        "Reward options include: date night, sleepover, massage, and at least 2 additional romantic/personal rewards",
+        "The reward selection only appears when all tasks for the current day are completed",
+        "Users can select one reward option from the presented choices"
+      ]
+    },
+    {
+      "id": "REQ-22",
+      "text": "Automatically refresh daily tasks at midnight each day with a new set of challenges",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-9"
+        ],
+        "quotes": [
+          "Yes at midnight",
+          "make sure they are refreshed everyday"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Tasks reset automatically at midnight (00:00) each day",
+        "Previous day's completion status is saved before reset",
+        "New tasks are generated or rotated for the new day",
+        "Users see fresh unchecked tasks when accessing the Tasks tab after midnight"
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "text": "Add at least 3 new exercise category tabs (such as Upper Body, Lower Body, Core, Cardio) to the main navigation with curated exercise ideas for each category",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2",
+          "msg-5"
+        ],
+        "quotes": [
+          "add more tabs for me (different excersise ideas) u decide wich ones to add",
+          "Add at least 3 new exercise category tabs"
+        ]
+      },
+      "acceptanceCriteria": [
+        "At least 3 new tabs are added to the main navigation for exercise categories",
+        "Exercise categories are clearly distinct (e.g., Upper Body, Lower Body, Core, Cardio)",
+        "Each category tab displays a curated list of relevant exercise ideas",
+        "Exercise ideas include names, descriptions, and basic instructions"
+      ]
+    },
+    {
+      "id": "REQ-24",
+      "text": "Add more customization options to the Settings page beyond theme selection",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Also add more options to setting"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Settings page includes at least 3 additional configuration options beyond theme selection",
+        "New settings are relevant to the fitness app context (e.g., units, notifications preferences, display options)",
+        "Settings changes are saved and persisted across sessions",
+        "Each setting has clear labels and intuitive controls"
+      ]
+    },
+    {
+      "id": "REQ-25",
+      "text": "Clean up and polish the overall UI across all pages for a smooth, cohesive, and visually refined experience",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4",
+          "msg-5"
+        ],
+        "quotes": [
+          "js tidy up make it clean and smooth",
+          "Clean up and polish the overall UI for a smooth, cohesive experience"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Consistent spacing, padding, and margins across all pages",
+        "Smooth transitions and animations throughout the application",
+        "Visual hierarchy is clear with proper typography sizing and weights",
+        "Color scheme is applied consistently across all UI elements",
+        "No visual glitches, alignment issues, or broken layouts"
       ]
     }
   ],
   "constraints": [
-    "Use the existing Internet Identity authentication system already integrated in the codebase",
-    "Do not modify the backend authentication logic",
-    "Preserve existing routing structure and component architecture",
-    "Maintain responsive design across all screen sizes"
+    "Keep the existing decorative weights and nature elements around the screen edges",
+    "Maintain the current walk tracking and statistics functionality",
+    "Preserve the AI photo transformation feature",
+    "Do not modify the Internet Identity authentication system",
+    "Tasks tab must be separate from the existing navigation tabs"
   ],
   "nonGoals": [
-    "Implementing custom authentication beyond Internet Identity",
-    "Adding email/SMS verification systems",
-    "Creating new backend authentication endpoints",
-    "Modifying existing theme system or walk tracking functionality"
+    "Changing the underlying authentication mechanism beyond Internet Identity",
+    "Modifying the walk tracking GPS calculation logic",
+    "Redesigning the entire application layout or navigation structure",
+    "Adding external integrations or third-party services",
+    "Implementing real-time multiplayer or social features"
   ],
   "imageRequirements": {
-    "required": [
-      "Transparent illustration of dumbbells/weights for decorative background overlay (weight-decoration-left.dim_200x300.png)",
-      "Transparent illustration of fitness equipment for decorative background overlay (weight-decoration-right.dim_200x300.png)",
-      "Transparent nature element with leaves and mountains for decorative background overlay (nature-decoration-top.dim_400x200.png)",
-      "Transparent nature element with trees for decorative background overlay (nature-decoration-bottom.dim_400x200.png)"
-    ],
+    "required": [],
     "edits": []
   }
 }

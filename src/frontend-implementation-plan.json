@@ -1,106 +1,288 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Add authentication gate with Internet Identity and update landing page design",
+  "title": "Add personalized messaging, fix theme switcher, create Tasks tab, and add exercise category tabs",
   "requirements": [
     {
-      "id": "REQ-9",
-      "summary": "Implement an authentication gate using Internet Identity that requires users to log in before accessing any app routes beyond the login page",
+      "id": "REQ-14",
+      "summary": "Add personalized fade-out message to landing page",
       "acceptanceCriteria": [
-        "Users are redirected to a login page when not authenticated",
-        "Internet Identity authentication supports passkey, email, and phone number methods",
-        "After successful login, users can access all app routes",
-        "Authentication state persists across page refreshes"
+        "The message 'mylove i know you can do this so i made this for you🙂' appears on the landing page",
+        "The message fades out smoothly as the user scrolls down the page",
+        "The fade effect uses opacity transition and is triggered by scroll position"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/LoginPage.tsx",
-          "operation": "create",
-          "description": "Create a dedicated login page that presents the Internet Identity authentication interface with support for passkey, email, and phone number methods. Use the existing useInternetIdentity hook to trigger login flow."
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Add a personalized message 'mylove i know you can do this so i made this for you🙂' at the top of the landing page. Implement scroll-triggered fade-out animation using opacity transition based on scroll position (e.g., fade from opacity 1 to 0 as user scrolls down the first 300-500px). Position the message prominently above or within the hero section."
+        }
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "summary": "Add subtle hidden compliments scattered throughout the app",
+      "acceptanceCriteria": [
+        "Multiple small compliment texts are scattered across different pages of the application",
+        "The compliments use subtle styling (low opacity, small font size) making them hard to spot but readable when found",
+        "Compliments are positioned in various locations to create a hidden treasure hunt effect"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Add 2-3 small compliment texts (e.g., 'you're amazing', 'so proud of you') scattered across the landing page using subtle styling: low opacity (0.1-0.2), small font size (8-10px), and positioned in corners or margins to be hard to spot but readable."
         },
         {
-          "path": "frontend/src/components/ProtectedRoute.tsx",
+          "path": "frontend/src/pages/WalkTrackingPage.tsx",
+          "operation": "modify",
+          "description": "Add 1-2 hidden compliment texts to the walk tracking page using subtle styling (low opacity, small font) positioned near map edges or statistics display."
+        },
+        {
+          "path": "frontend/src/pages/TransformationPage.tsx",
+          "operation": "modify",
+          "description": "Add 1-2 hidden compliment texts to the transformation page using subtle styling positioned around the photo upload area or transformation preview."
+        },
+        {
+          "path": "frontend/src/pages/StatsPage.tsx",
+          "operation": "modify",
+          "description": "Add 1-2 hidden compliment texts to the stats page using subtle styling positioned near statistics cards."
+        },
+        {
+          "path": "frontend/src/pages/SettingsPage.tsx",
+          "operation": "modify",
+          "description": "Add 1 hidden compliment text to the settings page using subtle styling positioned in an unobtrusive corner."
+        }
+      ]
+    },
+    {
+      "id": "REQ-16",
+      "summary": "Remove orange/golden fitness hero image from landing page",
+      "acceptanceCriteria": [
+        "The orange/golden dramatic fitness transformation hero image is completely removed from the landing page",
+        "No broken image references or empty containers remain after removal",
+        "The landing page layout adjusts gracefully without the hero image"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Remove the hero image (frontend/public/assets/generated/hero-fitness.dim_1920x1080.png) from the landing page. Remove any <img> tags, background-image styles, or container elements that reference this image. Adjust spacing and layout to ensure the page looks clean without the hero image."
+        }
+      ]
+    },
+    {
+      "id": "REQ-17",
+      "summary": "Fix color theme switcher functionality in Settings",
+      "acceptanceCriteria": [
+        "Clicking on different theme options in Settings successfully changes the application's color scheme",
+        "The selected theme is applied immediately across all components",
+        "The theme selection persists after page refresh",
+        "Visual feedback indicates which theme is currently active"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/contexts/ThemeContext.tsx",
+          "operation": "modify",
+          "description": "Fix the theme switching logic to ensure theme changes are properly applied. Verify that setTheme calls the backend actor method correctly and that CSS custom properties are updated. Ensure theme persistence works by checking localStorage or backend storage and that the theme is reloaded on mount."
+        },
+        {
+          "path": "frontend/src/components/ThemeSelector.tsx",
+          "operation": "modify",
+          "description": "Fix the ThemeSelector component to ensure clicking theme options triggers theme changes. Verify event handlers are properly connected to the ThemeContext's setTheme function. Add loading states if needed and ensure visual feedback (checkmark) updates correctly when theme changes."
+        }
+      ]
+    },
+    {
+      "id": "REQ-18",
+      "summary": "Create separate Tasks tab with daily fitness challenges",
+      "acceptanceCriteria": [
+        "A new 'Tasks' tab appears in the main navigation separate from existing tabs",
+        "The Tasks page displays daily fitness challenges with checkboxes",
+        "Default tasks include: walk a mile, run half a mile, 20 squats, and at least 3 additional varied fitness challenges",
+        "Each task can be marked as complete with a checkbox"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/TasksPage.tsx",
           "operation": "create",
-          "description": "Create a route guard component that checks authentication status using the useInternetIdentity hook. Redirect unauthenticated users to the login page while allowing access to authenticated users."
+          "description": "Create a new Tasks page component that fetches daily tasks from the backend using getDailyTasks(). Display tasks in a list with checkboxes, showing task descriptions. Include default tasks: walk a mile, run half a mile, 20 squats, and at least 3 additional varied fitness tasks (e.g., 15 push-ups, 30-second plank, 50 jumping jacks). When a checkbox is clicked, call the backend setTaskCompleted(taskId) mutation to mark the task complete. Show loading and error states. Style with consistent theme colors."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Update router configuration to add the login route and wrap all existing routes (walk, transform, stats, settings, landing) with the ProtectedRoute component to enforce authentication. Ensure the login route remains accessible without authentication."
+          "description": "Add a new protected route for the Tasks page at path '/tasks' that renders the TasksPage component. Ensure it is included within the ProtectedRoute wrapper alongside other authenticated routes."
         },
         {
           "path": "frontend/src/components/Layout.tsx",
           "operation": "modify",
-          "description": "Add a logout button to the navigation header that uses the useInternetIdentity hook to sign out users and redirect them to the login page."
+          "description": "Add a new 'Tasks' navigation link to the header menu (both desktop and mobile) that routes to '/tasks'. Position it separately from other tabs as specified. Ensure the active state is highlighted when on the Tasks page."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add a React Query hook useDailyTasks() that fetches daily tasks using actor.getDailyTasks(). Add a mutation useSetTaskCompleted(taskId: bigint) that calls actor.setTaskCompleted(taskId) and invalidates the daily tasks query on success."
         }
       ]
     },
     {
-      "id": "REQ-10",
-      "summary": "Add transparent decorative background elements featuring weights/dumbbells and nature imagery positioned around the screen edges",
+      "id": "REQ-20",
+      "summary": "Display gym-themed 'Well Done' animation on task completion",
       "acceptanceCriteria": [
-        "Decorative weight/dumbbell images are visible with transparency around screen edges",
-        "Nature elements (leaves, mountains, trees) are visible with transparency around screen edges",
-        "Decorative elements do not interfere with interactive UI components",
-        "Elements are positioned consistently across all pages"
+        "When all daily tasks are checked off, a celebration animation appears",
+        "The animation has a gym theme with fitness-related visual elements",
+        "The animation displays 'Well Done' as the primary message",
+        "The animation is visually distinct and rewarding"
       ],
       "file_operations": [
         {
+          "path": "frontend/src/components/TaskCompletionAnimation.tsx",
+          "operation": "create",
+          "description": "Create a celebration animation component that displays 'Well Done' with a gym theme. Use CSS animations or a library like Framer Motion to create an engaging animation with fitness-related visual elements (e.g., animated weights, confetti, pulsing effects). The animation should be visually distinct and rewarding, appearing as a modal or overlay."
+        },
+        {
+          "path": "frontend/src/pages/TasksPage.tsx",
+          "operation": "modify",
+          "description": "Integrate the TaskCompletionAnimation component. When all daily tasks are marked complete (check the tasks array to verify all have completed: true), trigger and display the 'Well Done' animation overlay. Ensure the animation only appears when transitioning from incomplete to all-complete state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-21",
+      "summary": "Show reward selection after completing all daily tasks",
+      "acceptanceCriteria": [
+        "After completing all daily tasks, a multiple-choice reward selection appears",
+        "Reward options include: date night, sleepover, massage, and at least 2 additional romantic/personal rewards",
+        "The reward selection only appears when all tasks for the current day are completed",
+        "Users can select one reward option from the presented choices"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/RewardSelector.tsx",
+          "operation": "create",
+          "description": "Create a reward selection component that displays multiple-choice reward options: date night, sleepover, massage, and at least 2 additional options (e.g., movie night, breakfast in bed). Present options as cards or buttons. Allow user to select one reward and provide visual feedback on selection. Style with theme colors."
+        },
+        {
+          "path": "frontend/src/pages/TasksPage.tsx",
+          "operation": "modify",
+          "description": "Show the RewardSelector component after the TaskCompletionAnimation when all daily tasks are completed. Ensure it only appears when all tasks for the current day are marked complete. Handle reward selection and store the choice (can be frontend-only or sent to backend if needed)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "summary": "Add new exercise category tabs to navigation",
+      "acceptanceCriteria": [
+        "At least 3 new tabs are added to the main navigation for exercise categories",
+        "Exercise categories are clearly distinct (e.g., Upper Body, Lower Body, Core, Cardio)",
+        "Each category tab displays a curated list of relevant exercise ideas",
+        "Exercise ideas include names, descriptions, and basic instructions"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ExerciseCategoryPage.tsx",
+          "operation": "create",
+          "description": "Create an exercise category page component that accepts a category parameter (e.g., 'Upper Body', 'Lower Body', 'Core'). Fetch exercises for the category using getExercisesByCategory(category) from the backend. Display exercises in cards or lists showing name, description, and basic instructions. Handle loading and error states. Style with theme colors."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Add protected routes for at least 3 exercise category pages: '/exercises/upper-body', '/exercises/lower-body', '/exercises/core'. Each route renders the ExerciseCategoryPage component with the appropriate category prop."
+        },
+        {
           "path": "frontend/src/components/Layout.tsx",
           "operation": "modify",
-          "description": "Add fixed-position decorative image elements using the generated assets frontend/public/assets/generated/weight-decoration-left.dim_200x300.png, frontend/public/assets/generated/weight-decoration-right.dim_200x300.png, frontend/public/assets/generated/nature-decoration-top.dim_400x200.png, and frontend/public/assets/generated/nature-decoration-bottom.dim_400x200.png. Position them at screen corners with low opacity (0.15-0.25) and z-index below interactive content to ensure they don't interfere with UI components."
+          "description": "Add navigation links for at least 3 exercise category tabs: 'Upper Body', 'Lower Body', 'Core' in both desktop and mobile menus. Links should route to '/exercises/upper-body', '/exercises/lower-body', '/exercises/core' respectively. Highlight active state when on the corresponding page."
         },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add a React Query hook useExercisesByCategory(category: string) that fetches exercises using actor.getExercisesByCategory(category). Enable query when category is provided."
+        }
+      ]
+    },
+    {
+      "id": "REQ-24",
+      "summary": "Add more customization options to Settings page",
+      "acceptanceCriteria": [
+        "Settings page includes at least 3 additional configuration options beyond theme selection",
+        "New settings are relevant to the fitness app context (e.g., units, notifications preferences, display options)",
+        "Settings changes are saved and persisted across sessions",
+        "Each setting has clear labels and intuitive controls"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/CustomizationSettings.tsx",
+          "operation": "create",
+          "description": "Create a customization settings component that displays at least 3 additional settings: font size (small/medium/large), background music preference (on/off or selection), and units preference (metric/imperial). Fetch current customizations using getCustomizations() and provide controls (dropdowns, toggles, radio buttons) with clear labels. Save changes using setCustomizations(fontSize, backgroundMusic) mutation."
+        },
+        {
+          "path": "frontend/src/pages/SettingsPage.tsx",
+          "operation": "modify",
+          "description": "Integrate the CustomizationSettings component into the Settings page below the theme selector. Ensure the layout is clean and settings are organized in sections or cards."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Add a React Query hook useCustomizations() that fetches customizations using actor.getCustomizations(). Add a mutation useSetCustomizations(fontSize: bigint, backgroundMusic: string) that calls actor.setCustomizations and invalidates the customizations query on success."
+        }
+      ]
+    },
+    {
+      "id": "REQ-25",
+      "summary": "Clean up and polish overall UI for smooth, cohesive experience",
+      "acceptanceCriteria": [
+        "Consistent spacing, padding, and margins across all pages",
+        "Smooth transitions and animations throughout the application",
+        "Visual hierarchy is clear with proper typography sizing and weights",
+        "Color scheme is applied consistently across all UI elements",
+        "No visual glitches, alignment issues, or broken layouts"
+      ],
+      "file_operations": [
         {
           "path": "frontend/src/index.css",
           "operation": "modify",
-          "description": "Add CSS classes for decorative background elements with appropriate opacity, positioning, and pointer-events: none to ensure they don't block interaction with UI components."
-        }
-      ]
-    },
-    {
-      "id": "REQ-11",
-      "summary": "Update the motivational quote on the landing page to 'Exercise today and be proud of yourself tomorrow'",
-      "acceptanceCriteria": [
-        "Landing page displays the new quote 'Exercise today and be proud of yourself tomorrow'",
-        "Quote maintains prominent visual styling consistent with existing design"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/LandingPage.tsx",
-          "operation": "modify",
-          "description": "Replace the existing motivational quote text with 'Exercise today and be proud of yourself tomorrow' while preserving the current visual styling and placement."
-        }
-      ]
-    },
-    {
-      "id": "REQ-12",
-      "summary": "Remove the unwanted image from the main landing page",
-      "acceptanceCriteria": [
-        "Unwanted image element is removed from the landing page",
-        "Page layout remains intact after image removal",
-        "No broken image links or placeholders remain"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/LandingPage.tsx",
-          "operation": "modify",
-          "description": "Remove the unwanted image element that was not part of the original user request. Ensure the page layout adjusts properly and no broken references remain."
-        }
-      ]
-    },
-    {
-      "id": "REQ-13",
-      "summary": "Wire generated decorative images as static assets for background decoration",
-      "acceptanceCriteria": [
-        "Generated images are saved to frontend/public/assets/generated directory",
-        "Images have transparent backgrounds suitable for overlay decoration",
-        "Weight and nature images are visually cohesive with the fitness app theme"
-      ],
-      "file_operations": [
+          "description": "Review and refine global CSS styles for consistency. Ensure Tailwind base styles are properly applied. Verify smooth transitions are defined for interactive elements. Check that color variables (OKLCH) are consistent across light/dark modes. Add any missing global animation definitions for smooth UI interactions."
+        },
         {
           "path": "frontend/src/components/Layout.tsx",
           "operation": "modify",
-          "description": "Reference the exact generated image files frontend/public/assets/generated/weight-decoration-left.dim_200x300.png, frontend/public/assets/generated/weight-decoration-right.dim_200x300.png, frontend/public/assets/generated/nature-decoration-top.dim_400x200.png, and frontend/public/assets/generated/nature-decoration-bottom.dim_400x200.png as static assets in the decorative background implementation."
+          "description": "Polish the Layout component for consistent spacing and alignment. Ensure header, navigation, footer, and decorative elements have proper padding and margins. Verify smooth transitions on navigation state changes. Check that decorative weight/nature elements are positioned correctly and don't interfere with content."
+        },
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Review spacing, typography, and visual hierarchy on the landing page. Ensure headings, buttons, and feature sections have consistent sizing and spacing. Verify gradient text and CTAs are visually prominent. Check that the layout is clean after hero image removal."
+        },
+        {
+          "path": "frontend/src/pages/WalkTrackingPage.tsx",
+          "operation": "modify",
+          "description": "Polish the walk tracking page layout. Ensure map and statistics are properly aligned with consistent spacing. Verify smooth transitions when starting/stopping tracking. Check that controls and stats cards have proper visual hierarchy."
+        },
+        {
+          "path": "frontend/src/pages/TransformationPage.tsx",
+          "operation": "modify",
+          "description": "Clean up the transformation page layout. Ensure photo uploader, duration selector, and transformation preview have consistent spacing and alignment. Verify smooth transitions during upload and preview display."
+        },
+        {
+          "path": "frontend/src/pages/StatsPage.tsx",
+          "operation": "modify",
+          "description": "Review stats page for consistent card spacing, typography, and visual hierarchy. Ensure gradient backgrounds and icons are properly aligned. Verify that metrics display clearly with appropriate font sizes and weights."
+        },
+        {
+          "path": "frontend/src/pages/SettingsPage.tsx",
+          "operation": "modify",
+          "description": "Polish the settings page layout. Ensure theme selector and customization settings sections have consistent spacing and visual grouping. Verify all controls are properly aligned and labeled."
+        },
+        {
+          "path": "frontend/src/pages/TasksPage.tsx",
+          "operation": "modify",
+          "description": "Ensure the new Tasks page has consistent spacing, clean task list layout, and smooth checkbox interactions. Verify visual hierarchy is clear with proper typography for task descriptions."
+        },
+        {
+          "path": "frontend/src/pages/ExerciseCategoryPage.tsx",
+          "operation": "modify",
+          "description": "Polish the exercise category page layout. Ensure exercise cards have consistent spacing, typography, and visual hierarchy. Verify descriptions and instructions are readable and well-organized."
         }
       ]
     }

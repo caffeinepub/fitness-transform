@@ -1,10 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Settings, Palette } from 'lucide-react';
+import { Settings, Palette, Sliders } from 'lucide-react';
 import ThemeSelector from '@/components/ThemeSelector';
+import CustomizationSettings from '@/components/CustomizationSettings';
 
 export default function SettingsPage() {
   return (
     <div className="container py-8 px-4 max-w-4xl">
+      {/* Hidden compliment */}
+      <div className="hidden-compliment bottom-32 right-16">you're doing great</div>
+
       <div className="space-y-6">
         <div>
           <h1 className="text-4xl font-bold mb-2">Settings</h1>
@@ -25,6 +29,21 @@ export default function SettingsPage() {
           </CardHeader>
           <CardContent>
             <ThemeSelector />
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Sliders className="h-5 w-5 text-primary" />
+              Customization
+            </CardTitle>
+            <CardDescription>
+              Personalize your app settings
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <CustomizationSettings />
           </CardContent>
         </Card>
 

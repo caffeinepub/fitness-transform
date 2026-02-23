@@ -19,6 +19,27 @@ export const _CaffeineStorageRefillResult = IDL.Record({
   'success' : IDL.Opt(IDL.Bool),
   'topped_up_amount' : IDL.Opt(IDL.Nat),
 });
+export const Customization = IDL.Record({
+  'fontSize' : IDL.Nat,
+  'backgroundMusic' : IDL.Text,
+});
+export const Task = IDL.Record({
+  'id' : IDL.Nat,
+  'completed' : IDL.Bool,
+  'description' : IDL.Text,
+  'category' : IDL.Text,
+});
+export const Exercise = IDL.Record({
+  'name' : IDL.Text,
+  'description' : IDL.Text,
+  'category' : IDL.Text,
+});
+export const Goal = IDL.Record({
+  'completed' : IDL.Bool,
+  'description' : IDL.Text,
+  'progress' : IDL.Int,
+  'target' : IDL.Int,
+});
 export const Theme = IDL.Record({
   'primaryColor' : IDL.Text,
   'name' : IDL.Text,
@@ -60,10 +81,22 @@ export const idlService = IDL.Service({
       [],
     ),
   '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
+  'addExercise' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
+  'addGoal' : IDL.Func([IDL.Text, IDL.Int], [], []),
+  'getCustomizations' : IDL.Func([], [Customization], ['query']),
+  'getDailyTasks' : IDL.Func([], [IDL.Vec(Task)], ['query']),
+  'getExercisesByCategory' : IDL.Func(
+      [IDL.Text],
+      [IDL.Vec(Exercise)],
+      ['query'],
+    ),
+  'getGoals' : IDL.Func([], [IDL.Vec(Goal)], ['query']),
   'getTheme' : IDL.Func([], [Theme], ['query']),
   'getTotalCalories' : IDL.Func([], [IDL.Nat], ['query']),
   'getTotalSteps' : IDL.Func([], [IDL.Nat], ['query']),
   'getWalks' : IDL.Func([], [IDL.Vec(WalkSession)], ['query']),
+  'setCustomizations' : IDL.Func([IDL.Nat, IDL.Text], [], []),
+  'setTaskCompleted' : IDL.Func([IDL.Nat], [IDL.Bool], []),
   'setTheme' : IDL.Func([IDL.Text], [], []),
   'trackWalk' : IDL.Func([WalkSession], [], []),
   'uploadPhoto' : IDL.Func([ExternalBlob], [], []),
@@ -82,6 +115,27 @@ export const idlFactory = ({ IDL }) => {
   const _CaffeineStorageRefillResult = IDL.Record({
     'success' : IDL.Opt(IDL.Bool),
     'topped_up_amount' : IDL.Opt(IDL.Nat),
+  });
+  const Customization = IDL.Record({
+    'fontSize' : IDL.Nat,
+    'backgroundMusic' : IDL.Text,
+  });
+  const Task = IDL.Record({
+    'id' : IDL.Nat,
+    'completed' : IDL.Bool,
+    'description' : IDL.Text,
+    'category' : IDL.Text,
+  });
+  const Exercise = IDL.Record({
+    'name' : IDL.Text,
+    'description' : IDL.Text,
+    'category' : IDL.Text,
+  });
+  const Goal = IDL.Record({
+    'completed' : IDL.Bool,
+    'description' : IDL.Text,
+    'progress' : IDL.Int,
+    'target' : IDL.Int,
   });
   const Theme = IDL.Record({
     'primaryColor' : IDL.Text,
@@ -124,10 +178,22 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
+    'addExercise' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
+    'addGoal' : IDL.Func([IDL.Text, IDL.Int], [], []),
+    'getCustomizations' : IDL.Func([], [Customization], ['query']),
+    'getDailyTasks' : IDL.Func([], [IDL.Vec(Task)], ['query']),
+    'getExercisesByCategory' : IDL.Func(
+        [IDL.Text],
+        [IDL.Vec(Exercise)],
+        ['query'],
+      ),
+    'getGoals' : IDL.Func([], [IDL.Vec(Goal)], ['query']),
     'getTheme' : IDL.Func([], [Theme], ['query']),
     'getTotalCalories' : IDL.Func([], [IDL.Nat], ['query']),
     'getTotalSteps' : IDL.Func([], [IDL.Nat], ['query']),
     'getWalks' : IDL.Func([], [IDL.Vec(WalkSession)], ['query']),
+    'setCustomizations' : IDL.Func([IDL.Nat, IDL.Text], [], []),
+    'setTaskCompleted' : IDL.Func([IDL.Nat], [IDL.Bool], []),
     'setTheme' : IDL.Func([IDL.Text], [], []),
     'trackWalk' : IDL.Func([WalkSession], [], []),
     'uploadPhoto' : IDL.Func([ExternalBlob], [], []),

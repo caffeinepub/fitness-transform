@@ -13,6 +13,14 @@ const themes = [
 export default function ThemeSelector() {
   const { currentTheme, setTheme, isLoading } = useTheme();
 
+  const handleThemeChange = async (themeName: string) => {
+    try {
+      await setTheme(themeName);
+    } catch (error) {
+      console.error('Failed to set theme:', error);
+    }
+  };
+
   return (
     <div className="grid md:grid-cols-2 gap-4">
       {themes.map((theme) => {
@@ -22,8 +30,8 @@ export default function ThemeSelector() {
           <Button
             key={theme.name}
             variant={isActive ? 'default' : 'outline'}
-            className="h-auto p-4 flex flex-col items-start gap-3 relative"
-            onClick={() => setTheme(theme.name)}
+            className="h-auto p-4 flex flex-col items-start gap-3 relative transition-all hover:scale-105"
+            onClick={() => handleThemeChange(theme.name)}
             disabled={isLoading}
           >
             {isActive && (

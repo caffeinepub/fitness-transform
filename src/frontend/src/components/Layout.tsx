@@ -1,8 +1,16 @@
 import { Outlet, useNavigate, useRouterState } from '@tanstack/react-router';
-import { Activity, Camera, TrendingUp, Settings, Dumbbell, LogOut } from 'lucide-react';
+import { Activity, Camera, TrendingUp, Settings, Dumbbell, LogOut, ListChecks, Zap } from 'lucide-react';
 import { Button } from './ui/button';
 import { SiX, SiFacebook, SiInstagram } from 'react-icons/si';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuLabel,
+} from './ui/dropdown-menu';
 
 export default function Layout() {
   const navigate = useNavigate();
@@ -15,13 +23,21 @@ export default function Layout() {
     { path: '/walk', label: 'Track Walk', icon: Activity },
     { path: '/transform', label: 'Transform', icon: Camera },
     { path: '/stats', label: 'Stats', icon: TrendingUp },
-    { path: '/settings', label: 'Settings', icon: Settings },
+  ];
+
+  const exerciseCategories = [
+    { path: '/exercises/upper-body', label: 'Upper Body' },
+    { path: '/exercises/lower-body', label: 'Lower Body' },
+    { path: '/exercises/core', label: 'Core' },
+    { path: '/exercises/cardio', label: 'Cardio' },
   ];
 
   const handleLogout = () => {
     clear();
     navigate({ to: '/login' });
   };
+
+  const isExercisePath = currentPath.startsWith('/exercises/');
 
   return (
     <div className="min-h-screen flex flex-col relative">
@@ -57,6 +73,53 @@ export default function Layout() {
                 </Button>
               );
             })}
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant={isExercisePath ? 'default' : 'ghost'}
+                  size="sm"
+                  className="gap-2"
+                >
+                  <Zap className="h-4 w-4" />
+                  Exercises
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuLabel>Exercise Categories</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                {exerciseCategories.map((category) => (
+                  <DropdownMenuItem
+                    key={category.path}
+                    onClick={() => navigate({ to: category.path })}
+                    className={currentPath === category.path ? 'bg-accent' : ''}
+                  >
+                    {category.label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Button
+              variant={currentPath === '/tasks' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => navigate({ to: '/tasks' })}
+              className="gap-2"
+            >
+              <ListChecks className="h-4 w-4" />
+              Tasks
+            </Button>
+
+            <Button
+              variant={currentPath === '/settings' ? 'default' : 'ghost'}
+              size="sm"
+              onClick={() => navigate({ to: '/settings' })}
+              className="gap-2"
+            >
+              <Settings className="h-4 w-4" />
+              Settings
+            </Button>
+
             <Button
               variant="ghost"
               size="sm"
@@ -84,6 +147,22 @@ export default function Layout() {
                 </Button>
               );
             })}
+            <Button
+              variant={currentPath === '/tasks' ? 'default' : 'ghost'}
+              size="icon"
+              onClick={() => navigate({ to: '/tasks' })}
+              title="Tasks"
+            >
+              <ListChecks className="h-5 w-5" />
+            </Button>
+            <Button
+              variant={currentPath === '/settings' ? 'default' : 'ghost'}
+              size="icon"
+              onClick={() => navigate({ to: '/settings' })}
+              title="Settings"
+            >
+              <Settings className="h-5 w-5" />
+            </Button>
             <Button
               variant="ghost"
               size="icon"
@@ -117,14 +196,29 @@ export default function Layout() {
               </a>
             </div>
             
-            <div className="flex items-center gap-3">
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <SiFacebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+            <div className="flex items-center gap-4">
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 <SiX className="h-5 w-5" />
               </a>
-              <a href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <SiFacebook className="h-5 w-5" />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 <SiInstagram className="h-5 w-5" />
               </a>
             </div>

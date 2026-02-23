@@ -34,6 +34,9 @@ export default function StatsPage() {
 
   return (
     <div className="container py-8 px-4 max-w-7xl">
+      {/* Hidden compliments */}
+      <div className="hidden-compliment top-32 left-16">so strong</div>
+
       <div className="space-y-8">
         <div>
           <h1 className="text-4xl font-bold mb-2">Your Progress</h1>
@@ -43,7 +46,7 @@ export default function StatsPage() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10">
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 hover:shadow-lg transition-all">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <Footprints className="h-4 w-4" />
@@ -57,7 +60,7 @@ export default function StatsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-accent/20 bg-gradient-to-br from-accent/5 to-accent/10">
+          <Card className="border-accent/20 bg-gradient-to-br from-accent/5 to-accent/10 hover:shadow-lg transition-all">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <Flame className="h-4 w-4" />
@@ -71,7 +74,7 @@ export default function StatsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-secondary/20 bg-gradient-to-br from-secondary/5 to-secondary/10">
+          <Card className="border-secondary/20 bg-gradient-to-br from-secondary/5 to-secondary/10 hover:shadow-lg transition-all">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <TrendingUp className="h-4 w-4" />
@@ -85,7 +88,7 @@ export default function StatsPage() {
             </CardContent>
           </Card>
 
-          <Card className="border-primary/20 bg-gradient-to-br from-primary/10 to-accent/10">
+          <Card className="border-primary/20 bg-gradient-to-br from-primary/10 to-accent/10 hover:shadow-lg transition-all">
             <CardHeader className="pb-3">
               <CardTitle className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                 <Activity className="h-4 w-4" />
@@ -110,7 +113,7 @@ export default function StatsPage() {
                 {walks.map((walk, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between p-4 rounded-lg border border-border hover:bg-muted/50 transition-colors"
+                    className="flex items-center justify-between p-4 rounded-lg border border-border hover:bg-muted/50 transition-all"
                   >
                     <div className="space-y-1">
                       <div className="font-medium">Walk #{walks.length - index}</div>

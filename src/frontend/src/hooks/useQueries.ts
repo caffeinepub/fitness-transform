@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
-import type { WalkSession } from '../backend';
+import type { WalkSession, Task, Exercise, Customization } from '../backend';
 import { ExternalBlob } from '../backend';
 
 export function useWalkStats() {
@@ -65,6 +65,76 @@ export function useUploadPhoto() {
     mutationFn: async (photo: ExternalBlob) => {
       if (!actor) throw new Error('Actor not initialized');
       return actor.uploadPhoto(photo);
+    },
+  });
+}
+
+export function useDailyTasks() {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<Task[]>({
+    queryKey: ['dailyTasks'],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getDailyTasks();
+    },
+    enabled: !!actor && !isFetching,
+    refetchInterval: 60000, // Refetch every minute to check for midnight reset
+  });
+}
+
+export function useSetTaskCompleted() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (taskId: bigint) => {
+      if (!actor) throw new Error('Actor not initialized');
+      return actor.setTaskCompleted(taskId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['dailyTasks'] });
+    },
+  });
+}
+
+export function useExercisesByCategory(category: string) {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<Exercise[]>({
+    queryKey: ['exercises', category],
+    queryFn: async () => {
+      if (!actor) return [];
+      return actor.getExercisesByCategory(category);
+    },
+    enabled: !!actor && !isFetching && !!category,
+  });
+}
+
+export function useCustomizations() {
+  const { actor, isFetching } = useActor();
+
+  return useQuery<Customization>({
+    queryKey: ['customizations'],
+    queryFn: async () => {
+      if (!actor) return { fontSize: BigInt(16), backgroundMusic: '' };
+      return actor.getCustomizations();
+    },
+    enabled: !!actor && !isFetching,
+  });
+}
+
+export function useSetCustomizations() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ fontSize, backgroundMusic }: { fontSize: bigint; backgroundMusic: string }) => {
+      if (!actor) throw new Error('Actor not initialized');
+      return actor.setCustomizations(fontSize, backgroundMusic);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['customizations'] });
     },
   });
 }

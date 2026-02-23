@@ -14,6 +14,21 @@ export class ExternalBlob {
     static fromBytes(blob: Uint8Array<ArrayBuffer>): ExternalBlob;
     withUploadProgress(onProgress: (percentage: number) => void): ExternalBlob;
 }
+export interface Exercise {
+    name: string;
+    description: string;
+    category: string;
+}
+export interface Customization {
+    fontSize: bigint;
+    backgroundMusic: string;
+}
+export interface Task {
+    id: bigint;
+    completed: boolean;
+    description: string;
+    category: string;
+}
 export interface Theme {
     primaryColor: string;
     name: string;
@@ -26,12 +41,26 @@ export interface WalkSession {
     steps: bigint;
     caloriesBurned: bigint;
 }
+export interface Goal {
+    completed: boolean;
+    description: string;
+    progress: bigint;
+    target: bigint;
+}
 export interface backendInterface {
+    addExercise(name: string, description: string, category: string): Promise<void>;
+    addGoal(description: string, target: bigint): Promise<void>;
+    getCustomizations(): Promise<Customization>;
+    getDailyTasks(): Promise<Array<Task>>;
+    getExercisesByCategory(category: string): Promise<Array<Exercise>>;
+    getGoals(): Promise<Array<Goal>>;
     getTheme(): Promise<Theme>;
     getTotalCalories(): Promise<bigint>;
     getTotalSteps(): Promise<bigint>;
     getWalks(): Promise<Array<WalkSession>>;
+    setCustomizations(fontSize: bigint, backgroundMusic: string): Promise<void>;
+    setTaskCompleted(taskId: bigint): Promise<boolean>;
     setTheme(themeName: string): Promise<void>;
     trackWalk(session: WalkSession): Promise<void>;
-    uploadPhoto(photo: ExternalBlob): Promise<void>;
+    uploadPhoto(_photo: ExternalBlob): Promise<void>;
 }

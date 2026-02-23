@@ -17,13 +17,22 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (actor) {
-      actor.getTheme().then((theme) => {
-        setCurrentTheme(theme);
-        applyTheme(theme);
-        setIsLoading(false);
-      });
+      loadTheme();
     }
   }, [actor]);
+
+  const loadTheme = async () => {
+    if (!actor) return;
+    try {
+      const theme = await actor.getTheme();
+      setCurrentTheme(theme);
+      applyTheme(theme);
+    } catch (error) {
+      console.error('Failed to load theme:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const applyTheme = (theme: Theme) => {
     const root = document.documentElement;
@@ -45,6 +54,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       root.style.setProperty('--primary', '0.50 0.15 145');
       root.style.setProperty('--secondary', '0.60 0.18 130');
       root.style.setProperty('--accent', '0.70 0.20 90');
+    } else {
+      // Default theme - reset to original values from index.css
+      root.style.setProperty('--primary', '0.65 0.22 25');
+      root.style.setProperty('--secondary', '0.75 0.18 45');
+      root.style.setProperty('--accent', '0.70 0.25 120');
     }
   };
 
@@ -52,11 +66,16 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     if (!actor) return;
     
     setIsLoading(true);
-    await actor.setTheme(themeName);
-    const newTheme = await actor.getTheme();
-    setCurrentTheme(newTheme);
-    applyTheme(newTheme);
-    setIsLoading(false);
+    try {
+      await actor.setTheme(themeName);
+      const newTheme = await actor.getTheme();
+      setCurrentTheme(newTheme);
+      applyTheme(newTheme);
+    } catch (error) {
+      console.error('Failed to set theme:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (

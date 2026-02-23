@@ -1,14 +1,19 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 7,
-  "summary": "Fitness app with motivational landing page, customizable themes, AI photo transformation feature, location tracking for walks, and Internet Identity authentication with decorative background elements",
+  "projectStateVersion": 9,
+  "summary": "Fitness app with motivational landing page featuring personalized message and hidden compliments, customizable themes with fixed color switcher, AI photo transformation, location tracking for walks, Internet Identity authentication, decorative background elements, dedicated daily tasks tab with gamified rewards system, and multiple exercise category tabs",
   "architectural_notes": [
     "Internet Identity integration for authentication (passkey, email, phone number)",
-    "Decorative background layer with transparent weight and nature imagery"
+    "Decorative background layer with transparent weight and nature imagery",
+    "Daily task system with midnight auto-refresh and monthly completion tracking",
+    "Gamified reward system with gym-themed animations and multiple-choice reward selection",
+    "Scroll-based fade animation for personalized landing message",
+    "Hidden compliment text elements scattered throughout UI"
   ],
-  "known_issues": [],
-  "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Transparent illustration of dumbbells/weights for decorative background overlay (weight-decoration-left.dim_200x300.png)\n- Transparent illustration of fitness equipment for decorative background overlay (weight-decoration-right.dim_200x300.png)\n- Transparent nature element with leaves and mountains for decorative background overlay (nature-decoration-top.dim_400x200.png)\n- Transparent nature element with trees for decorative background overlay (nature-decoration-bottom.dim_400x200.png)",
+  "known_issues": [
+    "Color theme switcher in Settings does not function - needs fix"
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-create-a-bold-landing-page-with-the-motivational-message-make-a-change-today-and-thank-you-for-tomorrow-displayed-prominently",
@@ -113,6 +118,86 @@
         "REQ-13"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-the-personalized-message-mylove-i-know-you-can-do-this-so-i-made-this-for-you-to-the-landing-page-with-fade-out-animation-that-triggers-on-scroll",
+      "title": "Add the personalized message 'mylove i know you can do this so i made this for you🙂' to the landing page with fade-out animation that triggers on scroll",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-small-subtle-hidden-compliments-to-the-girlfriend-scattered-throughout-the-application-pages-that-are-hard-to-see-but-still-readable",
+      "title": "Add small, subtle hidden compliments to the girlfriend scattered throughout the application pages that are hard to see but still readable",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-orange-golden-fitness-hero-image-from-the-landing-page-the-dramatic-transformation-image-shown-in-the-uploaded-screenshot",
+      "title": "Remove the orange/golden fitness hero image from the landing page (the dramatic transformation image shown in the uploaded screenshot)",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-color-theme-switcher-in-settings-page-so-it-actually-switches-colors-when-users-select-different-themes",
+      "title": "Fix the color theme switcher in Settings page so it actually switches colors when users select different themes",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-separate-tasks-tab-in-the-navigation-with-daily-fitness-challenges-including-walk-a-mile-run-half-a-mile-20-squats-and-additional-varied-tasks",
+      "title": "Create a separate Tasks tab in the navigation with daily fitness challenges including walk a mile, run half a mile, 20 squats, and additional varied tasks",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-a-gym-themed-well-done-animation-when-users-complete-all-daily-tasks-for-the-day",
+      "title": "Display a gym-themed 'Well Done' animation when users complete all daily tasks for the day",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-show-multiple-choice-reward-options-date-night-sleepover-massage-and-additional-options-after-completing-all-daily-tasks-for-the-day",
+      "title": "Show multiple-choice reward options (date night, sleepover, massage, and additional options) after completing all daily tasks for the day",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-at-least-3-new-exercise-category-tabs-such-as-upper-body-lower-body-core-cardio-to-the-main-navigation-with-curated-exercise-ideas-for-each-category",
+      "title": "Add at least 3 new exercise category tabs (such as Upper Body, Lower Body, Core, Cardio) to the main navigation with curated exercise ideas for each category",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-more-customization-options-to-the-settings-page-beyond-theme-selection",
+      "title": "Add more customization options to the Settings page beyond theme selection",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-clean-up-and-polish-the-overall-ui-across-all-pages-for-a-smooth-cohesive-and-visually-refined-experience",
+      "title": "Clean up and polish the overall UI across all pages for a smooth, cohesive, and visually refined experience",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -135,9 +220,61 @@
       "status": "pending"
     },
     {
-      "id": "AR-4",
-      "summary": "Remove unwanted picture/image from the main screen",
+      "id": "AR-5",
+      "summary": "Add personalized message 'mylove i know you can do this so i made this for you🙂' to landing page that fades away on scroll",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add small, subtle hidden compliments scattered throughout the page (hard to see but readable)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Fix color theme switcher in settings to allow actual color switching",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add at least 3 new exercise category tabs (Upper Body, Lower Body, Core, Cardio) with exercise ideas",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Create separate Tasks tab with daily fitness challenges, checkboxes, daily/monthly tracking, gym-themed completion animation, multiple-choice rewards, and midnight refresh",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add more customization options to Settings page",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Clean up and polish overall UI for smooth, cohesive experience",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Implement daily and monthly task completion tracking that stores user progress over time",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Automatically refresh daily tasks at midnight each day with a new set of challenges",
+      "reqIds": [
+        "REQ-22"
+      ],
       "status": "pending"
     }
   ],

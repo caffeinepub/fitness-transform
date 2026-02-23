@@ -10,7 +10,28 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
+export interface Customization {
+  'fontSize' : bigint,
+  'backgroundMusic' : string,
+}
+export interface Exercise {
+  'name' : string,
+  'description' : string,
+  'category' : string,
+}
 export type ExternalBlob = Uint8Array;
+export interface Goal {
+  'completed' : boolean,
+  'description' : string,
+  'progress' : bigint,
+  'target' : bigint,
+}
+export interface Task {
+  'id' : bigint,
+  'completed' : boolean,
+  'description' : string,
+  'category' : string,
+}
 export interface Theme {
   'primaryColor' : string,
   'name' : string,
@@ -50,10 +71,18 @@ export interface _SERVICE {
     _CaffeineStorageRefillResult
   >,
   '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
+  'addExercise' : ActorMethod<[string, string, string], undefined>,
+  'addGoal' : ActorMethod<[string, bigint], undefined>,
+  'getCustomizations' : ActorMethod<[], Customization>,
+  'getDailyTasks' : ActorMethod<[], Array<Task>>,
+  'getExercisesByCategory' : ActorMethod<[string], Array<Exercise>>,
+  'getGoals' : ActorMethod<[], Array<Goal>>,
   'getTheme' : ActorMethod<[], Theme>,
   'getTotalCalories' : ActorMethod<[], bigint>,
   'getTotalSteps' : ActorMethod<[], bigint>,
   'getWalks' : ActorMethod<[], Array<WalkSession>>,
+  'setCustomizations' : ActorMethod<[bigint, string], undefined>,
+  'setTaskCompleted' : ActorMethod<[bigint], boolean>,
   'setTheme' : ActorMethod<[string], undefined>,
   'trackWalk' : ActorMethod<[WalkSession], undefined>,
   'uploadPhoto' : ActorMethod<[ExternalBlob], undefined>,

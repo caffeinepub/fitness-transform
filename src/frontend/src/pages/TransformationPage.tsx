@@ -39,6 +39,9 @@ export default function TransformationPage() {
 
   return (
     <div className="container py-8 px-4 max-w-7xl">
+      {/* Hidden compliments */}
+      <div className="hidden-compliment top-48 left-24">believe in yourself</div>
+
       <div className="space-y-6">
         <div className="text-center max-w-3xl mx-auto">
           <div className="inline-block mb-4">
