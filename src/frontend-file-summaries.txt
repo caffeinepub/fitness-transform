@@ -1,0 +1,21 @@
+{
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, defining all routes (landing, walk tracking, transformation, stats, settings) wrapped in ThemeProvider for global theme management.",
+  "frontend/src/contexts/ThemeContext.tsx": "React context provider for theme management that loads themes from backend, applies OKLCH color values to CSS variables, and provides theme switching functionality.",
+  "frontend/src/components/Layout.tsx": "Application layout wrapper with sticky header navigation, responsive mobile/desktop menu, footer with social links and caffeine.ai attribution, and Outlet for nested routes.",
+  "frontend/src/pages/LandingPage.tsx": "Bold landing page featuring the motivational message \"Make a change today and thank you for tomorrow\" with hero background image, transform icon, feature cards, and call-to-action sections.",
+  "frontend/src/pages/WalkTrackingPage.tsx": "Walk tracking page with start/stop controls, real-time map display of walking route, and live statistics showing distance, duration, steps, and calories burned.",
+  "frontend/src/pages/TransformationPage.tsx": "Photo transformation page allowing users to upload photos, select training duration (1-12 months), and generate AI-powered before/after transformation previews.",
+  "frontend/src/pages/StatsPage.tsx": "Statistics overview page displaying total steps, calories, distance, and time across all walks, plus a list of recent walk sessions with detailed metrics.",
+  "frontend/src/pages/SettingsPage.tsx": "Settings page featuring the theme selector component for customizing app color themes and basic app information.",
+  "frontend/src/components/ThemeSelector.tsx": "Theme selection UI component displaying available color themes (Default, Energize, Ocean, Sunset, Forest) with visual color previews and descriptions.",
+  "frontend/src/components/PhotoUploader.tsx": "Reusable photo upload component with drag-and-drop support, file input, preview display, and upload progress tracking using ExternalBlob.",
+  "frontend/src/components/TransformationPreview.tsx": "Component displaying before/after transformation images side-by-side using ExternalBlob.getDirectURL() for efficient image streaming.",
+  "frontend/src/components/MapView.tsx": "Canvas-based map component that renders walking routes by drawing coordinate paths, start/end markers, and current position indicator in real-time.",
+  "frontend/src/components/WalkStats.tsx": "Statistics display component showing real-time walk metrics (distance, duration, steps, calories) with animated tracking indicator when active.",
+  "frontend/src/hooks/useLocationTracking.ts": "Custom hook managing geolocation tracking state, calculating distance using Haversine formula, tracking duration, and computing steps and calories.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for backend integration including walk statistics fetching (getWalks, getTotalSteps, getTotalCalories), walk session saving, and photo uploads.",
+  "frontend/src/utils/walkCalculations.ts": "Utility functions for calculating distance between coordinates using Haversine formula, estimating step count from distance, and computing calories burned.",
+  "frontend/src/index.css": "Global styles with OKLCH color system defining energetic fitness-themed color palette (oranges, yellows, greens) for both light and dark modes.",
+  "frontend/tailwind.config.js": "Tailwind configuration extending theme with custom OKLCH colors, Inter font family, increased border radius, and custom animations.",
+  "frontend/src/main.tsx": "Application entry point wrapping App with QueryClientProvider, InternetIdentityProvider, and Sonner toast notifications."
+}
