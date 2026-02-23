@@ -1,35 +1,31 @@
 import { Outlet, useNavigate, useRouterState } from '@tanstack/react-router';
-import { Activity, Camera, TrendingUp, Settings, Dumbbell, LogOut, ListChecks, Zap } from 'lucide-react';
+import { Activity, Camera, TrendingUp, Settings, Dumbbell, LogOut, ListChecks, Zap, Heart, User, Users } from 'lucide-react';
 import { Button } from './ui/button';
 import { SiX, SiFacebook, SiInstagram } from 'react-icons/si';
 import { useInternetIdentity } from '../hooks/useInternetIdentity';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-  DropdownMenuLabel,
-} from './ui/dropdown-menu';
+import { useProfile } from '../contexts/ProfileContext';
+import { useState, useEffect, useRef } from 'react';
+import { ToggleGroup, ToggleGroupItem } from './ui/toggle-group';
 
 export default function Layout() {
   const navigate = useNavigate();
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
   const { clear } = useInternetIdentity();
+  const { activeProfile, setActiveProfile } = useProfile();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const navItems = [
     { path: '/', label: 'Home', icon: Dumbbell },
-    { path: '/walk', label: 'Track Walk', icon: Activity },
-    { path: '/transform', label: 'Transform', icon: Camera },
-    { path: '/stats', label: 'Stats', icon: TrendingUp },
-  ];
-
-  const exerciseCategories = [
-    { path: '/exercises/upper-body', label: 'Upper Body' },
-    { path: '/exercises/lower-body', label: 'Lower Body' },
-    { path: '/exercises/core', label: 'Core' },
-    { path: '/exercises/cardio', label: 'Cardio' },
+    { path: '/tasks', label: 'Tasks', icon: ListChecks },
+    { path: '/walk', label: 'Walking', icon: Activity },
+    { path: '/exercises/upper-body', label: 'Upper Body', icon: Zap },
+    { path: '/exercises/lower-body', label: 'Lower Body', icon: Zap },
+    { path: '/exercises/core', label: 'Core', icon: Zap },
+    { path: '/exercises/cardio', label: 'Cardio', icon: Zap },
+    { path: '/partner', label: 'Partner', icon: Heart },
+    { path: '/settings', label: 'Settings', icon: Settings },
   ];
 
   const handleLogout = () => {
@@ -37,140 +33,109 @@ export default function Layout() {
     navigate({ to: '/login' });
   };
 
-  const isExercisePath = currentPath.startsWith('/exercises/');
+  const handleNavigate = (path: string) => {
+    navigate({ to: path });
+    setIsMenuOpen(false);
+  };
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   return (
     <div className="min-h-screen flex flex-col relative">
-      {/* Decorative background elements */}
-      <div className="decorative-bg-left" />
-      <div className="decorative-bg-right" />
-      <div className="decorative-bg-top" />
-      <div className="decorative-bg-bottom" />
-
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
             <Dumbbell className="h-7 w-7 text-primary" />
-            <span className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="text-xl font-bold text-primary">
               FitTransform
             </span>
           </div>
           
-          <nav className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = currentPath === item.path;
-              return (
-                <Button
-                  key={item.path}
-                  variant={isActive ? 'default' : 'ghost'}
-                  size="sm"
-                  onClick={() => navigate({ to: item.path })}
-                  className="gap-2"
-                >
-                  <Icon className="h-4 w-4" />
-                  {item.label}
-                </Button>
-              );
-            })}
+          <div className="flex items-center gap-3">
+            {/* Profile Selector */}
+            <ToggleGroup
+              type="single"
+              value={activeProfile}
+              onValueChange={(value) => {
+                if (value) setActiveProfile(value as 'user' | 'girlfriend');
+              }}
+              className="bg-muted/50 rounded-lg p-1"
+            >
+              <ToggleGroupItem value="user" aria-label="My profile" className="gap-2">
+                <User className="h-4 w-4" />
+                <span className="hidden sm:inline">Me</span>
+              </ToggleGroupItem>
+              <ToggleGroupItem value="girlfriend" aria-label="Girlfriend's profile" className="gap-2">
+                <Heart className="h-4 w-4" />
+                <span className="hidden sm:inline">Her</span>
+              </ToggleGroupItem>
+            </ToggleGroup>
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant={isExercisePath ? 'default' : 'ghost'}
-                  size="sm"
-                  className="gap-2"
-                >
-                  <Zap className="h-4 w-4" />
-                  Exercises
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuLabel>Exercise Categories</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                {exerciseCategories.map((category) => (
-                  <DropdownMenuItem
-                    key={category.path}
-                    onClick={() => navigate({ to: category.path })}
-                    className={currentPath === category.path ? 'bg-accent' : ''}
-                  >
-                    {category.label}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            {/* Hamburger menu button */}
+            <div className="relative" ref={menuRef}>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="gap-2 relative"
+                aria-label="Menu"
+              >
+                <div className="hamburger-icon">
+                  <span className={`hamburger-line ${isMenuOpen ? 'open' : ''}`}></span>
+                  <span className={`hamburger-line ${isMenuOpen ? 'open' : ''}`}></span>
+                  <span className={`hamburger-line ${isMenuOpen ? 'open' : ''}`}></span>
+                </div>
+              </Button>
 
-            <Button
-              variant={currentPath === '/tasks' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => navigate({ to: '/tasks' })}
-              className="gap-2"
-            >
-              <ListChecks className="h-4 w-4" />
-              Tasks
-            </Button>
-
-            <Button
-              variant={currentPath === '/settings' ? 'default' : 'ghost'}
-              size="sm"
-              onClick={() => navigate({ to: '/settings' })}
-              className="gap-2"
-            >
-              <Settings className="h-4 w-4" />
-              Settings
-            </Button>
-
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={handleLogout}
-              className="gap-2 ml-2"
-              title="Sign Out"
-            >
-              <LogOut className="h-4 w-4" />
-              Sign Out
-            </Button>
-          </nav>
-
-          <div className="md:hidden flex items-center gap-2">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = currentPath === item.path;
-              return (
-                <Button
-                  key={item.path}
-                  variant={isActive ? 'default' : 'ghost'}
-                  size="icon"
-                  onClick={() => navigate({ to: item.path })}
-                >
-                  <Icon className="h-5 w-5" />
-                </Button>
-              );
-            })}
-            <Button
-              variant={currentPath === '/tasks' ? 'default' : 'ghost'}
-              size="icon"
-              onClick={() => navigate({ to: '/tasks' })}
-              title="Tasks"
-            >
-              <ListChecks className="h-5 w-5" />
-            </Button>
-            <Button
-              variant={currentPath === '/settings' ? 'default' : 'ghost'}
-              size="icon"
-              onClick={() => navigate({ to: '/settings' })}
-              title="Settings"
-            >
-              <Settings className="h-5 w-5" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleLogout}
-              title="Sign Out"
-            >
-              <LogOut className="h-5 w-5" />
-            </Button>
+              {/* Dropdown menu */}
+              {isMenuOpen && (
+                <div className="absolute right-0 top-full mt-2 w-64 bg-black border border-border rounded-lg shadow-lg overflow-hidden z-50">
+                  <div className="py-2">
+                    {navItems.map((item) => {
+                      const Icon = item.icon;
+                      const isActive = currentPath === item.path;
+                      return (
+                        <button
+                          key={item.path}
+                          onClick={() => handleNavigate(item.path)}
+                          className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors ${
+                            isActive
+                              ? 'bg-accent text-white'
+                              : 'hover:bg-accent/20 text-white hover:text-accent'
+                          }`}
+                        >
+                          <Icon className="h-5 w-5" />
+                          <span className="font-medium">{item.label}</span>
+                        </button>
+                      );
+                    })}
+                    <div className="border-t border-border my-2" />
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-accent/20 text-white hover:text-accent transition-colors"
+                    >
+                      <LogOut className="h-5 w-5" />
+                      <span className="font-medium">Sign Out</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </header>

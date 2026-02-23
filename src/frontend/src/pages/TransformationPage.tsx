@@ -51,7 +51,7 @@ export default function TransformationPage() {
               className="h-20 w-20 mx-auto"
             />
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
             See Your Future Self
           </h1>
           <p className="text-xl text-muted-foreground">
@@ -60,9 +60,9 @@ export default function TransformationPage() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
-          <Card>
+          <Card className="border-primary/20">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
+              <CardTitle className="flex items-center gap-2 text-foreground">
                 <Camera className="h-5 w-5 text-primary" />
                 Upload Your Photo
               </CardTitle>
@@ -72,7 +72,7 @@ export default function TransformationPage() {
               
               <div className="mt-6 space-y-4">
                 <div>
-                  <label className="text-sm font-medium mb-2 block">
+                  <label className="text-sm font-medium mb-2 block text-foreground">
                     Select Training Duration
                   </label>
                   <Select value={selectedMonths} onValueChange={setSelectedMonths}>
@@ -101,10 +101,10 @@ export default function TransformationPage() {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-primary/20">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-accent" />
+              <CardTitle className="flex items-center gap-2 text-foreground">
+                <Sparkles className="h-5 w-5 text-primary" />
                 Your Transformation
               </CardTitle>
             </CardHeader>
@@ -119,27 +119,27 @@ export default function TransformationPage() {
         </div>
 
         <div className="max-w-6xl mx-auto">
-          <Card className="bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/5 border-primary/20">
+          <Card className="bg-primary/5 border-primary/20">
             <CardContent className="p-8">
-              <h3 className="text-2xl font-bold mb-4">How It Works</h3>
+              <h3 className="text-2xl font-bold mb-4 text-foreground">How It Works</h3>
               <div className="grid md:grid-cols-3 gap-6">
                 <div>
                   <div className="text-4xl font-bold text-primary mb-2">1</div>
-                  <h4 className="font-semibold mb-2">Upload Photo</h4>
+                  <h4 className="font-semibold mb-2 text-foreground">Upload Photo</h4>
                   <p className="text-sm text-muted-foreground">
                     Take or upload a clear photo of yourself
                   </p>
                 </div>
                 <div>
-                  <div className="text-4xl font-bold text-accent mb-2">2</div>
-                  <h4 className="font-semibold mb-2">Choose Duration</h4>
+                  <div className="text-4xl font-bold text-primary mb-2">2</div>
+                  <h4 className="font-semibold mb-2 text-foreground">Choose Duration</h4>
                   <p className="text-sm text-muted-foreground">
                     Select how many months of training to visualize
                   </p>
                 </div>
                 <div>
-                  <div className="text-4xl font-bold text-secondary mb-2">3</div>
-                  <h4 className="font-semibold mb-2">See Results</h4>
+                  <div className="text-4xl font-bold text-primary mb-2">3</div>
+                  <h4 className="font-semibold mb-2 text-foreground">See Results</h4>
                   <p className="text-sm text-muted-foreground">
                     View your projected transformation and get motivated
                   </p>

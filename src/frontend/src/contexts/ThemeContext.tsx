@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
 import { useActor } from '../hooks/useActor';
+import { useProfile } from './ProfileContext';
 import type { Theme } from '../backend';
 
 interface ThemeContextValue {
@@ -12,19 +13,20 @@ const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const { actor } = useActor();
+  const { activeProfile } = useProfile();
   const [currentTheme, setCurrentTheme] = useState<Theme | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (actor) {
+    if (actor && activeProfile) {
       loadTheme();
     }
-  }, [actor]);
+  }, [actor, activeProfile]);
 
   const loadTheme = async () => {
-    if (!actor) return;
+    if (!actor || !activeProfile) return;
     try {
-      const theme = await actor.getTheme();
+      const theme = await actor.getTheme(activeProfile);
       setCurrentTheme(theme);
       applyTheme(theme);
     } catch (error) {
@@ -63,12 +65,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   };
 
   const handleSetTheme = async (themeName: string) => {
-    if (!actor) return;
+    if (!actor || !activeProfile) return;
     
     setIsLoading(true);
     try {
-      await actor.setTheme(themeName);
-      const newTheme = await actor.getTheme();
+      await actor.setTheme(activeProfile, themeName);
+      const newTheme = await actor.getTheme(activeProfile);
       setCurrentTheme(newTheme);
       applyTheme(newTheme);
     } catch (error) {

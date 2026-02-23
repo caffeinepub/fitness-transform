@@ -19,6 +19,19 @@ export const _CaffeineStorageRefillResult = IDL.Record({
   'success' : IDL.Opt(IDL.Bool),
   'topped_up_amount' : IDL.Opt(IDL.Nat),
 });
+export const Location = IDL.Record({
+  'latitude' : IDL.Float64,
+  'longitude' : IDL.Float64,
+});
+export const RecommendedWalk = IDL.Record({
+  'id' : IDL.Nat,
+  'isCompleted' : IDL.Bool,
+  'name' : IDL.Text,
+  'description' : IDL.Text,
+  'distance' : IDL.Float64,
+  'isFavourite' : IDL.Bool,
+  'location' : Location,
+});
 export const Customization = IDL.Record({
   'fontSize' : IDL.Nat,
   'backgroundMusic' : IDL.Text,
@@ -46,10 +59,21 @@ export const Theme = IDL.Record({
   'accentColor' : IDL.Text,
   'secondaryColor' : IDL.Text,
 });
+export const WalkType = IDL.Variant({
+  'Recommended' : IDL.Null,
+  'Tracked' : IDL.Null,
+});
+export const Time = IDL.Int;
+export const WalkRating = IDL.Record({
+  'walkType' : WalkType,
+  'rating' : IDL.Nat,
+  'completionTimestamp' : Time,
+});
 export const WalkSession = IDL.Record({
   'durationInSeconds' : IDL.Nat,
   'distanceInMeters' : IDL.Float64,
   'steps' : IDL.Nat,
+  'rating' : IDL.Opt(WalkRating),
   'caloriesBurned' : IDL.Nat,
 });
 export const ExternalBlob = IDL.Vec(IDL.Nat8);
@@ -81,24 +105,42 @@ export const idlService = IDL.Service({
       [],
     ),
   '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
-  'addExercise' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
-  'addGoal' : IDL.Func([IDL.Text, IDL.Int], [], []),
-  'getCustomizations' : IDL.Func([], [Customization], ['query']),
-  'getDailyTasks' : IDL.Func([], [IDL.Vec(Task)], ['query']),
+  'addExercise' : IDL.Func([IDL.Text, IDL.Text, IDL.Text, IDL.Text], [], []),
+  'addGoal' : IDL.Func([IDL.Text, IDL.Text, IDL.Int], [], []),
+  'addRecommendedWalk' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text, IDL.Float64, Location],
+      [],
+      [],
+    ),
+  'filterWalksByLocation' : IDL.Func(
+      [IDL.Text, Location, IDL.Float64],
+      [IDL.Vec(RecommendedWalk)],
+      ['query'],
+    ),
+  'getCustomizations' : IDL.Func([IDL.Text], [Customization], ['query']),
+  'getDailyTasks' : IDL.Func([IDL.Text], [IDL.Vec(Task)], ['query']),
   'getExercisesByCategory' : IDL.Func(
-      [IDL.Text],
+      [IDL.Text, IDL.Text],
       [IDL.Vec(Exercise)],
       ['query'],
     ),
-  'getGoals' : IDL.Func([], [IDL.Vec(Goal)], ['query']),
-  'getTheme' : IDL.Func([], [Theme], ['query']),
-  'getTotalCalories' : IDL.Func([], [IDL.Nat], ['query']),
-  'getTotalSteps' : IDL.Func([], [IDL.Nat], ['query']),
-  'getWalks' : IDL.Func([], [IDL.Vec(WalkSession)], ['query']),
-  'setCustomizations' : IDL.Func([IDL.Nat, IDL.Text], [], []),
-  'setTaskCompleted' : IDL.Func([IDL.Nat], [IDL.Bool], []),
-  'setTheme' : IDL.Func([IDL.Text], [], []),
-  'trackWalk' : IDL.Func([WalkSession], [], []),
+  'getGoals' : IDL.Func([IDL.Text], [IDL.Vec(Goal)], ['query']),
+  'getRecommendedWalks' : IDL.Func(
+      [IDL.Text],
+      [IDL.Vec(RecommendedWalk)],
+      ['query'],
+    ),
+  'getTheme' : IDL.Func([IDL.Text], [Theme], ['query']),
+  'getTotalCalories' : IDL.Func([IDL.Text], [IDL.Nat], ['query']),
+  'getTotalSteps' : IDL.Func([IDL.Text], [IDL.Nat], ['query']),
+  'getUserWalkHistory' : IDL.Func([IDL.Text], [IDL.Vec(IDL.Nat)], ['query']),
+  'getWalks' : IDL.Func([IDL.Text], [IDL.Vec(WalkSession)], ['query']),
+  'markWalkCompleted' : IDL.Func([IDL.Text, IDL.Nat], [], []),
+  'markWalkFavourite' : IDL.Func([IDL.Text, IDL.Nat], [], []),
+  'setCustomizations' : IDL.Func([IDL.Text, IDL.Nat, IDL.Text], [], []),
+  'setTaskCompleted' : IDL.Func([IDL.Text, IDL.Nat], [IDL.Bool], []),
+  'setTheme' : IDL.Func([IDL.Text, IDL.Text], [], []),
+  'trackWalk' : IDL.Func([IDL.Text, WalkSession], [], []),
   'uploadPhoto' : IDL.Func([ExternalBlob], [], []),
 });
 
@@ -115,6 +157,19 @@ export const idlFactory = ({ IDL }) => {
   const _CaffeineStorageRefillResult = IDL.Record({
     'success' : IDL.Opt(IDL.Bool),
     'topped_up_amount' : IDL.Opt(IDL.Nat),
+  });
+  const Location = IDL.Record({
+    'latitude' : IDL.Float64,
+    'longitude' : IDL.Float64,
+  });
+  const RecommendedWalk = IDL.Record({
+    'id' : IDL.Nat,
+    'isCompleted' : IDL.Bool,
+    'name' : IDL.Text,
+    'description' : IDL.Text,
+    'distance' : IDL.Float64,
+    'isFavourite' : IDL.Bool,
+    'location' : Location,
   });
   const Customization = IDL.Record({
     'fontSize' : IDL.Nat,
@@ -143,10 +198,21 @@ export const idlFactory = ({ IDL }) => {
     'accentColor' : IDL.Text,
     'secondaryColor' : IDL.Text,
   });
+  const WalkType = IDL.Variant({
+    'Recommended' : IDL.Null,
+    'Tracked' : IDL.Null,
+  });
+  const Time = IDL.Int;
+  const WalkRating = IDL.Record({
+    'walkType' : WalkType,
+    'rating' : IDL.Nat,
+    'completionTimestamp' : Time,
+  });
   const WalkSession = IDL.Record({
     'durationInSeconds' : IDL.Nat,
     'distanceInMeters' : IDL.Float64,
     'steps' : IDL.Nat,
+    'rating' : IDL.Opt(WalkRating),
     'caloriesBurned' : IDL.Nat,
   });
   const ExternalBlob = IDL.Vec(IDL.Nat8);
@@ -178,24 +244,42 @@ export const idlFactory = ({ IDL }) => {
         [],
       ),
     '_caffeineStorageUpdateGatewayPrincipals' : IDL.Func([], [], []),
-    'addExercise' : IDL.Func([IDL.Text, IDL.Text, IDL.Text], [], []),
-    'addGoal' : IDL.Func([IDL.Text, IDL.Int], [], []),
-    'getCustomizations' : IDL.Func([], [Customization], ['query']),
-    'getDailyTasks' : IDL.Func([], [IDL.Vec(Task)], ['query']),
+    'addExercise' : IDL.Func([IDL.Text, IDL.Text, IDL.Text, IDL.Text], [], []),
+    'addGoal' : IDL.Func([IDL.Text, IDL.Text, IDL.Int], [], []),
+    'addRecommendedWalk' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Float64, Location],
+        [],
+        [],
+      ),
+    'filterWalksByLocation' : IDL.Func(
+        [IDL.Text, Location, IDL.Float64],
+        [IDL.Vec(RecommendedWalk)],
+        ['query'],
+      ),
+    'getCustomizations' : IDL.Func([IDL.Text], [Customization], ['query']),
+    'getDailyTasks' : IDL.Func([IDL.Text], [IDL.Vec(Task)], ['query']),
     'getExercisesByCategory' : IDL.Func(
-        [IDL.Text],
+        [IDL.Text, IDL.Text],
         [IDL.Vec(Exercise)],
         ['query'],
       ),
-    'getGoals' : IDL.Func([], [IDL.Vec(Goal)], ['query']),
-    'getTheme' : IDL.Func([], [Theme], ['query']),
-    'getTotalCalories' : IDL.Func([], [IDL.Nat], ['query']),
-    'getTotalSteps' : IDL.Func([], [IDL.Nat], ['query']),
-    'getWalks' : IDL.Func([], [IDL.Vec(WalkSession)], ['query']),
-    'setCustomizations' : IDL.Func([IDL.Nat, IDL.Text], [], []),
-    'setTaskCompleted' : IDL.Func([IDL.Nat], [IDL.Bool], []),
-    'setTheme' : IDL.Func([IDL.Text], [], []),
-    'trackWalk' : IDL.Func([WalkSession], [], []),
+    'getGoals' : IDL.Func([IDL.Text], [IDL.Vec(Goal)], ['query']),
+    'getRecommendedWalks' : IDL.Func(
+        [IDL.Text],
+        [IDL.Vec(RecommendedWalk)],
+        ['query'],
+      ),
+    'getTheme' : IDL.Func([IDL.Text], [Theme], ['query']),
+    'getTotalCalories' : IDL.Func([IDL.Text], [IDL.Nat], ['query']),
+    'getTotalSteps' : IDL.Func([IDL.Text], [IDL.Nat], ['query']),
+    'getUserWalkHistory' : IDL.Func([IDL.Text], [IDL.Vec(IDL.Nat)], ['query']),
+    'getWalks' : IDL.Func([IDL.Text], [IDL.Vec(WalkSession)], ['query']),
+    'markWalkCompleted' : IDL.Func([IDL.Text, IDL.Nat], [], []),
+    'markWalkFavourite' : IDL.Func([IDL.Text, IDL.Nat], [], []),
+    'setCustomizations' : IDL.Func([IDL.Text, IDL.Nat, IDL.Text], [], []),
+    'setTaskCompleted' : IDL.Func([IDL.Text, IDL.Nat], [IDL.Bool], []),
+    'setTheme' : IDL.Func([IDL.Text, IDL.Text], [], []),
+    'trackWalk' : IDL.Func([IDL.Text, WalkSession], [], []),
     'uploadPhoto' : IDL.Func([ExternalBlob], [], []),
   });
 };

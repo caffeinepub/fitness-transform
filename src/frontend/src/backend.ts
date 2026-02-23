@@ -89,11 +89,20 @@ export class ExternalBlob {
         return this;
     }
 }
+export interface Location {
+    latitude: number;
+    longitude: number;
+}
 export interface Exercise {
     name: string;
     description: string;
     category: string;
 }
+export interface _CaffeineStorageRefillResult {
+    success?: boolean;
+    topped_up_amount?: bigint;
+}
+export type Time = bigint;
 export interface Customization {
     fontSize: bigint;
     backgroundMusic: string;
@@ -111,27 +120,42 @@ export interface _CaffeineStorageCreateCertificateResult {
     method: string;
     blob_hash: string;
 }
+export interface RecommendedWalk {
+    id: bigint;
+    isCompleted: boolean;
+    name: string;
+    description: string;
+    distance: number;
+    isFavourite: boolean;
+    location: Location;
+}
 export interface Theme {
     primaryColor: string;
     name: string;
     accentColor: string;
     secondaryColor: string;
 }
+export interface WalkRating {
+    walkType: WalkType;
+    rating: bigint;
+    completionTimestamp: Time;
+}
 export interface WalkSession {
     durationInSeconds: bigint;
     distanceInMeters: number;
     steps: bigint;
+    rating?: WalkRating;
     caloriesBurned: bigint;
-}
-export interface _CaffeineStorageRefillResult {
-    success?: boolean;
-    topped_up_amount?: bigint;
 }
 export interface Goal {
     completed: boolean;
     description: string;
     progress: bigint;
     target: bigint;
+}
+export enum WalkType {
+    Recommended = "Recommended",
+    Tracked = "Tracked"
 }
 export interface backendInterface {
     _caffeineStorageBlobIsLive(hash: Uint8Array): Promise<boolean>;
@@ -140,23 +164,29 @@ export interface backendInterface {
     _caffeineStorageCreateCertificate(blobHash: string): Promise<_CaffeineStorageCreateCertificateResult>;
     _caffeineStorageRefillCashier(refillInformation: _CaffeineStorageRefillInformation | null): Promise<_CaffeineStorageRefillResult>;
     _caffeineStorageUpdateGatewayPrincipals(): Promise<void>;
-    addExercise(name: string, description: string, category: string): Promise<void>;
-    addGoal(description: string, target: bigint): Promise<void>;
-    getCustomizations(): Promise<Customization>;
-    getDailyTasks(): Promise<Array<Task>>;
-    getExercisesByCategory(category: string): Promise<Array<Exercise>>;
-    getGoals(): Promise<Array<Goal>>;
-    getTheme(): Promise<Theme>;
-    getTotalCalories(): Promise<bigint>;
-    getTotalSteps(): Promise<bigint>;
-    getWalks(): Promise<Array<WalkSession>>;
-    setCustomizations(fontSize: bigint, backgroundMusic: string): Promise<void>;
-    setTaskCompleted(taskId: bigint): Promise<boolean>;
-    setTheme(themeName: string): Promise<void>;
-    trackWalk(session: WalkSession): Promise<void>;
+    addExercise(_profileId: string, name: string, description: string, category: string): Promise<void>;
+    addGoal(profileId: string, description: string, target: bigint): Promise<void>;
+    addRecommendedWalk(_profileId: string, name: string, description: string, distance: number, location: Location): Promise<void>;
+    filterWalksByLocation(_profileId: string, userLocation: Location, maxDistance: number): Promise<Array<RecommendedWalk>>;
+    getCustomizations(profileId: string): Promise<Customization>;
+    getDailyTasks(profileId: string): Promise<Array<Task>>;
+    getExercisesByCategory(_profileId: string, category: string): Promise<Array<Exercise>>;
+    getGoals(profileId: string): Promise<Array<Goal>>;
+    getRecommendedWalks(_profileId: string): Promise<Array<RecommendedWalk>>;
+    getTheme(profileId: string): Promise<Theme>;
+    getTotalCalories(profileId: string): Promise<bigint>;
+    getTotalSteps(profileId: string): Promise<bigint>;
+    getUserWalkHistory(profileId: string): Promise<Array<bigint>>;
+    getWalks(profileId: string): Promise<Array<WalkSession>>;
+    markWalkCompleted(profileId: string, walkId: bigint): Promise<void>;
+    markWalkFavourite(_profileId: string, walkId: bigint): Promise<void>;
+    setCustomizations(profileId: string, fontSize: bigint, backgroundMusic: string): Promise<void>;
+    setTaskCompleted(profileId: string, taskId: bigint): Promise<boolean>;
+    setTheme(profileId: string, themeName: string): Promise<void>;
+    trackWalk(profileId: string, session: WalkSession): Promise<void>;
     uploadPhoto(_photo: ExternalBlob): Promise<void>;
 }
-import type { ExternalBlob as _ExternalBlob, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
+import type { ExternalBlob as _ExternalBlob, Time as _Time, WalkRating as _WalkRating, WalkSession as _WalkSession, WalkType as _WalkType, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
     async _caffeineStorageBlobIsLive(arg0: Uint8Array): Promise<boolean> {
@@ -243,225 +273,357 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async addExercise(arg0: string, arg1: string, arg2: string): Promise<void> {
+    async addExercise(arg0: string, arg1: string, arg2: string, arg3: string): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.addExercise(arg0, arg1, arg2);
+                const result = await this.actor.addExercise(arg0, arg1, arg2, arg3);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.addExercise(arg0, arg1, arg2);
+            const result = await this.actor.addExercise(arg0, arg1, arg2, arg3);
             return result;
         }
     }
-    async addGoal(arg0: string, arg1: bigint): Promise<void> {
+    async addGoal(arg0: string, arg1: string, arg2: bigint): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.addGoal(arg0, arg1);
+                const result = await this.actor.addGoal(arg0, arg1, arg2);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.addGoal(arg0, arg1);
+            const result = await this.actor.addGoal(arg0, arg1, arg2);
             return result;
         }
     }
-    async getCustomizations(): Promise<Customization> {
+    async addRecommendedWalk(arg0: string, arg1: string, arg2: string, arg3: number, arg4: Location): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.getCustomizations();
+                const result = await this.actor.addRecommendedWalk(arg0, arg1, arg2, arg3, arg4);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getCustomizations();
+            const result = await this.actor.addRecommendedWalk(arg0, arg1, arg2, arg3, arg4);
             return result;
         }
     }
-    async getDailyTasks(): Promise<Array<Task>> {
+    async filterWalksByLocation(arg0: string, arg1: Location, arg2: number): Promise<Array<RecommendedWalk>> {
         if (this.processError) {
             try {
-                const result = await this.actor.getDailyTasks();
+                const result = await this.actor.filterWalksByLocation(arg0, arg1, arg2);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getDailyTasks();
+            const result = await this.actor.filterWalksByLocation(arg0, arg1, arg2);
             return result;
         }
     }
-    async getExercisesByCategory(arg0: string): Promise<Array<Exercise>> {
+    async getCustomizations(arg0: string): Promise<Customization> {
         if (this.processError) {
             try {
-                const result = await this.actor.getExercisesByCategory(arg0);
+                const result = await this.actor.getCustomizations(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getExercisesByCategory(arg0);
+            const result = await this.actor.getCustomizations(arg0);
             return result;
         }
     }
-    async getGoals(): Promise<Array<Goal>> {
+    async getDailyTasks(arg0: string): Promise<Array<Task>> {
         if (this.processError) {
             try {
-                const result = await this.actor.getGoals();
+                const result = await this.actor.getDailyTasks(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getGoals();
+            const result = await this.actor.getDailyTasks(arg0);
             return result;
         }
     }
-    async getTheme(): Promise<Theme> {
+    async getExercisesByCategory(arg0: string, arg1: string): Promise<Array<Exercise>> {
         if (this.processError) {
             try {
-                const result = await this.actor.getTheme();
+                const result = await this.actor.getExercisesByCategory(arg0, arg1);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getTheme();
+            const result = await this.actor.getExercisesByCategory(arg0, arg1);
             return result;
         }
     }
-    async getTotalCalories(): Promise<bigint> {
+    async getGoals(arg0: string): Promise<Array<Goal>> {
         if (this.processError) {
             try {
-                const result = await this.actor.getTotalCalories();
+                const result = await this.actor.getGoals(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getTotalCalories();
+            const result = await this.actor.getGoals(arg0);
             return result;
         }
     }
-    async getTotalSteps(): Promise<bigint> {
+    async getRecommendedWalks(arg0: string): Promise<Array<RecommendedWalk>> {
         if (this.processError) {
             try {
-                const result = await this.actor.getTotalSteps();
+                const result = await this.actor.getRecommendedWalks(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getTotalSteps();
+            const result = await this.actor.getRecommendedWalks(arg0);
             return result;
         }
     }
-    async getWalks(): Promise<Array<WalkSession>> {
+    async getTheme(arg0: string): Promise<Theme> {
         if (this.processError) {
             try {
-                const result = await this.actor.getWalks();
+                const result = await this.actor.getTheme(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getWalks();
+            const result = await this.actor.getTheme(arg0);
             return result;
         }
     }
-    async setCustomizations(arg0: bigint, arg1: string): Promise<void> {
+    async getTotalCalories(arg0: string): Promise<bigint> {
         if (this.processError) {
             try {
-                const result = await this.actor.setCustomizations(arg0, arg1);
+                const result = await this.actor.getTotalCalories(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.setCustomizations(arg0, arg1);
+            const result = await this.actor.getTotalCalories(arg0);
             return result;
         }
     }
-    async setTaskCompleted(arg0: bigint): Promise<boolean> {
+    async getTotalSteps(arg0: string): Promise<bigint> {
         if (this.processError) {
             try {
-                const result = await this.actor.setTaskCompleted(arg0);
+                const result = await this.actor.getTotalSteps(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.setTaskCompleted(arg0);
+            const result = await this.actor.getTotalSteps(arg0);
             return result;
         }
     }
-    async setTheme(arg0: string): Promise<void> {
+    async getUserWalkHistory(arg0: string): Promise<Array<bigint>> {
         if (this.processError) {
             try {
-                const result = await this.actor.setTheme(arg0);
+                const result = await this.actor.getUserWalkHistory(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.setTheme(arg0);
+            const result = await this.actor.getUserWalkHistory(arg0);
             return result;
         }
     }
-    async trackWalk(arg0: WalkSession): Promise<void> {
+    async getWalks(arg0: string): Promise<Array<WalkSession>> {
         if (this.processError) {
             try {
-                const result = await this.actor.trackWalk(arg0);
+                const result = await this.actor.getWalks(arg0);
+                return from_candid_vec_n8(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getWalks(arg0);
+            return from_candid_vec_n8(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async markWalkCompleted(arg0: string, arg1: bigint): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.markWalkCompleted(arg0, arg1);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.trackWalk(arg0);
+            const result = await this.actor.markWalkCompleted(arg0, arg1);
+            return result;
+        }
+    }
+    async markWalkFavourite(arg0: string, arg1: bigint): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.markWalkFavourite(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.markWalkFavourite(arg0, arg1);
+            return result;
+        }
+    }
+    async setCustomizations(arg0: string, arg1: bigint, arg2: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.setCustomizations(arg0, arg1, arg2);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.setCustomizations(arg0, arg1, arg2);
+            return result;
+        }
+    }
+    async setTaskCompleted(arg0: string, arg1: bigint): Promise<boolean> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.setTaskCompleted(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.setTaskCompleted(arg0, arg1);
+            return result;
+        }
+    }
+    async setTheme(arg0: string, arg1: string): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.setTheme(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.setTheme(arg0, arg1);
+            return result;
+        }
+    }
+    async trackWalk(arg0: string, arg1: WalkSession): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.trackWalk(arg0, to_candid_WalkSession_n16(this._uploadFile, this._downloadFile, arg1));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.trackWalk(arg0, to_candid_WalkSession_n16(this._uploadFile, this._downloadFile, arg1));
             return result;
         }
     }
     async uploadPhoto(arg0: ExternalBlob): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.uploadPhoto(await to_candid_ExternalBlob_n8(this._uploadFile, this._downloadFile, arg0));
+                const result = await this.actor.uploadPhoto(await to_candid_ExternalBlob_n22(this._uploadFile, this._downloadFile, arg0));
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.uploadPhoto(await to_candid_ExternalBlob_n8(this._uploadFile, this._downloadFile, arg0));
+            const result = await this.actor.uploadPhoto(await to_candid_ExternalBlob_n22(this._uploadFile, this._downloadFile, arg0));
             return result;
         }
     }
 }
+function from_candid_WalkRating_n12(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _WalkRating): WalkRating {
+    return from_candid_record_n13(_uploadFile, _downloadFile, value);
+}
+function from_candid_WalkSession_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _WalkSession): WalkSession {
+    return from_candid_record_n10(_uploadFile, _downloadFile, value);
+}
+function from_candid_WalkType_n14(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _WalkType): WalkType {
+    return from_candid_variant_n15(_uploadFile, _downloadFile, value);
+}
 function from_candid__CaffeineStorageRefillResult_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: __CaffeineStorageRefillResult): _CaffeineStorageRefillResult {
     return from_candid_record_n5(_uploadFile, _downloadFile, value);
+}
+function from_candid_opt_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_WalkRating]): WalkRating | null {
+    return value.length === 0 ? null : from_candid_WalkRating_n12(_uploadFile, _downloadFile, value[0]);
 }
 function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [boolean]): boolean | null {
     return value.length === 0 ? null : value[0];
 }
 function from_candid_opt_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [bigint]): bigint | null {
     return value.length === 0 ? null : value[0];
+}
+function from_candid_record_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    durationInSeconds: bigint;
+    distanceInMeters: number;
+    steps: bigint;
+    rating: [] | [_WalkRating];
+    caloriesBurned: bigint;
+}): {
+    durationInSeconds: bigint;
+    distanceInMeters: number;
+    steps: bigint;
+    rating?: WalkRating;
+    caloriesBurned: bigint;
+} {
+    return {
+        durationInSeconds: value.durationInSeconds,
+        distanceInMeters: value.distanceInMeters,
+        steps: value.steps,
+        rating: record_opt_to_undefined(from_candid_opt_n11(_uploadFile, _downloadFile, value.rating)),
+        caloriesBurned: value.caloriesBurned
+    };
+}
+function from_candid_record_n13(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    walkType: _WalkType;
+    rating: bigint;
+    completionTimestamp: _Time;
+}): {
+    walkType: WalkType;
+    rating: bigint;
+    completionTimestamp: Time;
+} {
+    return {
+        walkType: from_candid_WalkType_n14(_uploadFile, _downloadFile, value.walkType),
+        rating: value.rating,
+        completionTimestamp: value.completionTimestamp
+    };
 }
 function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     success: [] | [boolean];
@@ -475,14 +637,69 @@ function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint
         topped_up_amount: record_opt_to_undefined(from_candid_opt_n7(_uploadFile, _downloadFile, value.topped_up_amount))
     };
 }
-async function to_candid_ExternalBlob_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ExternalBlob): Promise<_ExternalBlob> {
+function from_candid_variant_n15(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    Recommended: null;
+} | {
+    Tracked: null;
+}): WalkType {
+    return "Recommended" in value ? WalkType.Recommended : "Tracked" in value ? WalkType.Tracked : value;
+}
+function from_candid_vec_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_WalkSession>): Array<WalkSession> {
+    return value.map((x)=>from_candid_WalkSession_n9(_uploadFile, _downloadFile, x));
+}
+async function to_candid_ExternalBlob_n22(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ExternalBlob): Promise<_ExternalBlob> {
     return await _uploadFile(value);
+}
+function to_candid_WalkRating_n18(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: WalkRating): _WalkRating {
+    return to_candid_record_n19(_uploadFile, _downloadFile, value);
+}
+function to_candid_WalkSession_n16(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: WalkSession): _WalkSession {
+    return to_candid_record_n17(_uploadFile, _downloadFile, value);
+}
+function to_candid_WalkType_n20(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: WalkType): _WalkType {
+    return to_candid_variant_n21(_uploadFile, _downloadFile, value);
 }
 function to_candid__CaffeineStorageRefillInformation_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CaffeineStorageRefillInformation): __CaffeineStorageRefillInformation {
     return to_candid_record_n3(_uploadFile, _downloadFile, value);
 }
 function to_candid_opt_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CaffeineStorageRefillInformation | null): [] | [__CaffeineStorageRefillInformation] {
     return value === null ? candid_none() : candid_some(to_candid__CaffeineStorageRefillInformation_n2(_uploadFile, _downloadFile, value));
+}
+function to_candid_record_n17(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    durationInSeconds: bigint;
+    distanceInMeters: number;
+    steps: bigint;
+    rating?: WalkRating;
+    caloriesBurned: bigint;
+}): {
+    durationInSeconds: bigint;
+    distanceInMeters: number;
+    steps: bigint;
+    rating: [] | [_WalkRating];
+    caloriesBurned: bigint;
+} {
+    return {
+        durationInSeconds: value.durationInSeconds,
+        distanceInMeters: value.distanceInMeters,
+        steps: value.steps,
+        rating: value.rating ? candid_some(to_candid_WalkRating_n18(_uploadFile, _downloadFile, value.rating)) : candid_none(),
+        caloriesBurned: value.caloriesBurned
+    };
+}
+function to_candid_record_n19(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    walkType: WalkType;
+    rating: bigint;
+    completionTimestamp: Time;
+}): {
+    walkType: _WalkType;
+    rating: bigint;
+    completionTimestamp: _Time;
+} {
+    return {
+        walkType: to_candid_WalkType_n20(_uploadFile, _downloadFile, value.walkType),
+        rating: value.rating,
+        completionTimestamp: value.completionTimestamp
+    };
 }
 function to_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     proposed_top_up_amount?: bigint;
@@ -492,6 +709,17 @@ function to_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8A
     return {
         proposed_top_up_amount: value.proposed_top_up_amount ? candid_some(value.proposed_top_up_amount) : candid_none()
     };
+}
+function to_candid_variant_n21(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: WalkType): {
+    Recommended: null;
+} | {
+    Tracked: null;
+} {
+    return value == WalkType.Recommended ? {
+        Recommended: null
+    } : value == WalkType.Tracked ? {
+        Tracked: null
+    } : value;
 }
 export interface CreateActorOptions {
     agent?: Agent;

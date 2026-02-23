@@ -1,24 +1,24 @@
 import { Label } from './ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Switch } from './ui/switch';
-import { useCustomizations, useSetCustomizations } from '@/hooks/useQueries';
+import { useCustomizations, useSaveCustomizations } from '@/hooks/useQueries';
 import { Skeleton } from './ui/skeleton';
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
 
 export default function CustomizationSettings() {
   const { data: customizations, isLoading } = useCustomizations();
-  const setCustomizations = useSetCustomizations();
+  const setCustomizations = useSaveCustomizations();
   
   const [fontSize, setFontSize] = useState<string>('16');
-  const [backgroundMusic, setBackgroundMusic] = useState<string>('');
+  const [backgroundMusic, setBackgroundMusic] = useState<string>('none');
   const [units, setUnits] = useState<string>('metric');
   const [notifications, setNotifications] = useState<boolean>(true);
 
   useEffect(() => {
     if (customizations) {
       setFontSize(String(customizations.fontSize));
-      setBackgroundMusic(customizations.backgroundMusic);
+      setBackgroundMusic(customizations.backgroundMusic || 'none');
     }
   }, [customizations]);
 
@@ -26,9 +26,8 @@ export default function CustomizationSettings() {
     try {
       await setCustomizations.mutateAsync({
         fontSize: BigInt(fontSize),
-        backgroundMusic,
+        backgroundMusic: backgroundMusic === 'none' ? '' : backgroundMusic,
       });
-      toast.success('Settings saved successfully!');
     } catch (error) {
       toast.error('Failed to save settings');
     }
@@ -100,7 +99,7 @@ export default function CustomizationSettings() {
             <SelectValue placeholder="Select music preference" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">None</SelectItem>
+            <SelectItem value="none">None</SelectItem>
             <SelectItem value="energetic">Energetic Beats</SelectItem>
             <SelectItem value="calm">Calm & Focused</SelectItem>
             <SelectItem value="motivational">Motivational</SelectItem>

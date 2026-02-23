@@ -1,265 +1,96 @@
 {
   "kind": "build_request",
-  "title": "Add personalized messaging, fix theme switcher, create Tasks tab, and add exercise category tabs",
-  "projectName": "Fitness Companion",
+  "title": "Remove mountain decorative backgrounds and apply solid dark grey background across all pages",
+  "projectName": "Fitness Journey",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-14",
-      "text": "Add the personalized message 'mylove i know you can do this so i made this for you🙂' to the landing page with fade-out animation that triggers on scroll",
+      "id": "REQ-76",
+      "text": "Remove all mountain sunrise decorative background elements from the Layout component (frontend/src/components/Layout.tsx) that are currently rendered as fixed positioned decorative elements",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1",
-          "msg-3",
-          "msg-5"
+          "msg-recent"
         ],
         "quotes": [
-          "mylove i know you can do this so i made this for you🙂",
-          "make it fade away as i scroll down the page"
+          "Remove the mountain from the backgeound add a simple colour background",
+          "Apply this to all pages dark grey solid background"
         ]
       },
       "acceptanceCriteria": [
-        "The message 'mylove i know you can do this so i made this for you🙂' appears on the landing page",
-        "The message fades out smoothly as the user scrolls down the page",
-        "The fade effect uses opacity transition and is triggered by scroll position"
+        "No mountain or sunrise imagery is visible in the background on any page",
+        "The Layout component no longer renders decorative background elements",
+        "All pages display a clean solid background without decorative images"
       ]
     },
     {
-      "id": "REQ-15",
-      "text": "Add small, subtle hidden compliments to the girlfriend scattered throughout the application pages that are hard to see but still readable",
+      "id": "REQ-77",
+      "text": "Update the global CSS in frontend/src/index.css to remove any background image declarations related to mountain sunrise decorative elements and ensure all pages use a solid dark grey background color",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-recent"
         ],
         "quotes": [
-          "could u add small compliments to my girlfriend accross the page make it small and hard to see but not impossible"
+          "Remove the mountain from the backgeound add a simple colour background",
+          "Apply this to all pages dark grey solid background"
         ]
       },
       "acceptanceCriteria": [
-        "Multiple small compliment texts are scattered across different pages of the application",
-        "The compliments use subtle styling (low opacity, small font size) making them hard to spot but readable when found",
-        "Compliments are positioned in various locations to create a hidden treasure hunt effect"
+        "The index.css file contains no background-image properties for decorative elements",
+        "All pages across the application display a uniform solid dark grey background",
+        "The dark grey background color matches the existing app theme color scheme"
       ]
     },
     {
-      "id": "REQ-16",
-      "text": "Remove the orange/golden fitness hero image from the landing page (the dramatic transformation image shown in the uploaded screenshot)",
+      "id": "REQ-78",
+      "text": "Remove any CSS classes or styles in frontend/src/components/Layout.tsx that reference or position mountain/sunrise decorative background images",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1",
-          "msg-3"
+          "msg-recent"
         ],
         "quotes": [
-          "Remove the orange/golden fitness hero image"
+          "Remove the mountain from the backgeound",
+          "Apply this to all pages"
         ]
       },
       "acceptanceCriteria": [
-        "The orange/golden dramatic fitness transformation hero image is completely removed from the landing page",
-        "No broken image references or empty containers remain after removal",
-        "The landing page layout adjusts gracefully without the hero image"
+        "Layout component contains no JSX elements that render decorative background images",
+        "No CSS classes related to mountain decorative positioning remain in the Layout component",
+        "The application maintains proper spacing and layout without the decorative elements"
       ]
     },
     {
-      "id": "REQ-17",
-      "text": "Fix the color theme switcher in Settings page so it actually switches colors when users select different themes",
+      "id": "REQ-79",
+      "text": "Verify that the solid dark grey background is consistently applied across all page components: LandingPage, TasksPage, WalkTrackingPage, ExerciseCategoryPage, SettingsPage, TransformationPage, StatsPage, PartnerPage, and LoginPage",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-2",
-          "msg-8"
+          "msg-recent"
         ],
         "quotes": [
-          "Doesent let me switch colours at all fix it please",
-          "Color changer issue"
+          "Apply this to all pages dark grey solid background"
         ]
       },
       "acceptanceCriteria": [
-        "Clicking on different theme options in Settings successfully changes the application's color scheme",
-        "The selected theme is applied immediately across all components",
-        "The theme selection persists after page refresh",
-        "Visual feedback indicates which theme is currently active"
-      ]
-    },
-    {
-      "id": "REQ-18",
-      "text": "Create a separate Tasks tab in the navigation with daily fitness challenges including walk a mile, run half a mile, 20 squats, and additional varied tasks",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-7",
-          "msg-9"
-        ],
-        "quotes": [
-          "add a seperate tab away from the others name it tasks",
-          "Daily tasks to complete such as walk a mile run half a mile 20 squats"
-        ]
-      },
-      "acceptanceCriteria": [
-        "A new 'Tasks' tab appears in the main navigation separate from existing tabs",
-        "The Tasks page displays daily fitness challenges with checkboxes",
-        "Default tasks include: walk a mile, run half a mile, 20 squats, and at least 3 additional varied fitness challenges",
-        "Each task can be marked as complete with a checkbox"
-      ]
-    },
-    {
-      "id": "REQ-19",
-      "text": "Implement daily and monthly task completion tracking that stores user progress over time",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-7",
-          "msg-9"
-        ],
-        "quotes": [
-          "track there completion at the end of the month they have a chance to have a big reward"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The backend stores daily task completion status for each user",
-        "Task completion data is tracked and aggregated monthly",
-        "Users can view their completion history for the current month",
-        "At month's end, users with consistent completion are identified for big reward eligibility"
-      ]
-    },
-    {
-      "id": "REQ-20",
-      "text": "Display a gym-themed 'Well Done' animation when users complete all daily tasks for the day",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-9"
-        ],
-        "quotes": [
-          "show animation \"well done\" make it a gym theme when completed"
-        ]
-      },
-      "acceptanceCriteria": [
-        "When all daily tasks are checked off, a celebration animation appears",
-        "The animation has a gym theme with fitness-related visual elements",
-        "The animation displays 'Well Done' as the primary message",
-        "The animation is visually distinct and rewarding"
-      ]
-    },
-    {
-      "id": "REQ-21",
-      "text": "Show multiple-choice reward options (date night, sleepover, massage, and additional options) after completing all daily tasks for the day",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-7",
-          "msg-9"
-        ],
-        "quotes": [
-          "make the rewards like a date night or sleepever or massage",
-          "show up a multiple choice answer with different rewards only when completed all daily tasks for that day"
-        ]
-      },
-      "acceptanceCriteria": [
-        "After completing all daily tasks, a multiple-choice reward selection appears",
-        "Reward options include: date night, sleepover, massage, and at least 2 additional romantic/personal rewards",
-        "The reward selection only appears when all tasks for the current day are completed",
-        "Users can select one reward option from the presented choices"
-      ]
-    },
-    {
-      "id": "REQ-22",
-      "text": "Automatically refresh daily tasks at midnight each day with a new set of challenges",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-9"
-        ],
-        "quotes": [
-          "Yes at midnight",
-          "make sure they are refreshed everyday"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Tasks reset automatically at midnight (00:00) each day",
-        "Previous day's completion status is saved before reset",
-        "New tasks are generated or rotated for the new day",
-        "Users see fresh unchecked tasks when accessing the Tasks tab after midnight"
-      ]
-    },
-    {
-      "id": "REQ-23",
-      "text": "Add at least 3 new exercise category tabs (such as Upper Body, Lower Body, Core, Cardio) to the main navigation with curated exercise ideas for each category",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-2",
-          "msg-5"
-        ],
-        "quotes": [
-          "add more tabs for me (different excersise ideas) u decide wich ones to add",
-          "Add at least 3 new exercise category tabs"
-        ]
-      },
-      "acceptanceCriteria": [
-        "At least 3 new tabs are added to the main navigation for exercise categories",
-        "Exercise categories are clearly distinct (e.g., Upper Body, Lower Body, Core, Cardio)",
-        "Each category tab displays a curated list of relevant exercise ideas",
-        "Exercise ideas include names, descriptions, and basic instructions"
-      ]
-    },
-    {
-      "id": "REQ-24",
-      "text": "Add more customization options to the Settings page beyond theme selection",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-4"
-        ],
-        "quotes": [
-          "Also add more options to setting"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Settings page includes at least 3 additional configuration options beyond theme selection",
-        "New settings are relevant to the fitness app context (e.g., units, notifications preferences, display options)",
-        "Settings changes are saved and persisted across sessions",
-        "Each setting has clear labels and intuitive controls"
-      ]
-    },
-    {
-      "id": "REQ-25",
-      "text": "Clean up and polish the overall UI across all pages for a smooth, cohesive, and visually refined experience",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-4",
-          "msg-5"
-        ],
-        "quotes": [
-          "js tidy up make it clean and smooth",
-          "Clean up and polish the overall UI for a smooth, cohesive experience"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Consistent spacing, padding, and margins across all pages",
-        "Smooth transitions and animations throughout the application",
-        "Visual hierarchy is clear with proper typography sizing and weights",
-        "Color scheme is applied consistently across all UI elements",
-        "No visual glitches, alignment issues, or broken layouts"
+        "All page components display the same solid dark grey background color",
+        "No page-specific background overrides conflict with the global dark grey background",
+        "The background color remains consistent during navigation between pages"
       ]
     }
   ],
   "constraints": [
-    "Keep the existing decorative weights and nature elements around the screen edges",
-    "Maintain the current walk tracking and statistics functionality",
-    "Preserve the AI photo transformation feature",
-    "Do not modify the Internet Identity authentication system",
-    "Tasks tab must be separate from the existing navigation tabs"
+    "Do not modify the backend/main.mo file",
+    "Preserve the existing hot neon pink accent color scheme and white text color",
+    "Maintain all existing functionality including PWA features, authentication, and data tracking",
+    "Do not modify immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui"
   ],
   "nonGoals": [
-    "Changing the underlying authentication mechanism beyond Internet Identity",
-    "Modifying the walk tracking GPS calculation logic",
-    "Redesigning the entire application layout or navigation structure",
-    "Adding external integrations or third-party services",
-    "Implementing real-time multiplayer or social features"
+    "Adding new decorative background elements",
+    "Changing the color scheme beyond removing decorative backgrounds",
+    "Modifying theme selection functionality",
+    "Adding new background customization options"
   ],
   "imageRequirements": {
     "required": [],

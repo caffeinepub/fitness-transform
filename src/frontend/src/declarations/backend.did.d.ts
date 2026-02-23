@@ -26,6 +26,16 @@ export interface Goal {
   'progress' : bigint,
   'target' : bigint,
 }
+export interface Location { 'latitude' : number, 'longitude' : number }
+export interface RecommendedWalk {
+  'id' : bigint,
+  'isCompleted' : boolean,
+  'name' : string,
+  'description' : string,
+  'distance' : number,
+  'isFavourite' : boolean,
+  'location' : Location,
+}
 export interface Task {
   'id' : bigint,
   'completed' : boolean,
@@ -38,12 +48,21 @@ export interface Theme {
   'accentColor' : string,
   'secondaryColor' : string,
 }
+export type Time = bigint;
+export interface WalkRating {
+  'walkType' : WalkType,
+  'rating' : bigint,
+  'completionTimestamp' : Time,
+}
 export interface WalkSession {
   'durationInSeconds' : bigint,
   'distanceInMeters' : number,
   'steps' : bigint,
+  'rating' : [] | [WalkRating],
   'caloriesBurned' : bigint,
 }
+export type WalkType = { 'Recommended' : null } |
+  { 'Tracked' : null };
 export interface _CaffeineStorageCreateCertificateResult {
   'method' : string,
   'blob_hash' : string,
@@ -71,20 +90,32 @@ export interface _SERVICE {
     _CaffeineStorageRefillResult
   >,
   '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
-  'addExercise' : ActorMethod<[string, string, string], undefined>,
-  'addGoal' : ActorMethod<[string, bigint], undefined>,
-  'getCustomizations' : ActorMethod<[], Customization>,
-  'getDailyTasks' : ActorMethod<[], Array<Task>>,
-  'getExercisesByCategory' : ActorMethod<[string], Array<Exercise>>,
-  'getGoals' : ActorMethod<[], Array<Goal>>,
-  'getTheme' : ActorMethod<[], Theme>,
-  'getTotalCalories' : ActorMethod<[], bigint>,
-  'getTotalSteps' : ActorMethod<[], bigint>,
-  'getWalks' : ActorMethod<[], Array<WalkSession>>,
-  'setCustomizations' : ActorMethod<[bigint, string], undefined>,
-  'setTaskCompleted' : ActorMethod<[bigint], boolean>,
-  'setTheme' : ActorMethod<[string], undefined>,
-  'trackWalk' : ActorMethod<[WalkSession], undefined>,
+  'addExercise' : ActorMethod<[string, string, string, string], undefined>,
+  'addGoal' : ActorMethod<[string, string, bigint], undefined>,
+  'addRecommendedWalk' : ActorMethod<
+    [string, string, string, number, Location],
+    undefined
+  >,
+  'filterWalksByLocation' : ActorMethod<
+    [string, Location, number],
+    Array<RecommendedWalk>
+  >,
+  'getCustomizations' : ActorMethod<[string], Customization>,
+  'getDailyTasks' : ActorMethod<[string], Array<Task>>,
+  'getExercisesByCategory' : ActorMethod<[string, string], Array<Exercise>>,
+  'getGoals' : ActorMethod<[string], Array<Goal>>,
+  'getRecommendedWalks' : ActorMethod<[string], Array<RecommendedWalk>>,
+  'getTheme' : ActorMethod<[string], Theme>,
+  'getTotalCalories' : ActorMethod<[string], bigint>,
+  'getTotalSteps' : ActorMethod<[string], bigint>,
+  'getUserWalkHistory' : ActorMethod<[string], Array<bigint>>,
+  'getWalks' : ActorMethod<[string], Array<WalkSession>>,
+  'markWalkCompleted' : ActorMethod<[string, bigint], undefined>,
+  'markWalkFavourite' : ActorMethod<[string, bigint], undefined>,
+  'setCustomizations' : ActorMethod<[string, bigint, string], undefined>,
+  'setTaskCompleted' : ActorMethod<[string, bigint], boolean>,
+  'setTheme' : ActorMethod<[string, string], undefined>,
+  'trackWalk' : ActorMethod<[string, WalkSession], undefined>,
   'uploadPhoto' : ActorMethod<[ExternalBlob], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;

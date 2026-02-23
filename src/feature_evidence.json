@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-the-personalized-message-mylove-i-know-you-can-do-this-so-i-made-this-for-you-to-the-landing-page-with-fade-out-animation-that-triggers-on-scroll",
-      "featureTitle": "Add the personalized message 'mylove i know you can do this so i made this for you🙂' to the landing page with fade-out animation that triggers on scroll",
+      "featureId": "feature-remove-all-mountain-sunrise-decorative-background-elements-from-the-layout-component-frontend-src-components-layout-tsx-that-are-currently-rendered-as-fixed-positioned-decorative-elements",
+      "featureTitle": "Remove all mountain sunrise decorative background elements from the Layout component (frontend/src/components/Layout.tsx) that are currently rendered as fixed positioned decorative elements",
       "files": [
-        "frontend/src/pages/LandingPage.tsx"
+        "frontend/src/components/Layout.tsx"
       ],
       "components": [
         "blob-storage@4.0.0",
@@ -16,19 +16,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-14"
+        "REQ-76"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-add-small-subtle-hidden-compliments-to-the-girlfriend-scattered-throughout-the-application-pages-that-are-hard-to-see-but-still-readable",
-      "featureTitle": "Add small, subtle hidden compliments to the girlfriend scattered throughout the application pages that are hard to see but still readable",
+      "featureId": "feature-update-the-global-css-in-frontend-src-index-css-to-remove-any-background-image-declarations-related-to-mountain-sunrise-decorative-elements-and-ensure-all-pages-use-a-solid-dark-grey-background-color",
+      "featureTitle": "Update the global CSS in frontend/src/index.css to remove any background image declarations related to mountain sunrise decorative elements and ensure all pages use a solid dark grey background color",
       "files": [
-        "frontend/src/pages/LandingPage.tsx",
-        "frontend/src/pages/SettingsPage.tsx",
-        "frontend/src/pages/StatsPage.tsx",
-        "frontend/src/pages/TransformationPage.tsx",
-        "frontend/src/pages/WalkTrackingPage.tsx"
+        "frontend/src/index.css"
       ],
       "components": [
         "blob-storage@4.0.0",
@@ -39,15 +35,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-15"
+        "REQ-77"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-remove-the-orange-golden-fitness-hero-image-from-the-landing-page-the-dramatic-transformation-image-shown-in-the-uploaded-screenshot",
-      "featureTitle": "Remove the orange/golden fitness hero image from the landing page (the dramatic transformation image shown in the uploaded screenshot)",
+      "featureId": "feature-remove-any-css-classes-or-styles-in-frontend-src-components-layout-tsx-that-reference-or-position-mountain-sunrise-decorative-background-images",
+      "featureTitle": "Remove any CSS classes or styles in frontend/src/components/Layout.tsx that reference or position mountain/sunrise decorative background images",
       "files": [
-        "frontend/src/pages/LandingPage.tsx"
+        "frontend/src/components/Layout.tsx"
       ],
       "components": [
         "blob-storage@4.0.0",
@@ -58,159 +54,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-16"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-fix-the-color-theme-switcher-in-settings-page-so-it-actually-switches-colors-when-users-select-different-themes",
-      "featureTitle": "Fix the color theme switcher in Settings page so it actually switches colors when users select different themes",
-      "files": [
-        "frontend/src/components/ThemeSelector.tsx",
-        "frontend/src/contexts/ThemeContext.tsx"
-      ],
-      "components": [
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-17"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-create-a-separate-tasks-tab-in-the-navigation-with-daily-fitness-challenges-including-walk-a-mile-run-half-a-mile-20-squats-and-additional-varied-tasks",
-      "featureTitle": "Create a separate Tasks tab in the navigation with daily fitness challenges including walk a mile, run half a mile, 20 squats, and additional varied tasks",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/Layout.tsx",
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/TasksPage.tsx"
-      ],
-      "components": [
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-18"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-display-a-gym-themed-well-done-animation-when-users-complete-all-daily-tasks-for-the-day",
-      "featureTitle": "Display a gym-themed 'Well Done' animation when users complete all daily tasks for the day",
-      "files": [
-        "frontend/src/components/TaskCompletionAnimation.tsx",
-        "frontend/src/pages/TasksPage.tsx"
-      ],
-      "components": [
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-20"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-show-multiple-choice-reward-options-date-night-sleepover-massage-and-additional-options-after-completing-all-daily-tasks-for-the-day",
-      "featureTitle": "Show multiple-choice reward options (date night, sleepover, massage, and additional options) after completing all daily tasks for the day",
-      "files": [
-        "frontend/src/components/RewardSelector.tsx",
-        "frontend/src/pages/TasksPage.tsx"
-      ],
-      "components": [
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-21"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-at-least-3-new-exercise-category-tabs-such-as-upper-body-lower-body-core-cardio-to-the-main-navigation-with-curated-exercise-ideas-for-each-category",
-      "featureTitle": "Add at least 3 new exercise category tabs (such as Upper Body, Lower Body, Core, Cardio) to the main navigation with curated exercise ideas for each category",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/Layout.tsx",
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/ExerciseCategoryPage.tsx"
-      ],
-      "components": [
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-23"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-more-customization-options-to-the-settings-page-beyond-theme-selection",
-      "featureTitle": "Add more customization options to the Settings page beyond theme selection",
-      "files": [
-        "frontend/src/components/CustomizationSettings.tsx",
-        "frontend/src/hooks/useQueries.ts",
-        "frontend/src/pages/SettingsPage.tsx"
-      ],
-      "components": [
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-24"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-clean-up-and-polish-the-overall-ui-across-all-pages-for-a-smooth-cohesive-and-visually-refined-experience",
-      "featureTitle": "Clean up and polish the overall UI across all pages for a smooth, cohesive, and visually refined experience",
-      "files": [
-        "frontend/src/components/Layout.tsx",
-        "frontend/src/index.css",
-        "frontend/src/pages/ExerciseCategoryPage.tsx",
-        "frontend/src/pages/LandingPage.tsx",
-        "frontend/src/pages/SettingsPage.tsx",
-        "frontend/src/pages/StatsPage.tsx",
-        "frontend/src/pages/TasksPage.tsx",
-        "frontend/src/pages/TransformationPage.tsx",
-        "frontend/src/pages/WalkTrackingPage.tsx"
-      ],
-      "components": [
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-25"
+        "REQ-78"
       ],
       "confidence": "high"
     }

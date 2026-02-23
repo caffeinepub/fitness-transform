@@ -1,215 +1,74 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-23T01:03:37.978Z",
+  "generatedAt": "2026-02-23T14:40:40.205Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 12,
-    "implemented": 10,
+    "total": 4,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-14",
-        "summary": "Add the personalized message 'mylove i know you can do this so i made this for you🙂' to the landing page with fade-out animation that triggers on scroll",
+        "id": "REQ-76",
+        "summary": "Remove all mountain sunrise decorative background elements from the Layout component (frontend/src/components/Layout.tsx) that are currently rendered as fixed positioned decorative elements",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/pages/LandingPage.tsx"
+          "frontend/src/components/Layout.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/pages/LandingPage.tsx"
+          "frontend/src/components/Layout.tsx"
         ]
       },
       {
-        "id": "REQ-15",
-        "summary": "Add small, subtle hidden compliments to the girlfriend scattered throughout the application pages that are hard to see but still readable",
+        "id": "REQ-77",
+        "summary": "Update the global CSS in frontend/src/index.css to remove any background image declarations related to mountain sunrise decorative elements and ensure all pages use a solid dark grey background color",
         "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/index.css"
+        ],
+        "matchedFiles": [
+          "frontend/src/index.css"
+        ]
+      },
+      {
+        "id": "REQ-78",
+        "summary": "Remove any CSS classes or styles in frontend/src/components/Layout.tsx that reference or position mountain/sunrise decorative background images",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/Layout.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/Layout.tsx"
+        ]
+      },
+      {
+        "id": "REQ-79",
+        "summary": "Verify that the solid dark grey background is consistently applied across all page components: LandingPage, TasksPage, WalkTrackingPage, ExerciseCategoryPage, SettingsPage, TransformationPage, StatsPage, PartnerPage, and LoginPage",
+        "status": "missing",
         "plannedFiles": [
           "frontend/src/pages/LandingPage.tsx",
-          "frontend/src/pages/WalkTrackingPage.tsx",
-          "frontend/src/pages/TransformationPage.tsx",
-          "frontend/src/pages/StatsPage.tsx",
-          "frontend/src/pages/SettingsPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/LandingPage.tsx",
-          "frontend/src/pages/WalkTrackingPage.tsx",
-          "frontend/src/pages/TransformationPage.tsx",
-          "frontend/src/pages/StatsPage.tsx",
-          "frontend/src/pages/SettingsPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-16",
-        "summary": "Remove the orange/golden fitness hero image from the landing page (the dramatic transformation image shown in the uploaded screenshot)",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/LandingPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/LandingPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-17",
-        "summary": "Fix the color theme switcher in Settings page so it actually switches colors when users select different themes",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/contexts/ThemeContext.tsx",
-          "frontend/src/components/ThemeSelector.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/contexts/ThemeContext.tsx",
-          "frontend/src/components/ThemeSelector.tsx"
-        ]
-      },
-      {
-        "id": "REQ-18",
-        "summary": "Create a separate Tasks tab in the navigation with daily fitness challenges including walk a mile, run half a mile, 20 squats, and additional varied tasks",
-        "status": "implemented",
-        "plannedFiles": [
           "frontend/src/pages/TasksPage.tsx",
-          "frontend/src/App.tsx",
-          "frontend/src/components/Layout.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/TasksPage.tsx",
-          "frontend/src/App.tsx",
-          "frontend/src/components/Layout.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ]
-      },
-      {
-        "id": "REQ-19",
-        "summary": "Implement daily and monthly task completion tracking that stores user progress over time",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-20",
-        "summary": "Display a gym-themed 'Well Done' animation when users complete all daily tasks for the day",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/TaskCompletionAnimation.tsx",
-          "frontend/src/pages/TasksPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/TaskCompletionAnimation.tsx",
-          "frontend/src/pages/TasksPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-21",
-        "summary": "Show multiple-choice reward options (date night, sleepover, massage, and additional options) after completing all daily tasks for the day",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/RewardSelector.tsx",
-          "frontend/src/pages/TasksPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/RewardSelector.tsx",
-          "frontend/src/pages/TasksPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-22",
-        "summary": "Automatically refresh daily tasks at midnight each day with a new set of challenges",
-        "status": "unknown",
-        "plannedFiles": [],
-        "matchedFiles": []
-      },
-      {
-        "id": "REQ-23",
-        "summary": "Add at least 3 new exercise category tabs (such as Upper Body, Lower Body, Core, Cardio) to the main navigation with curated exercise ideas for each category",
-        "status": "implemented",
-        "plannedFiles": [
+          "frontend/src/pages/WalkTrackingPage.tsx",
           "frontend/src/pages/ExerciseCategoryPage.tsx",
-          "frontend/src/App.tsx",
-          "frontend/src/components/Layout.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/ExerciseCategoryPage.tsx",
-          "frontend/src/App.tsx",
-          "frontend/src/components/Layout.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ]
-      },
-      {
-        "id": "REQ-24",
-        "summary": "Add more customization options to the Settings page beyond theme selection",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/components/CustomizationSettings.tsx",
           "frontend/src/pages/SettingsPage.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ],
-        "matchedFiles": [
-          "frontend/src/components/CustomizationSettings.tsx",
-          "frontend/src/pages/SettingsPage.tsx",
-          "frontend/src/hooks/useQueries.ts"
-        ]
-      },
-      {
-        "id": "REQ-25",
-        "summary": "Clean up and polish the overall UI across all pages for a smooth, cohesive, and visually refined experience",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/index.css",
-          "frontend/src/components/Layout.tsx",
-          "frontend/src/pages/LandingPage.tsx",
-          "frontend/src/pages/WalkTrackingPage.tsx",
           "frontend/src/pages/TransformationPage.tsx",
           "frontend/src/pages/StatsPage.tsx",
-          "frontend/src/pages/SettingsPage.tsx",
-          "frontend/src/pages/TasksPage.tsx",
-          "frontend/src/pages/ExerciseCategoryPage.tsx"
+          "frontend/src/pages/PartnerPage.tsx",
+          "frontend/src/pages/LoginPage.tsx"
         ],
-        "matchedFiles": [
-          "frontend/src/index.css",
-          "frontend/src/components/Layout.tsx",
-          "frontend/src/pages/LandingPage.tsx",
-          "frontend/src/pages/WalkTrackingPage.tsx",
-          "frontend/src/pages/TransformationPage.tsx",
-          "frontend/src/pages/StatsPage.tsx",
-          "frontend/src/pages/SettingsPage.tsx",
-          "frontend/src/pages/TasksPage.tsx",
-          "frontend/src/pages/ExerciseCategoryPage.tsx"
-        ]
+        "matchedFiles": []
       }
     ]
   },
   "changedFiles": [
-    "backend/main.mo",
-    "backend/migration.mo",
     "build-request.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/App.tsx",
-    "frontend/src/backend.d.ts",
-    "frontend/src/backend.ts",
-    "frontend/src/components/CustomizationSettings.tsx",
     "frontend/src/components/Layout.tsx",
-    "frontend/src/components/RewardSelector.tsx",
-    "frontend/src/components/TaskCompletionAnimation.tsx",
-    "frontend/src/components/ThemeSelector.tsx",
-    "frontend/src/contexts/ThemeContext.tsx",
-    "frontend/src/declarations/backend.did.d.ts",
-    "frontend/src/declarations/backend.did.js",
-    "frontend/src/hooks/useQueries.ts",
     "frontend/src/index.css",
-    "frontend/src/pages/ExerciseCategoryPage.tsx",
-    "frontend/src/pages/LandingPage.tsx",
-    "frontend/src/pages/SettingsPage.tsx",
-    "frontend/src/pages/StatsPage.tsx",
-    "frontend/src/pages/TasksPage.tsx",
-    "frontend/src/pages/TransformationPage.tsx",
-    "frontend/src/pages/WalkTrackingPage.tsx",
-    "frontend/tailwind.config.js",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

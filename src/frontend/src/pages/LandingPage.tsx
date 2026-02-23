@@ -1,143 +1,145 @@
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from '@tanstack/react-router';
+import { Activity, Target, TrendingUp, Zap, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Activity, Camera, TrendingUp, Zap } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import DailyWalkRatings from '@/components/DailyWalkRatings';
 
 export default function LandingPage() {
   const navigate = useNavigate();
-  const [scrollOpacity, setScrollOpacity] = useState(1);
+  const [isVisible, setIsVisible] = useState(true);
+  const elementsRef = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      const fadeDistance = 400;
-      const newOpacity = Math.max(0, 1 - scrollPosition / fadeDistance);
-      setScrollOpacity(newOpacity);
+      const scrollY = window.scrollY;
+      const windowHeight = window.innerHeight;
+      
+      setIsVisible(scrollY < 50);
+
+      elementsRef.current.forEach((element, index) => {
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          const elementTop = rect.top + scrollY;
+          const fadeStart = elementTop - windowHeight * 0.8;
+          const fadeEnd = elementTop + rect.height;
+          
+          let opacity = 1;
+          if (scrollY > fadeStart && scrollY < fadeEnd) {
+            const fadeRange = fadeEnd - fadeStart;
+            const fadeProgress = (scrollY - fadeStart) / fadeRange;
+            opacity = Math.max(0, 1 - fadeProgress * 1.5);
+          } else if (scrollY >= fadeEnd) {
+            opacity = 0;
+          }
+          
+          element.style.opacity = opacity.toString();
+        }
+      });
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll();
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const setRef = (index: number) => (el: HTMLElement | null) => {
+    elementsRef.current[index] = el;
+  };
+
+  const features = [
+    {
+      icon: Activity,
+      title: 'Track Your Walks',
+      description: 'Monitor your daily walking activity with real-time GPS tracking and detailed statistics.',
+    },
+    {
+      icon: Target,
+      title: 'Daily Challenges',
+      description: 'Complete daily fitness tasks and build healthy habits that last.',
+    },
+    {
+      icon: TrendingUp,
+      title: 'Progress Analytics',
+      description: 'Visualize your fitness journey with comprehensive stats and insights.',
+    },
+    {
+      icon: Zap,
+      title: 'Exercise Library',
+      description: 'Access curated workout routines for every muscle group.',
+    },
+  ];
+
   return (
-    <div className="relative">
-      {/* Personalized message that fades on scroll */}
-      <div
-        className="fixed top-20 left-0 right-0 z-20 text-center pointer-events-none transition-opacity duration-300"
-        style={{ opacity: scrollOpacity }}
-      >
-        <p className="text-lg md:text-xl font-medium text-primary px-4">
-          mylove i know you can do this so i made this for you🙂
-        </p>
-      </div>
-
-      {/* Hidden compliments scattered throughout */}
-      <div className="hidden-compliment top-32 left-8">you're amazing</div>
-      <div className="hidden-compliment top-96 right-12">so proud of you</div>
-      <div className="hidden-compliment bottom-64 left-16">you're beautiful</div>
-
-      {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-primary/5 via-accent/5 to-background" />
-
-        <div className="container relative z-10 text-center px-4 pt-16">
-          <div className="max-w-4xl mx-auto space-y-8">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-tight">
-              <span className="block bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
-                Exercise today
-              </span>
-              <span className="block mt-2 bg-gradient-to-r from-secondary via-primary to-accent bg-clip-text text-transparent">
-                and be proud of yourself tomorrow
-              </span>
+    <div className="min-h-screen">
+      <section className="container py-20 space-y-12">
+        <div className="flex flex-col items-center text-center space-y-8">
+          <div className="flex items-center gap-3" ref={setRef(0)}>
+            <Heart className="h-12 w-12 text-primary" />
+            <h1 className="text-5xl md:text-6xl font-bold">
+              <span ref={setRef(1)}>Transform</span>{' '}
+              <span ref={setRef(2)}>Your</span>{' '}
+              <span ref={setRef(3)}>Fitness</span>
             </h1>
-
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-              Transform your body, track your progress, and achieve your fitness goals with AI-powered insights
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-              <Button 
-                size="lg" 
-                className="text-lg px-8 py-6 gap-2 shadow-lg hover:shadow-xl transition-all"
-                onClick={() => navigate({ to: '/walk' })}
-              >
-                <Activity className="h-5 w-5" />
-                Start Tracking
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline"
-                className="text-lg px-8 py-6 gap-2"
-                onClick={() => navigate({ to: '/transform' })}
-              >
-                <Camera className="h-5 w-5" />
-                See Your Future
-              </Button>
-            </div>
           </div>
-        </div>
-      </section>
+          
+          <p 
+            ref={setRef(4)}
+            className="text-xl text-muted-foreground max-w-2xl"
+          >
+            Track your walks, complete daily challenges, and achieve your fitness goals together
+          </p>
 
-      {/* Features Section */}
-      <section className="py-20 bg-muted/30">
-        <div className="container px-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
-            Your Fitness Journey Starts Here
-          </h2>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="bg-card p-8 rounded-2xl border border-border shadow-sm hover:shadow-lg transition-all">
-              <div className="h-14 w-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
-                <Activity className="h-7 w-7 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold mb-3">Track Your Walks</h3>
-              <p className="text-muted-foreground">
-                Real-time GPS tracking with detailed metrics including steps, distance, and calories burned
-              </p>
-            </div>
-
-            <div className="bg-card p-8 rounded-2xl border border-border shadow-sm hover:shadow-lg transition-all">
-              <div className="h-14 w-14 rounded-xl bg-accent/10 flex items-center justify-center mb-6">
-                <Camera className="h-7 w-7 text-accent" />
-              </div>
-              <h3 className="text-2xl font-bold mb-3">AI Transformation</h3>
-              <p className="text-muted-foreground">
-                Upload your photo and see your projected transformation after months of dedication
-              </p>
-            </div>
-
-            <div className="bg-card p-8 rounded-2xl border border-border shadow-sm hover:shadow-lg transition-all">
-              <div className="h-14 w-14 rounded-xl bg-secondary/10 flex items-center justify-center mb-6">
-                <TrendingUp className="h-7 w-7 text-secondary" />
-              </div>
-              <h3 className="text-2xl font-bold mb-3">Monitor Progress</h3>
-              <p className="text-muted-foreground">
-                Comprehensive statistics and insights to keep you motivated and on track
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20">
-        <div className="container px-4">
-          <div className="max-w-3xl mx-auto text-center space-y-6 bg-gradient-to-br from-primary/10 via-accent/10 to-secondary/10 p-12 rounded-3xl border border-border">
-            <Zap className="h-16 w-16 mx-auto text-primary" />
-            <h2 className="text-4xl md:text-5xl font-bold">
-              Ready to Transform?
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              Join thousands who have already started their journey to a healthier, stronger version of themselves
-            </p>
-            <Button 
-              size="lg" 
-              className="text-lg px-10 py-6 gap-2 shadow-lg"
+          <div className="flex flex-col sm:flex-row gap-4" ref={setRef(5)}>
+            <Button
+              size="lg"
               onClick={() => navigate({ to: '/walk' })}
+              className="gap-2"
             >
-              Get Started Now
+              <Activity className="h-5 w-5" />
+              Start Walking
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={() => navigate({ to: '/tasks' })}
+              className="gap-2"
+            >
+              <Target className="h-5 w-5" />
+              View Tasks
             </Button>
           </div>
+        </div>
+
+        <div className="space-y-8">
+          <h2 ref={setRef(6)} className="text-3xl font-bold text-center">
+            Features
+          </h2>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {features.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <Card
+                  key={index}
+                  ref={setRef(7 + index)}
+                  className="border-primary/20 hover:border-primary/40 transition-colors"
+                >
+                  <CardHeader>
+                    <Icon className="h-10 w-10 text-primary mb-2" />
+                    <CardTitle>{feature.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+
+        <div ref={setRef(11)}>
+          <DailyWalkRatings />
         </div>
       </section>
     </div>

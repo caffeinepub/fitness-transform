@@ -66,7 +66,7 @@ export default function ExerciseCategoryPage({ category }: ExerciseCategoryPageP
 
       <div className="space-y-6">
         <div>
-          <h1 className="text-4xl font-bold mb-2 flex items-center gap-3">
+          <h1 className="text-4xl font-bold mb-2 flex items-center gap-3 text-foreground">
             <Zap className="h-10 w-10 text-primary" />
             {category} Exercises
           </h1>
@@ -77,9 +77,9 @@ export default function ExerciseCategoryPage({ category }: ExerciseCategoryPageP
 
         <div className="grid md:grid-cols-2 gap-6">
           {displayExercises.map((exercise, index) => (
-            <Card key={index} className="hover:shadow-lg transition-all">
+            <Card key={index} className="hover:shadow-lg transition-all border-primary/20">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 text-foreground">
                   <Dumbbell className="h-5 w-5 text-primary" />
                   {exercise.name}
                 </CardTitle>
@@ -89,7 +89,7 @@ export default function ExerciseCategoryPage({ category }: ExerciseCategoryPageP
                   {exercise.description}
                 </p>
                 <div className="pt-2 border-t border-border">
-                  <p className="text-sm font-semibold mb-1">How to perform:</p>
+                  <p className="text-sm font-semibold mb-1 text-foreground">How to perform:</p>
                   <p className="text-sm text-muted-foreground">
                     {(exercise as any).instructions || 'Follow proper form and technique for best results.'}
                   </p>
