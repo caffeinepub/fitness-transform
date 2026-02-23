@@ -1,12 +1,14 @@
 import { Outlet, useNavigate, useRouterState } from '@tanstack/react-router';
-import { Activity, Camera, TrendingUp, Settings, Dumbbell } from 'lucide-react';
+import { Activity, Camera, TrendingUp, Settings, Dumbbell, LogOut } from 'lucide-react';
 import { Button } from './ui/button';
 import { SiX, SiFacebook, SiInstagram } from 'react-icons/si';
+import { useInternetIdentity } from '../hooks/useInternetIdentity';
 
 export default function Layout() {
   const navigate = useNavigate();
   const routerState = useRouterState();
   const currentPath = routerState.location.pathname;
+  const { clear } = useInternetIdentity();
 
   const navItems = [
     { path: '/', label: 'Home', icon: Dumbbell },
@@ -16,8 +18,19 @@ export default function Layout() {
     { path: '/settings', label: 'Settings', icon: Settings },
   ];
 
+  const handleLogout = () => {
+    clear();
+    navigate({ to: '/login' });
+  };
+
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
+      {/* Decorative background elements */}
+      <div className="decorative-bg-left" />
+      <div className="decorative-bg-right" />
+      <div className="decorative-bg-top" />
+      <div className="decorative-bg-bottom" />
+
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
@@ -44,6 +57,16 @@ export default function Layout() {
                 </Button>
               );
             })}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleLogout}
+              className="gap-2 ml-2"
+              title="Sign Out"
+            >
+              <LogOut className="h-4 w-4" />
+              Sign Out
+            </Button>
           </nav>
 
           <div className="md:hidden flex items-center gap-2">
@@ -61,15 +84,23 @@ export default function Layout() {
                 </Button>
               );
             })}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleLogout}
+              title="Sign Out"
+            >
+              <LogOut className="h-5 w-5" />
+            </Button>
           </div>
         </div>
       </header>
 
-      <main className="flex-1">
+      <main className="flex-1 relative z-10">
         <Outlet />
       </main>
 
-      <footer className="border-t border-border/40 bg-muted/30 py-8">
+      <footer className="border-t border-border/40 bg-muted/30 py-8 relative z-10">
         <div className="container">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">

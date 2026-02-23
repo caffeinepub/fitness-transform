@@ -1,8 +1,8 @@
 {
-  "frontend/src/App.tsx": "Main application component with TanStack Router setup, defining all routes (landing, walk tracking, transformation, stats, settings) wrapped in ThemeProvider for global theme management.",
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, defining public login route and protected routes (landing, walk, transform, stats, settings) wrapped with ProtectedRoute component and ThemeProvider.",
   "frontend/src/contexts/ThemeContext.tsx": "React context provider for theme management that loads themes from backend, applies OKLCH color values to CSS variables, and provides theme switching functionality.",
-  "frontend/src/components/Layout.tsx": "Application layout wrapper with sticky header navigation, responsive mobile/desktop menu, footer with social links and caffeine.ai attribution, and Outlet for nested routes.",
-  "frontend/src/pages/LandingPage.tsx": "Bold landing page featuring the motivational message \"Make a change today and thank you for tomorrow\" with hero background image, transform icon, feature cards, and call-to-action sections.",
+  "frontend/src/components/Layout.tsx": "Application layout wrapper with sticky header navigation including logout button, responsive mobile/desktop menu, decorative background elements (weights and nature), footer with social links and caffeine.ai attribution, and Outlet for nested routes.",
+  "frontend/src/pages/LandingPage.tsx": "Landing page featuring the updated motivational quote \"Exercise today and be proud of yourself tomorrow\" with hero background, feature cards, and call-to-action sections.",
   "frontend/src/pages/WalkTrackingPage.tsx": "Walk tracking page with start/stop controls, real-time map display of walking route, and live statistics showing distance, duration, steps, and calories burned.",
   "frontend/src/pages/TransformationPage.tsx": "Photo transformation page allowing users to upload photos, select training duration (1-12 months), and generate AI-powered before/after transformation previews.",
   "frontend/src/pages/StatsPage.tsx": "Statistics overview page displaying total steps, calories, distance, and time across all walks, plus a list of recent walk sessions with detailed metrics.",
@@ -15,7 +15,9 @@
   "frontend/src/hooks/useLocationTracking.ts": "Custom hook managing geolocation tracking state, calculating distance using Haversine formula, tracking duration, and computing steps and calories.",
   "frontend/src/hooks/useQueries.ts": "React Query hooks for backend integration including walk statistics fetching (getWalks, getTotalSteps, getTotalCalories), walk session saving, and photo uploads.",
   "frontend/src/utils/walkCalculations.ts": "Utility functions for calculating distance between coordinates using Haversine formula, estimating step count from distance, and computing calories burned.",
-  "frontend/src/index.css": "Global styles with OKLCH color system defining energetic fitness-themed color palette (oranges, yellows, greens) for both light and dark modes.",
+  "frontend/src/index.css": "Global styles with OKLCH color system defining energetic fitness-themed color palette for both light and dark modes, plus CSS classes for fixed-position decorative background elements (weights and nature imagery) with low opacity and pointer-events disabled.",
   "frontend/tailwind.config.js": "Tailwind configuration extending theme with custom OKLCH colors, Inter font family, increased border radius, and custom animations.",
-  "frontend/src/main.tsx": "Application entry point wrapping App with QueryClientProvider, InternetIdentityProvider, and Sonner toast notifications."
+  "frontend/src/main.tsx": "Application entry point wrapping App with QueryClientProvider, InternetIdentityProvider, and Sonner toast notifications.",
+  "frontend/src/pages/LoginPage.tsx": "Login page component with Internet Identity authentication, featuring the motivational quote \"Exercise today and be proud of yourself tomorrow\" and secure sign-in using passkey, email, or phone number.",
+  "frontend/src/components/ProtectedRoute.tsx": "Route guard component that checks authentication status and redirects unauthenticated users to the login page while showing a loading state during initialization."
 }

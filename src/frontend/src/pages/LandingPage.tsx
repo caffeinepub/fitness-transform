@@ -22,20 +22,12 @@ export default function LandingPage() {
 
         <div className="container relative z-10 text-center px-4">
           <div className="max-w-4xl mx-auto space-y-8">
-            <div className="inline-block mb-4">
-              <img 
-                src="/assets/generated/transform-icon.dim_256x256.png" 
-                alt="Transform" 
-                className="h-24 w-24 mx-auto animate-pulse"
-              />
-            </div>
-            
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-tight">
               <span className="block bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent">
-                Make a change today
+                Exercise today
               </span>
               <span className="block mt-2 bg-gradient-to-r from-secondary via-primary to-accent bg-clip-text text-transparent">
-                and thank you for tomorrow
+                and be proud of yourself tomorrow
               </span>
             </h1>
 

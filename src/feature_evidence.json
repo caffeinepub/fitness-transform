@@ -2,10 +2,51 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-create-a-bold-landing-page-with-the-motivational-message-make-a-change-today-and-thank-you-for-tomorrow-displayed-prominently",
-      "featureTitle": "Create a bold landing page with the motivational message 'Make a change today and thank you for tomorrow' displayed prominently",
+      "featureId": "feature-implement-an-authentication-gate-using-internet-identity-that-requires-users-to-log-in-before-accessing-any-app-routes-beyond-the-login-page-support-passkey-email-and-phone-number-authentication-methods",
+      "featureTitle": "Implement an authentication gate using Internet Identity that requires users to log in before accessing any app routes beyond the login page. Support passkey, email, and phone number authentication methods.",
       "files": [
         "frontend/src/App.tsx",
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/components/ProtectedRoute.tsx",
+        "frontend/src/pages/LoginPage.tsx"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-transparent-decorative-background-elements-featuring-weights-dumbbells-and-nature-imagery-leaves-mountains-trees-positioned-around-the-screen-edges-throughout-the-application",
+      "featureTitle": "Add transparent decorative background elements featuring weights/dumbbells and nature imagery (leaves, mountains, trees) positioned around the screen edges throughout the application.",
+      "files": [
+        "frontend/src/components/Layout.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-10"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-motivational-quote-on-the-landing-page-from-make-a-change-today-and-thank-you-for-tomorrow-to-exercise-today-and-be-proud-of-yourself-tomorrow",
+      "featureTitle": "Update the motivational quote on the landing page from 'Make a change today and thank you for tomorrow' to 'Exercise today and be proud of yourself tomorrow'.",
+      "files": [
         "frontend/src/pages/LandingPage.tsx"
       ],
       "components": [
@@ -17,18 +58,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-1"
+        "REQ-11"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-customizable-color-themes-that-allow-users-to-switch-between-different-color-palettes-throughout-the-app",
-      "featureTitle": "Implement customizable color themes that allow users to switch between different color palettes throughout the app",
+      "featureId": "feature-remove-the-unwanted-image-from-the-main-landing-page-that-was-not-part-of-the-original-user-request",
+      "featureTitle": "Remove the unwanted image from the main landing page that was not part of the original user request.",
       "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/ThemeSelector.tsx",
-        "frontend/src/contexts/ThemeContext.tsx",
-        "frontend/src/pages/SettingsPage.tsx"
+        "frontend/src/pages/LandingPage.tsx"
       ],
       "components": [
         "blob-storage@4.0.0",
@@ -39,17 +77,15 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-2"
+        "REQ-12"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-build-an-ai-powered-photo-transformation-feature-where-users-upload-their-current-photo-and-select-a-duration-in-months-of-exercise-meal-plans-to-generate-and-display-a-projected-transformation-image",
-      "featureTitle": "Build an AI-powered photo transformation feature where users upload their current photo and select a duration in months of exercise/meal plans to generate and display a projected transformation image",
+      "featureId": "feature-generate-decorative-images-for-transparent-weight-dumbbell-illustrations-and-nature-elements-leaves-mountains-trees-to-be-used-as-static-assets-for-the-background-decoration-feature",
+      "featureTitle": "Generate decorative images for transparent weight/dumbbell illustrations and nature elements (leaves, mountains, trees) to be used as static assets for the background decoration feature.",
       "files": [
-        "frontend/src/components/PhotoUploader.tsx",
-        "frontend/src/components/TransformationPreview.tsx",
-        "frontend/src/pages/TransformationPage.tsx"
+        "frontend/src/components/Layout.tsx"
       ],
       "components": [
         "blob-storage@4.0.0",
@@ -60,72 +96,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-create-a-location-tracking-tab-with-an-interactive-map-that-tracks-walks-in-real-time-with-start-stop-controls",
-      "featureTitle": "Create a location tracking tab with an interactive map that tracks walks in real-time with start/stop controls",
-      "files": [
-        "frontend/src/components/MapView.tsx",
-        "frontend/src/hooks/useLocationTracking.ts",
-        "frontend/src/pages/WalkTrackingPage.tsx"
-      ],
-      "components": [
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-calculate-and-display-calories-burned-and-step-count-for-each-tracked-walk-session",
-      "featureTitle": "Calculate and display calories burned and step count for each tracked walk session",
-      "files": [
-        "frontend/src/components/WalkStats.tsx",
-        "frontend/src/pages/StatsPage.tsx",
-        "frontend/src/pages/WalkTrackingPage.tsx",
-        "frontend/src/utils/walkCalculations.ts"
-      ],
-      "components": [
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-design-a-cohesive-visual-theme-with-energetic-fitness-focused-aesthetics-using-vibrant-colors-modern-typography-and-motivational-design-elements-that-inspire-action-and-progress",
-      "featureTitle": "Design a cohesive visual theme with energetic, fitness-focused aesthetics using vibrant colors, modern typography, and motivational design elements that inspire action and progress",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/Layout.tsx",
-        "frontend/src/index.css",
-        "frontend/tailwind.config.js"
-      ],
-      "components": [
-        "blob-storage@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-6"
+        "REQ-13"
       ],
       "confidence": "high"
     }

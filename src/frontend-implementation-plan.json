@@ -1,178 +1,106 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Fitness Transform - Frontend Implementation",
+  "title": "Add authentication gate with Internet Identity and update landing page design",
   "requirements": [
     {
-      "id": "REQ-1",
-      "summary": "Create bold landing page with motivational message",
+      "id": "REQ-9",
+      "summary": "Implement an authentication gate using Internet Identity that requires users to log in before accessing any app routes beyond the login page",
       "acceptanceCriteria": [
-        "Landing page displays the exact message 'Make a change today and thank you for tomorrow'",
-        "Message is visually prominent with bold typography",
-        "Landing page serves as the app entry point"
+        "Users are redirected to a login page when not authenticated",
+        "Internet Identity authentication supports passkey, email, and phone number methods",
+        "After successful login, users can access all app routes",
+        "Authentication state persists across page refreshes"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add routing structure with landing page as the root route. Include routes for walk tracking, photo transformation, and theme settings pages."
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "create",
+          "description": "Create a dedicated login page that presents the Internet Identity authentication interface with support for passkey, email, and phone number methods. Use the existing useInternetIdentity hook to trigger login flow."
         },
         {
-          "path": "frontend/src/pages/LandingPage.tsx",
+          "path": "frontend/src/components/ProtectedRoute.tsx",
           "operation": "create",
-          "description": "Create landing page component displaying the motivational message 'Make a change today and thank you for tomorrow' with bold typography. Include hero-fitness.dim_1920x1080.png from frontend/public/assets/generated/hero-fitness.dim_1920x1080.png as background. Include transform-icon.dim_256x256.png from frontend/public/assets/generated/transform-icon.dim_256x256.png as a visual element. Add navigation to main app features."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Implement customizable color themes with persistence",
-      "acceptanceCriteria": [
-        "Users can select from multiple predefined color themes",
-        "Theme selection persists across sessions",
-        "Theme changes apply consistently across all app pages",
-        "Theme preferences are stored in backend user state"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/contexts/ThemeContext.tsx",
-          "operation": "create",
-          "description": "Create React context for theme management. Load current theme from backend using getTheme(). Provide theme switching function that calls setTheme(themeName) on backend. Apply theme colors to CSS variables for global access."
+          "description": "Create a route guard component that checks authentication status using the useInternetIdentity hook. Redirect unauthenticated users to the login page while allowing access to authenticated users."
         },
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Wrap app with ThemeContext.Provider to enable theme management across all components. Ensure theme colors are applied globally."
-        },
-        {
-          "path": "frontend/src/components/ThemeSelector.tsx",
-          "operation": "create",
-          "description": "Create theme selector UI component that displays available themes and allows users to switch between them. Use theme context to trigger theme changes."
-        },
-        {
-          "path": "frontend/src/pages/SettingsPage.tsx",
-          "operation": "create",
-          "description": "Create settings page that includes ThemeSelector component for theme customization."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Build AI-powered photo transformation feature with upload and projection",
-      "acceptanceCriteria": [
-        "Users can upload a photo from their device",
-        "Users can select a duration in months (e.g., 1, 3, 6, 12 months)",
-        "System generates a projected transformation image based on the selected duration",
-        "Generated transformation is displayed alongside the original photo",
-        "Transformation images are stored and retrievable"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/TransformationPage.tsx",
-          "operation": "create",
-          "description": "Create transformation page with photo upload UI using file input. Use the blob-storage component to handle photo uploads via ExternalBlob.fromBytes() and track upload progress with withUploadProgress(). Include month selector dropdown (1, 3, 6, 12 months). Call uploadPhoto(photo) backend method to store uploaded image. Display original and generated transformation images side-by-side. Verify the blob-storage component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/PhotoUploader.tsx",
-          "operation": "create",
-          "description": "Create reusable photo upload component with drag-and-drop support and file input. Use blob-storage component's ExternalBlob.fromBytes() for file handling. Display upload progress indicator. Verify the blob-storage component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/TransformationPreview.tsx",
-          "operation": "create",
-          "description": "Create component to display before/after transformation images side-by-side. Use blob-storage component's ExternalBlob.getDirectURL() to display images efficiently with streaming and caching. Verify the blob-storage component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Create location tracking tab with interactive map and start/stop controls",
-      "acceptanceCriteria": [
-        "Dedicated tab displays an interactive map",
-        "Start button initiates walk tracking and begins recording route",
-        "Stop button ends tracking session",
-        "Map displays the walk route in real-time during tracking",
-        "Route path is visible on the map after tracking stops"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/WalkTrackingPage.tsx",
-          "operation": "create",
-          "description": "Create walk tracking page with interactive map display. Implement start/stop buttons to control tracking session. Track location coordinates during active session using browser Geolocation API. Display route path on map in real-time and after session ends. Render map using canvas or SVG for route visualization without external mapping APIs."
-        },
-        {
-          "path": "frontend/src/components/MapView.tsx",
-          "operation": "create",
-          "description": "Create map component that renders walking routes using canvas or SVG. Accept coordinate arrays as props and draw route paths. Support real-time updates during active tracking sessions."
-        },
-        {
-          "path": "frontend/src/hooks/useLocationTracking.ts",
-          "operation": "create",
-          "description": "Create custom hook to manage location tracking state. Use browser Geolocation API to get position updates. Track coordinates, distance, and duration during active session. Calculate step count based on movement patterns."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Calculate and display calories burned and step count for walk sessions",
-      "acceptanceCriteria": [
-        "System calculates calories burned based on walk duration and distance",
-        "System counts steps during the walk",
-        "Calories burned and steps are displayed in the tracking interface",
-        "Walk session data (calories, steps, route) is persisted in backend"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/WalkTrackingPage.tsx",
-          "operation": "modify",
-          "description": "Display real-time calories burned and step count during active tracking. Show session summary after stopping. Call trackWalk(session) backend method with WalkSession data (durationInSeconds, distanceInMeters, steps, caloriesBurned) to persist session."
-        },
-        {
-          "path": "frontend/src/utils/walkCalculations.ts",
-          "operation": "create",
-          "description": "Create utility functions to calculate calories burned based on duration, distance, and average pace. Implement step counting algorithm based on distance and stride estimates. Calculate distance from coordinate arrays."
-        },
-        {
-          "path": "frontend/src/components/WalkStats.tsx",
-          "operation": "create",
-          "description": "Create component to display walk statistics including calories burned, steps taken, distance, and duration. Support both real-time updates during tracking and summary display after session."
-        },
-        {
-          "path": "frontend/src/pages/StatsPage.tsx",
-          "operation": "create",
-          "description": "Create statistics overview page that displays historical walk data. Load walk sessions using getWalks() backend method. Display total calories using getTotalCalories() and total steps using getTotalSteps(). Show list of past walk sessions with their metrics."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Design cohesive fitness-focused visual theme with vibrant colors and motivational aesthetics",
-      "acceptanceCriteria": [
-        "App uses an energetic color palette (avoiding blue and purple unless specified)",
-        "Typography choices convey motivation and boldness",
-        "Layout and spacing create an inspiring, action-oriented experience",
-        "Visual style remains consistent across all pages and features"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Define global CSS custom properties for energetic fitness color palette using vibrant colors (oranges, reds, yellows, greens). Set bold typography styles with motivational font choices. Apply consistent spacing and layout variables. Ensure theme colors from ThemeContext can override these base values."
-        },
-        {
-          "path": "frontend/tailwind.config.js",
-          "operation": "modify",
-          "description": "Extend Tailwind configuration with custom fitness-themed color palette and typography scales. Add energetic color variants for primary, secondary, and accent colors. Configure bold font weights and inspiring font families."
+          "description": "Update router configuration to add the login route and wrap all existing routes (walk, transform, stats, settings, landing) with the ProtectedRoute component to enforce authentication. Ensure the login route remains accessible without authentication."
         },
         {
           "path": "frontend/src/components/Layout.tsx",
-          "operation": "create",
-          "description": "Create layout wrapper component with consistent header, navigation, and footer. Apply global theme styling and ensure consistent spacing across all pages. Include navigation to all main features (landing, tracking, transformation, stats, settings)."
+          "operation": "modify",
+          "description": "Add a logout button to the navigation header that uses the useInternetIdentity hook to sign out users and redirect them to the login page."
+        }
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "summary": "Add transparent decorative background elements featuring weights/dumbbells and nature imagery positioned around the screen edges",
+      "acceptanceCriteria": [
+        "Decorative weight/dumbbell images are visible with transparency around screen edges",
+        "Nature elements (leaves, mountains, trees) are visible with transparency around screen edges",
+        "Decorative elements do not interfere with interactive UI components",
+        "Elements are positioned consistently across all pages"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Layout.tsx",
+          "operation": "modify",
+          "description": "Add fixed-position decorative image elements using the generated assets frontend/public/assets/generated/weight-decoration-left.dim_200x300.png, frontend/public/assets/generated/weight-decoration-right.dim_200x300.png, frontend/public/assets/generated/nature-decoration-top.dim_400x200.png, and frontend/public/assets/generated/nature-decoration-bottom.dim_400x200.png. Position them at screen corners with low opacity (0.15-0.25) and z-index below interactive content to ensure they don't interfere with UI components."
         },
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/src/index.css",
           "operation": "modify",
-          "description": "Wrap all routes with Layout component to ensure consistent visual theme across the application."
+          "description": "Add CSS classes for decorative background elements with appropriate opacity, positioning, and pointer-events: none to ensure they don't block interaction with UI components."
+        }
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "summary": "Update the motivational quote on the landing page to 'Exercise today and be proud of yourself tomorrow'",
+      "acceptanceCriteria": [
+        "Landing page displays the new quote 'Exercise today and be proud of yourself tomorrow'",
+        "Quote maintains prominent visual styling consistent with existing design"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Replace the existing motivational quote text with 'Exercise today and be proud of yourself tomorrow' while preserving the current visual styling and placement."
+        }
+      ]
+    },
+    {
+      "id": "REQ-12",
+      "summary": "Remove the unwanted image from the main landing page",
+      "acceptanceCriteria": [
+        "Unwanted image element is removed from the landing page",
+        "Page layout remains intact after image removal",
+        "No broken image links or placeholders remain"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Remove the unwanted image element that was not part of the original user request. Ensure the page layout adjusts properly and no broken references remain."
+        }
+      ]
+    },
+    {
+      "id": "REQ-13",
+      "summary": "Wire generated decorative images as static assets for background decoration",
+      "acceptanceCriteria": [
+        "Generated images are saved to frontend/public/assets/generated directory",
+        "Images have transparent backgrounds suitable for overlay decoration",
+        "Weight and nature images are visually cohesive with the fitness app theme"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Layout.tsx",
+          "operation": "modify",
+          "description": "Reference the exact generated image files frontend/public/assets/generated/weight-decoration-left.dim_200x300.png, frontend/public/assets/generated/weight-decoration-right.dim_200x300.png, frontend/public/assets/generated/nature-decoration-top.dim_400x200.png, and frontend/public/assets/generated/nature-decoration-bottom.dim_400x200.png as static assets in the decorative background implementation."
         }
       ]
     }
