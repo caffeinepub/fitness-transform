@@ -1,0 +1,99 @@
+{
+  "kind": "build_request",
+  "title": "Remove mountain decorative backgrounds and apply solid dark grey background across all pages",
+  "projectName": "Fitness Journey",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-76",
+      "text": "Remove all mountain sunrise decorative background elements from the Layout component (frontend/src/components/Layout.tsx) that are currently rendered as fixed positioned decorative elements",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent"
+        ],
+        "quotes": [
+          "Remove the mountain from the backgeound add a simple colour background",
+          "Apply this to all pages dark grey solid background"
+        ]
+      },
+      "acceptanceCriteria": [
+        "No mountain or sunrise imagery is visible in the background on any page",
+        "The Layout component no longer renders decorative background elements",
+        "All pages display a clean solid background without decorative images"
+      ]
+    },
+    {
+      "id": "REQ-77",
+      "text": "Update the global CSS in frontend/src/index.css to remove any background image declarations related to mountain sunrise decorative elements and ensure all pages use a solid dark grey background color",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent"
+        ],
+        "quotes": [
+          "Remove the mountain from the backgeound add a simple colour background",
+          "Apply this to all pages dark grey solid background"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The index.css file contains no background-image properties for decorative elements",
+        "All pages across the application display a uniform solid dark grey background",
+        "The dark grey background color matches the existing app theme color scheme"
+      ]
+    },
+    {
+      "id": "REQ-78",
+      "text": "Remove any CSS classes or styles in frontend/src/components/Layout.tsx that reference or position mountain/sunrise decorative background images",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent"
+        ],
+        "quotes": [
+          "Remove the mountain from the backgeound",
+          "Apply this to all pages"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Layout component contains no JSX elements that render decorative background images",
+        "No CSS classes related to mountain decorative positioning remain in the Layout component",
+        "The application maintains proper spacing and layout without the decorative elements"
+      ]
+    },
+    {
+      "id": "REQ-79",
+      "text": "Verify that the solid dark grey background is consistently applied across all page components: LandingPage, TasksPage, WalkTrackingPage, ExerciseCategoryPage, SettingsPage, TransformationPage, StatsPage, PartnerPage, and LoginPage",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-recent"
+        ],
+        "quotes": [
+          "Apply this to all pages dark grey solid background"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All page components display the same solid dark grey background color",
+        "No page-specific background overrides conflict with the global dark grey background",
+        "The background color remains consistent during navigation between pages"
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify the backend/main.mo file",
+    "Preserve the existing hot neon pink accent color scheme and white text color",
+    "Maintain all existing functionality including PWA features, authentication, and data tracking",
+    "Do not modify immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui"
+  ],
+  "nonGoals": [
+    "Adding new decorative background elements",
+    "Changing the color scheme beyond removing decorative backgrounds",
+    "Modifying theme selection functionality",
+    "Adding new background customization options"
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

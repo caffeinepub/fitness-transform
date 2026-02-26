@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: oklch(0.2 0.01 270);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.22 0.01 270);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.22 0.01 270);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(0.7 0.3 350);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.65 0.25 350);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.3 0.01 270);
+    --muted-foreground: oklch(0.75 0 0);
+    --accent: oklch(0.7 0.3 350);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.55 0.25 25);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.35 0.01 270);
+    --input: oklch(0.35 0.01 270);
+    --ring: oklch(0.7 0.3 350);
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: oklch(0.2 0.01 270);
+    --foreground: oklch(1 0 0);
+    --card: oklch(0.22 0.01 270);
+    --card-foreground: oklch(1 0 0);
+    --popover: oklch(0.22 0.01 270);
+    --popover-foreground: oklch(1 0 0);
+    --primary: oklch(0.7 0.3 350);
+    --primary-foreground: oklch(1 0 0);
+    --secondary: oklch(0.65 0.25 350);
+    --secondary-foreground: oklch(1 0 0);
+    --muted: oklch(0.3 0.01 270);
+    --muted-foreground: oklch(0.75 0 0);
+    --accent: oklch(0.7 0.3 350);
+    --accent-foreground: oklch(1 0 0);
+    --destructive: oklch(0.55 0.25 25);
+    --destructive-foreground: oklch(1 0 0);
+    --border: oklch(0.35 0.01 270);
+    --input: oklch(0.35 0.01 270);
+    --ring: oklch(0.7 0.3 350);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Hidden compliments styling */
+.hidden-compliment {
+  position: absolute;
+  font-size: 9px;
+  opacity: 0.15;
+  color: oklch(var(--primary));
+  pointer-events: none;
+  user-select: none;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  z-index: 1;
+}
+
+/* Animation delays for staggered effects */
+.animation-delay-150 {
+  animation-delay: 150ms;
+}
+
+.animation-delay-300 {
+  animation-delay: 300ms;
+}
+
+/* Color utilities using OKLCH */
+.text-primary {
+  color: oklch(var(--primary));
+}
+
+.text-secondary {
+  color: oklch(var(--secondary));
+}
+
+.text-accent {
+  color: oklch(var(--accent));
+}
+
+.bg-primary {
+  background-color: oklch(var(--primary));
+}
+
+.bg-secondary {
+  background-color: oklch(var(--secondary));
+}
+
+.bg-accent {
+  background-color: oklch(var(--accent));
+}
+
+.border-primary {
+  border-color: oklch(var(--primary));
+}
+
+.border-secondary {
+  border-color: oklch(var(--secondary));
+}
+
+.border-accent {
+  border-color: oklch(var(--accent));
+}
+
+/* Hamburger Menu Animation */
+.hamburger-icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.hamburger-line {
+  display: block;
+  width: 100%;
+  height: 2.5px;
+  background-color: white;
+  border-radius: 2px;
+  transition: all 0.35s ease-in-out;
+  transform-origin: center;
+}
+
+.hamburger-line:hover {
+  background-color: oklch(var(--accent));
+}
+
+/* Animated hamburger to X transformation */
+.hamburger-line.open:nth-child(1) {
+  transform: translateY(7.75px) rotate(45deg);
+  background-color: oklch(var(--accent));
+}
+
+.hamburger-line.open:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.hamburger-line.open:nth-child(3) {
+  transform: translateY(-7.75px) rotate(-45deg);
+  background-color: oklch(var(--accent));
+}

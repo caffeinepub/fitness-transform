@@ -1,0 +1,111 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Remove mountain decorative backgrounds and apply solid dark grey background across all pages",
+  "requirements": [
+    {
+      "id": "REQ-76",
+      "summary": "Remove all mountain sunrise decorative background elements from the Layout component",
+      "acceptanceCriteria": [
+        "No mountain or sunrise imagery is visible in the background on any page",
+        "The Layout component no longer renders decorative background elements",
+        "All pages display a clean solid background without decorative images"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Layout.tsx",
+          "operation": "modify",
+          "description": "Remove all decorative background JSX elements that render mountain sunrise images (mountain-corner.dim_192x192.png, mountain-sunrise-left.dim_400x600.png, mountain-sunrise-right.dim_400x600.png, nature-decoration-bottom.dim_400x200.png, nature-decoration-top.dim_400x200.png). Remove any fixed positioning wrapper divs or containers used for these decorative elements. Preserve all other Layout functionality including header, navigation, profile switcher, and main content area."
+        }
+      ]
+    },
+    {
+      "id": "REQ-77",
+      "summary": "Update global CSS to remove background image declarations and apply solid dark grey background",
+      "acceptanceCriteria": [
+        "The index.css file contains no background-image properties for decorative elements",
+        "All pages across the application display a uniform solid dark grey background",
+        "The dark grey background color matches the existing app theme color scheme"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Remove all CSS rules and declarations that reference mountain sunrise decorative background images (mountain-corner, mountain-sunrise-left, mountain-sunrise-right, nature-decoration-bottom, nature-decoration-top, weight-decoration-left, weight-decoration-right). Update the body or html element background-color to use a solid dark grey color that matches the existing dark theme (use the CSS custom property for background or define as #1a1a1a / #2a2a2a). Remove any background-image, background-size, background-position, or background-repeat properties related to decorative elements. Preserve all Tailwind configuration, OKLCH color variables, and other existing styles."
+        }
+      ]
+    },
+    {
+      "id": "REQ-78",
+      "summary": "Remove CSS classes and styles that reference mountain/sunrise decorative positioning",
+      "acceptanceCriteria": [
+        "Layout component contains no JSX elements that render decorative background images",
+        "No CSS classes related to mountain decorative positioning remain in the Layout component",
+        "The application maintains proper spacing and layout without the decorative elements"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Layout.tsx",
+          "operation": "modify",
+          "description": "Remove any inline styles, className attributes, or style objects that position or style the decorative background elements. Clean up any empty wrapper divs that previously contained decorative elements. Ensure the main layout structure (header, navigation, content area) remains intact with proper spacing and z-index layering."
+        }
+      ]
+    },
+    {
+      "id": "REQ-79",
+      "summary": "Verify solid dark grey background is consistently applied across all page components",
+      "acceptanceCriteria": [
+        "All page components display the same solid dark grey background color",
+        "No page-specific background overrides conflict with the global dark grey background",
+        "The background color remains consistent during navigation between pages"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/LandingPage.tsx",
+          "operation": "modify",
+          "description": "Review and remove any page-specific background styles, background-image properties, or className attributes that override the global dark grey background. Ensure the page inherits the global background color without conflicts."
+        },
+        {
+          "path": "frontend/src/pages/TasksPage.tsx",
+          "operation": "modify",
+          "description": "Review and remove any page-specific background styles that conflict with the global dark grey background. Verify the page displays consistently with the solid dark grey background."
+        },
+        {
+          "path": "frontend/src/pages/WalkTrackingPage.tsx",
+          "operation": "modify",
+          "description": "Review and remove any page-specific background styles that conflict with the global dark grey background. Ensure map and tracking UI elements display properly against the solid background."
+        },
+        {
+          "path": "frontend/src/pages/ExerciseCategoryPage.tsx",
+          "operation": "modify",
+          "description": "Review and remove any page-specific background styles that conflict with the global dark grey background."
+        },
+        {
+          "path": "frontend/src/pages/SettingsPage.tsx",
+          "operation": "modify",
+          "description": "Review and remove any page-specific background styles that conflict with the global dark grey background."
+        },
+        {
+          "path": "frontend/src/pages/TransformationPage.tsx",
+          "operation": "modify",
+          "description": "Review and remove any page-specific background styles that conflict with the global dark grey background."
+        },
+        {
+          "path": "frontend/src/pages/StatsPage.tsx",
+          "operation": "modify",
+          "description": "Review and remove any page-specific background styles that conflict with the global dark grey background."
+        },
+        {
+          "path": "frontend/src/pages/PartnerPage.tsx",
+          "operation": "modify",
+          "description": "Review and remove any page-specific background styles that conflict with the global dark grey background."
+        },
+        {
+          "path": "frontend/src/pages/LoginPage.tsx",
+          "operation": "modify",
+          "description": "Review and remove any page-specific background styles that conflict with the global dark grey background. Ensure the login card remains properly styled against the solid background."
+        }
+      ]
+    }
+  ]
+}

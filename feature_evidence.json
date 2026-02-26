@@ -1,0 +1,62 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-remove-all-mountain-sunrise-decorative-background-elements-from-the-layout-component-frontend-src-components-layout-tsx-that-are-currently-rendered-as-fixed-positioned-decorative-elements",
+      "featureTitle": "Remove all mountain sunrise decorative background elements from the Layout component (frontend/src/components/Layout.tsx) that are currently rendered as fixed positioned decorative elements",
+      "files": [
+        "frontend/src/components/Layout.tsx"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-76"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-the-global-css-in-frontend-src-index-css-to-remove-any-background-image-declarations-related-to-mountain-sunrise-decorative-elements-and-ensure-all-pages-use-a-solid-dark-grey-background-color",
+      "featureTitle": "Update the global CSS in frontend/src/index.css to remove any background image declarations related to mountain sunrise decorative elements and ensure all pages use a solid dark grey background color",
+      "files": [
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-77"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-remove-any-css-classes-or-styles-in-frontend-src-components-layout-tsx-that-reference-or-position-mountain-sunrise-decorative-background-images",
+      "featureTitle": "Remove any CSS classes or styles in frontend/src/components/Layout.tsx that reference or position mountain/sunrise decorative background images",
+      "files": [
+        "frontend/src/components/Layout.tsx"
+      ],
+      "components": [
+        "blob-storage@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-78"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

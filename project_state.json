@@ -1,0 +1,815 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 33,
+  "summary": "Fitness app with motivational landing page featuring personalized message and hidden compliments, solid dark grey background with hot neon pink accents and white text, AI photo transformation, location-based walk recommendations with scenic details and reward system, Internet Identity authentication, dedicated daily tasks tab with gamified rewards system, hamburger menu navigation with animated hamburger icon and solid black dropdown background, multiple exercise category tabs with 5-star walk rating system displaying daily ratings on landing page, and new Partner tab with love heart icon for viewing girlfriend's walks, tasks, and ratings with profile selector",
+  "architectural_notes": [
+    "Internet Identity integration for authentication (passkey, email, phone number)",
+    "Daily task system with midnight auto-refresh and monthly completion tracking",
+    "Gamified reward system with gym-themed animations and multiple-choice reward selection",
+    "Scroll-based fade animation for personalized landing message",
+    "Hidden compliment text elements scattered throughout UI",
+    "Location-based walk recommendation system using current user position",
+    "Walk tracking with favorites system and completion rewards",
+    "App-wide color scheme: dark grey background, white text, hot neon pink accents",
+    "Hamburger menu navigation system replacing traditional tab navigation on all screen sizes",
+    "Solid dark grey background applied uniformly across all pages (no decorative images)"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-a-bold-landing-page-with-the-motivational-message-make-a-change-today-and-thank-you-for-tomorrow-displayed-prominently",
+      "title": "Create a bold landing page with the motivational message 'Make a change today and thank you for tomorrow' displayed prominently",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-customizable-color-themes-that-allow-users-to-switch-between-different-color-palettes-throughout-the-app",
+      "title": "Implement customizable color themes that allow users to switch between different color palettes throughout the app",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-an-ai-powered-photo-transformation-feature-where-users-upload-their-current-photo-and-select-a-duration-in-months-of-exercise-meal-plans-to-generate-and-display-a-projected-transformation-image",
+      "title": "Build an AI-powered photo transformation feature where users upload their current photo and select a duration in months of exercise/meal plans to generate and display a projected transformation image",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-location-tracking-tab-with-an-interactive-map-that-tracks-walks-in-real-time-with-start-stop-controls",
+      "title": "Create a location tracking tab with an interactive map that tracks walks in real-time with start/stop controls",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-calculate-and-display-calories-burned-and-step-count-for-each-tracked-walk-session",
+      "title": "Calculate and display calories burned and step count for each tracked walk session",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-design-a-cohesive-visual-theme-with-energetic-fitness-focused-aesthetics-using-vibrant-colors-modern-typography-and-motivational-design-elements-that-inspire-action-and-progress",
+      "title": "Design a cohesive visual theme with energetic, fitness-focused aesthetics using vibrant colors, modern typography, and motivational design elements that inspire action and progress",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-image-element-located-at-xpath-html-1-body-1-div-1-div-1-main-1-div-1-section-1-div-2-div-1-div-1-img-1-from-the-landing-page",
+      "title": "Remove the image element located at XPath /html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[1]/div[2]/div[1]/div[1]/img[1] from the landing page",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-container-div-element-located-at-xpath-html-1-body-1-div-1-div-1-main-1-div-1-section-1-div-2-div-1-from-the-landing-page",
+      "title": "Remove the container div element located at XPath /html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[1]/div[2]/div[1] from the landing page",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-authentication-gate-using-internet-identity-that-requires-users-to-log-in-before-accessing-any-app-routes-beyond-the-login-page-support-passkey-email-and-phone-number-authentication-methods",
+      "title": "Implement an authentication gate using Internet Identity that requires users to log in before accessing any app routes beyond the login page. Support passkey, email, and phone number authentication methods.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-transparent-decorative-background-elements-featuring-weights-dumbbells-and-nature-imagery-leaves-mountains-trees-positioned-around-the-screen-edges-throughout-the-application",
+      "title": "Add transparent decorative background elements featuring weights/dumbbells and nature imagery (leaves, mountains, trees) positioned around the screen edges throughout the application.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-motivational-quote-on-the-landing-page-from-make-a-change-today-and-thank-you-for-tomorrow-to-exercise-today-and-be-proud-of-yourself-tomorrow",
+      "title": "Update the motivational quote on the landing page from 'Make a change today and thank you for tomorrow' to 'Exercise today and be proud of yourself tomorrow'.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-unwanted-image-from-the-main-landing-page-that-was-not-part-of-the-original-user-request",
+      "title": "Remove the unwanted image from the main landing page that was not part of the original user request.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-decorative-images-for-transparent-weight-dumbbell-illustrations-and-nature-elements-leaves-mountains-trees-to-be-used-as-static-assets-for-the-background-decoration-feature",
+      "title": "Generate decorative images for transparent weight/dumbbell illustrations and nature elements (leaves, mountains, trees) to be used as static assets for the background decoration feature.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-personalized-message-mylove-i-know-you-can-do-this-so-i-made-this-for-you-to-the-landing-page-with-fade-out-animation-that-triggers-on-scroll",
+      "title": "Add the personalized message 'mylove i know you can do this so i made this for you🙂' to the landing page with fade-out animation that triggers on scroll",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-small-subtle-hidden-compliments-to-the-girlfriend-scattered-throughout-the-application-pages-that-are-hard-to-see-but-still-readable",
+      "title": "Add small, subtle hidden compliments to the girlfriend scattered throughout the application pages that are hard to see but still readable",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-the-orange-golden-fitness-hero-image-from-the-landing-page-the-dramatic-transformation-image-shown-in-the-uploaded-screenshot",
+      "title": "Remove the orange/golden fitness hero image from the landing page (the dramatic transformation image shown in the uploaded screenshot)",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-color-theme-switcher-in-settings-page-so-it-actually-switches-colors-when-users-select-different-themes",
+      "title": "Fix the color theme switcher in Settings page so it actually switches colors when users select different themes",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-separate-tasks-tab-in-the-navigation-with-daily-fitness-challenges-including-walk-a-mile-run-half-a-mile-20-squats-and-additional-varied-tasks",
+      "title": "Create a separate Tasks tab in the navigation with daily fitness challenges including walk a mile, run half a mile, 20 squats, and additional varied tasks",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-a-gym-themed-well-done-animation-when-users-complete-all-daily-tasks-for-the-day",
+      "title": "Display a gym-themed 'Well Done' animation when users complete all daily tasks for the day",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-show-multiple-choice-reward-options-date-night-sleepover-massage-and-additional-options-after-completing-all-daily-tasks-for-the-day",
+      "title": "Show multiple-choice reward options (date night, sleepover, massage, and additional options) after completing all daily tasks for the day",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-at-least-3-new-exercise-category-tabs-such-as-upper-body-lower-body-core-cardio-to-the-main-navigation-with-curated-exercise-ideas-for-each-category",
+      "title": "Add at least 3 new exercise category tabs (such as Upper Body, Lower Body, Core, Cardio) to the main navigation with curated exercise ideas for each category",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-more-customization-options-to-the-settings-page-beyond-theme-selection",
+      "title": "Add more customization options to the Settings page beyond theme selection",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-clean-up-and-polish-the-overall-ui-across-all-pages-for-a-smooth-cohesive-and-visually-refined-experience",
+      "title": "Clean up and polish the overall UI across all pages for a smooth, cohesive, and visually refined experience",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-recommended-walks-section-to-the-walking-tab-that-fetches-location-based-walk-suggestions-using-the-user-s-current-location-from-the-existing-map-tracking-system",
+      "title": "Add a recommended walks section to the Walking tab that fetches location-based walk suggestions using the user's current location from the existing map/tracking system",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-detailed-information-for-each-recommended-walk-including-distance-estimated-time-difficulty-level-scenic-highlights-and-calorie-estimate",
+      "title": "Display detailed information for each recommended walk including distance, estimated time, difficulty level, scenic highlights, and calorie estimate",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-three-interaction-buttons-to-each-recommended-walk-track-now-to-start-tracking-immediately-save-to-favorites-to-bookmark-for-later-and-complete-walk-to-mark-as-done-with-clear-reward-indication",
+      "title": "Add three interaction buttons to each recommended walk: 'Track Now' to start tracking immediately, 'Save to Favorites' to bookmark for later, and 'Complete Walk' to mark as done with clear reward indication",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-app-wide-color-scheme-to-use-dark-grey-background-white-font-color-and-hot-neon-pink-for-details-and-accents-throughout-all-pages",
+      "title": "Update the app-wide color scheme to use dark grey background, white font color, and hot neon pink for details and accents throughout all pages",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-current-tab-navigation-system-completely-with-a-hamburger-menu-icon-three-horizontal-lines-positioned-in-the-top-right-corner-of-the-header-that-is-visible-on-all-screen-sizes",
+      "title": "Replace the current tab navigation system completely with a hamburger menu icon (three horizontal lines) positioned in the top-right corner of the header that is visible on all screen sizes",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-when-the-hamburger-menu-is-clicked-display-a-vertical-dropdown-menu-containing-all-existing-navigation-tabs-home-tasks-walking-upper-body-lower-body-core-cardio-and-settings",
+      "title": "When the hamburger menu is clicked, display a vertical dropdown menu containing all existing navigation tabs: Home, Tasks, Walking, Upper Body, Lower Body, Core, Cardio, and Settings",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-all-current-decorative-background-elements-throughout-the-application-with-new-clearer-higher-quality-images-featuring-nice-looking-mountains-with-a-beautiful-sunrise",
+      "title": "Replace all current decorative background elements throughout the application with new clearer, higher-quality images featuring nice-looking mountains with a beautiful sunrise",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-5-star-rating-system-that-appears-after-a-user-completes-either-a-tracked-walk-session-or-a-recommended-walk-allowing-them-to-rate-how-they-feel-after-the-walk",
+      "title": "Add a 5-star rating system that appears after a user completes either a tracked walk session OR a recommended walk, allowing them to rate how they feel after the walk",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-daily-walk-ratings-at-the-bottom-of-the-landing-page-organized-by-day-showing-the-5-star-ratings-for-completed-walks",
+      "title": "Display daily walk ratings at the bottom of the landing page, organized by day, showing the 5-star ratings for completed walks",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-landing-page-layout-by-properly-spacing-the-personalized-message-mylove-i-know-you-can-do-this-so-i-made-this-for-you-the-main-motivational-quote-exercise-today-and-be-proud-of-yourself-tomorrow-and-the-hamburger-menu-so-they-are-positioned-vertically-without-overlapping-and-are-clearly-readable",
+      "title": "Fix the landing page layout by properly spacing the personalized message ('mylove i know you can do this so i made this for you🙂'), the main motivational quote ('Exercise today and be proud of yourself tomorrow'), and the hamburger menu so they are positioned vertically without overlapping and are clearly readable",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-enhance-the-scroll-triggered-fade-effect-on-the-landing-page-so-the-personalized-message-gradually-fades-out-and-disappears-as-the-user-scrolls-down-the-page",
+      "title": "Enhance the scroll-triggered fade effect on the landing page so the personalized message gradually fades out and disappears as the user scrolls down the page",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-staggered-scroll-triggered-fade-effect-to-the-21-selected-landing-page-elements-identified-by-xpath-expressions-header-logo-svg-html-1-body-1-div-1-div-1-header-1-div-1-div-1-svg-1-header-logo-path-html-1-body-1-div-1-div-1-header-1-div-1-div-1-svg-1-path-4-header-text-span-html-1-body-1-div-1-div-1-header-1-div-1-div-1-span-1-hero-title-first-span-html-1-body-1-div-1-div-1-main-1-div-1-section-1-div-2-div-1-h1-1-span-1-hero-title-second-span-html-1-body-1-div-1-div-1-main-1-div-1-section-1-div-2-div-1-h1-1-span-2-hero-description-paragraph-html-1-body-1-div-1-div-1-main-1-div-1-section-1-div-2-div-1-p-1-first-cta-button-html-1-body-1-div-1-div-1-main-1-div-1-section-1-div-2-div-1-div-1-button-1-second-cta-button-html-1-body-1-div-1-div-1-main-1-div-1-section-1-div-2-div-1-div-1-button-2-features-section-heading-html-1-body-1-div-1-div-1-main-1-div-1-section-2-div-1-h2-1-first-feature-card-container-html-1-body-1-div-1-div-1-main-1-div-1-section-2-div-1-div-1-div-1-first-feature-card-icon-svg-html-1-body-1-div-1-div-1-main-1-div-1-section-2-div-1-div-1-div-1-div-1-svg-1-first-feature-card-heading-html-1-body-1-div-1-div-1-main-1-div-1-section-2-div-1-div-1-div-1-h3-1-first-feature-card-description-html-1-body-1-div-1-div-1-main-1-div-1-section-2-div-1-div-1-div-1-p-1-second-feature-card-container-html-1-body-1-div-1-div-1-main-1-div-1-section-2-div-1-div-1-div-2-second-feature-card-icon-svg-html-1-body-1-div-1-div-1-main-1-div-1-section-2-div-1-div-1-div-2-div-1-svg-1-second-feature-card-heading-html-1-body-1-div-1-div-1-main-1-div-1-section-2-div-1-div-1-div-2-h3-1-second-feature-card-description-html-1-body-1-div-1-div-1-main-1-div-1-section-2-div-1-div-1-div-2-p-1-third-feature-card-container-html-1-body-1-div-1-div-1-main-1-div-1-section-2-div-1-div-1-div-3-third-feature-card-icon-svg-path-html-1-body-1-div-1-div-1-main-1-div-1-section-2-div-1-div-1-div-3-div-1-svg-1-path-1-third-feature-card-heading-html-1-body-1-div-1-div-1-main-1-div-1-section-2-div-1-div-1-div-3-h3-1-and-third-feature-card-description-html-1-body-1-div-1-div-1-main-1-div-1-section-2-div-1-div-1-div-3-p-1-each-element-should-fade-out-at-a-different-scroll-position-creating-a-cascading-effect-from-top-to-bottom-as-the-user-scrolls-down-the-page",
+      "title": "Apply a staggered scroll-triggered fade effect to the 21 selected landing page elements identified by XPath expressions: header logo SVG (/html[1]/body[1]/div[1]/div[1]/header[1]/div[1]/div[1]/svg[1]), header logo path (/html[1]/body[1]/div[1]/div[1]/header[1]/div[1]/div[1]/svg[1]/path[4]), header text span (/html[1]/body[1]/div[1]/div[1]/header[1]/div[1]/div[1]/span[1]), hero title first span (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[1]/div[2]/div[1]/h1[1]/span[1]), hero title second span (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[1]/div[2]/div[1]/h1[1]/span[2]), hero description paragraph (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[1]/div[2]/div[1]/p[1]), first CTA button (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[1]/div[2]/div[1]/div[1]/button[1]), second CTA button (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[1]/div[2]/div[1]/div[1]/button[2]), features section heading (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[2]/div[1]/h2[1]), first feature card container (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[2]/div[1]/div[1]/div[1]), first feature card icon SVG (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[2]/div[1]/div[1]/div[1]/div[1]/svg[1]), first feature card heading (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[2]/div[1]/div[1]/div[1]/h3[1]), first feature card description (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[2]/div[1]/div[1]/div[1]/p[1]), second feature card container (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[2]/div[1]/div[1]/div[2]), second feature card icon SVG (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[2]/div[1]/div[1]/div[2]/div[1]/svg[1]), second feature card heading (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[2]/div[1]/div[1]/div[2]/h3[1]), second feature card description (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[2]/div[1]/div[1]/div[2]/p[1]), third feature card container (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[2]/div[1]/div[1]/div[3]), third feature card icon SVG path (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[2]/div[1]/div[1]/div[3]/div[1]/svg[1]/path[1]), third feature card heading (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[2]/div[1]/div[1]/div[3]/h3[1]), and third feature card description (/html[1]/body[1]/div[1]/div[1]/main[1]/div[1]/section[2]/div[1]/div[1]/div[3]/p[1]). Each element should fade out at a different scroll position creating a cascading effect from top to bottom as the user scrolls down the page.",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-reversible-fade-behavior-for-the-21-selected-landing-page-elements-so-they-fade-back-in-and-become-fully-visible-again-when-the-user-scrolls-back-to-the-top-of-the-page-the-fade-in-should-reverse-the-staggered-timing-pattern-used-during-fade-out",
+      "title": "Implement reversible fade behavior for the 21 selected landing page elements so they fade back in and become fully visible again when the user scrolls back to the top of the page. The fade-in should reverse the staggered timing pattern used during fade-out.",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-use-the-same-scroll-fade-mechanism-and-timing-pattern-that-is-currently-applied-to-the-personalized-message-mylove-i-know-you-can-do-this-so-i-made-this-for-you-for-implementing-the-fade-effect-on-all-21-selected-landing-page-elements-maintain-consistency-in-fade-speed-and-opacity-transitions",
+      "title": "Use the same scroll fade mechanism and timing pattern that is currently applied to the personalized message ('mylove i know you can do this so i made this for you🙂') for implementing the fade effect on all 21 selected landing page elements. Maintain consistency in fade speed and opacity transitions.",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-new-partner-tab-with-a-love-heart-icon-in-the-hamburger-menu-navigation-that-displays-between-the-existing-tabs-and-settings",
+      "title": "Create a new Partner tab with a love heart icon in the hamburger menu navigation that displays between the existing tabs and Settings",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-profile-selector-ui-element-in-the-partner-tab-that-allows-switching-between-viewing-own-data-and-girlfriend-s-data",
+      "title": "Add a profile selector UI element in the Partner tab that allows switching between viewing own data and girlfriend's data",
+      "reqIds": [
+        "REQ-44"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-all-walking-data-for-the-selected-profile-in-the-partner-tab-including-tracked-walks-recommended-walks-durations-distances-steps-and-calories-burned",
+      "title": "Display all walking data for the selected profile in the Partner tab including tracked walks, recommended walks, durations, distances, steps, and calories burned",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-all-task-data-for-the-selected-profile-in-the-partner-tab-including-which-tasks-were-completed-completion-status-and-completion-timestamps",
+      "title": "Display all task data for the selected profile in the Partner tab including which tasks were completed, completion status, and completion timestamps",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-display-daily-5-star-walk-ratings-for-the-selected-profile-in-the-partner-tab-organized-by-date-showing-ratings-for-all-completed-walks",
+      "title": "Display daily 5-star walk ratings for the selected profile in the Partner tab organized by date showing ratings for all completed walks",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-all-existing-walk-tracking-task-completion-and-rating-submission-features-to-associate-data-with-the-active-user-profile",
+      "title": "Update all existing walk tracking, task completion, and rating submission features to associate data with the active user profile",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-react-error-boundaries-to-all-major-route-components-landingpage-partnerpage-taskspage-walktrackingpage-exercisecategorypage-settingspage-transformationpage-statspage-to-catch-and-display-rendering-errors-gracefully-instead-of-showing-a-white-screen",
+      "title": "Add React error boundaries to all major route components (LandingPage, PartnerPage, TasksPage, WalkTrackingPage, ExerciseCategoryPage, SettingsPage, TransformationPage, StatsPage) to catch and display rendering errors gracefully instead of showing a white screen",
+      "reqIds": [
+        "REQ-50"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-review-and-fix-the-partnerpage-component-implementation-to-ensure-it-handles-missing-data-loading-states-and-profile-switching-without-crashing",
+      "title": "Review and fix the PartnerPage component implementation to ensure it handles missing data, loading states, and profile switching without crashing",
+      "reqIds": [
+        "REQ-51"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-null-undefined-checks-and-fallback-values-to-all-components-that-display-profile-specific-data-partnerwalkhistory-partnertaskhistory-partnerwalkratings-dailywalkratings-to-prevent-crashes-when-data-is-missing-or-not-yet-loaded",
+      "title": "Add null/undefined checks and fallback values to all components that display profile-specific data (PartnerWalkHistory, PartnerTaskHistory, PartnerWalkRatings, DailyWalkRatings) to prevent crashes when data is missing or not yet loaded",
+      "reqIds": [
+        "REQ-52"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-the-profilecontext-properly-initializes-with-a-default-profile-value-and-handles-profile-switching-without-causing-re-render-loops-or-undefined-state",
+      "title": "Verify the ProfileContext properly initializes with a default profile value and handles profile switching without causing re-render loops or undefined state",
+      "reqIds": [
+        "REQ-53"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-console-error-logging-with-stack-traces-to-help-identify-the-root-cause-of-rendering-failures-in-production",
+      "title": "Add console error logging with stack traces to help identify the root cause of rendering failures in production",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-review-the-app-tsx-routing-configuration-to-ensure-the-partner-route-is-properly-registered-and-does-not-conflict-with-other-routes",
+      "title": "Review the App.tsx routing configuration to ensure the Partner route is properly registered and does not conflict with other routes",
+      "reqIds": [
+        "REQ-55"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-all-react-query-hooks-in-usequeries-ts-that-fetch-profile-specific-data-walks-tasks-ratings-properly-handle-the-activeprofile-parameter-and-do-not-cause-query-errors-when-profile-switches",
+      "title": "Ensure all React Query hooks in useQueries.ts that fetch profile-specific data (walks, tasks, ratings) properly handle the activeProfile parameter and do not cause query errors when profile switches",
+      "reqIds": [
+        "REQ-56"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-react-context-error-useprofile-must-be-used-within-a-profileprovider-by-ensuring-the-profileprovider-component-properly-wraps-all-components-that-use-the-useprofile-hook-in-the-application-tree",
+      "title": "Fix the React context error 'useProfile must be used within a ProfileProvider' by ensuring the ProfileProvider component properly wraps all components that use the useProfile hook in the application tree",
+      "reqIds": [
+        "REQ-57"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-that-the-profileprovider-is-positioned-correctly-in-the-component-hierarchy-in-app-tsx-ensuring-it-wraps-the-router-and-all-route-components-but-is-nested-inside-internetidentityprovider-and-queryclientprovider",
+      "title": "Verify that the ProfileProvider is positioned correctly in the component hierarchy in App.tsx, ensuring it wraps the router and all route components but is nested inside InternetIdentityProvider and QueryClientProvider",
+      "reqIds": [
+        "REQ-58"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-smooth-animation-effect-to-the-hamburger-menu-icon-three-horizontal-lines-that-transforms-the-lines-when-the-menu-is-clicked-such-as-rotating-into-an-x-shape-or-another-visually-appealing-transition-animation",
+      "title": "Add smooth animation effect to the hamburger menu icon (three horizontal lines) that transforms the lines when the menu is clicked, such as rotating into an X shape or another visually appealing transition animation",
+      "reqIds": [
+        "REQ-61"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-change-the-hamburger-menu-dropdown-background-to-solid-black-with-full-opacity-no-transparency-so-the-page-content-behind-it-is-completely-hidden-when-the-menu-is-open",
+      "title": "Change the hamburger menu dropdown background to solid black with full opacity (no transparency) so the page content behind it is completely hidden when the menu is open",
+      "reqIds": [
+        "REQ-62"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-hamburger-menu-icon-color-menu-item-text-colors-and-hover-states-are-polished-and-consistent-with-the-existing-dark-grey-background-and-hot-neon-pink-accent-color-scheme",
+      "title": "Ensure the hamburger menu icon color, menu item text colors, and hover states are polished and consistent with the existing dark grey background and hot neon pink accent color scheme",
+      "reqIds": [
+        "REQ-63"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-pwa-manifest-file-frontend-public-manifest-json-with-app-metadata-including-name-fitness-journey-short-name-description-theme-color-using-hot-neon-pink-ff1493-or-equivalent-background-color-using-dark-grey-display-mode-standalone-start-url-and-icons-array-with-multiple-sizes-192x192-512x512-referencing-app-icon-files",
+      "title": "Create a PWA manifest file (frontend/public/manifest.json) with app metadata including name 'Fitness Journey', short_name, description, theme_color using hot neon pink (#FF1493 or equivalent), background_color using dark grey, display mode 'standalone', start_url '/', and icons array with multiple sizes (192x192, 512x512) referencing app icon files",
+      "reqIds": [
+        "REQ-64"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-frontend-index-html-to-include-the-manifest-link-tag-link-rel-manifest-href-manifest-json-in-the-head-section-and-add-theme-color-meta-tag-matching-the-hot-neon-pink-accent-color",
+      "title": "Update frontend/index.html to include the manifest link tag (<link rel=\"manifest\" href=\"/manifest.json\">) in the <head> section and add theme-color meta tag matching the hot neon pink accent color",
+      "reqIds": [
+        "REQ-65"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-service-worker-file-frontend-public-sw-js-that-enables-offline-functionality-by-caching-static-assets-html-css-js-images-and-implementing-a-cache-first-strategy-for-app-shell-resources-and-a-network-first-strategy-for-api-calls",
+      "title": "Create a service worker file (frontend/public/sw.js) that enables offline functionality by caching static assets (HTML, CSS, JS, images) and implementing a cache-first strategy for app shell resources and a network-first strategy for API calls",
+      "reqIds": [
+        "REQ-66"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-pwa-installation-section-to-the-settings-page-frontend-src-pages-settingspage-tsx-that-displays-clear-step-by-step-instructions-for-installing-the-app-on-mobile-devices-including-1-for-ios-tap-the-share-button-in-safari-and-select-add-to-home-screen-2-for-android-tap-the-menu-three-dots-in-chrome-and-select-install-app-or-add-to-home-screen-3-once-installed-launch-the-app-from-your-home-screen-like-any-native-app",
+      "title": "Add a new 'PWA Installation' section to the Settings page (frontend/src/pages/SettingsPage.tsx) that displays clear step-by-step instructions for installing the app on mobile devices, including: (1) For iOS: Tap the Share button in Safari and select 'Add to Home Screen', (2) For Android: Tap the menu (three dots) in Chrome and select 'Install app' or 'Add to Home Screen', (3) Once installed, launch the app from your home screen like any native app",
+      "reqIds": [
+        "REQ-68"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-comprehensive-error-handling-and-console-logging-to-the-service-worker-file-frontend-public-sw-js-to-track-install-event-start-and-completion-activate-event-start-and-completion-fetch-event-requests-with-cache-hit-miss-status-cache-operation-failures-and-any-unhandled-errors-during-service-worker-lifecycle",
+      "title": "Add comprehensive error handling and console logging to the service worker file frontend/public/sw.js to track: install event start and completion, activate event start and completion, fetch event requests with cache hit/miss status, cache operation failures, and any unhandled errors during service worker lifecycle",
+      "reqIds": [
+        "REQ-70"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-json-validation-to-verify-that-frontend-public-manifest-json-is-properly-formatted-valid-json-with-all-required-pwa-manifest-fields-name-short-name-start-url-display-theme-color-background-color-icons-array-before-the-application-build-completes",
+      "title": "Add JSON validation to verify that frontend/public/manifest.json is properly formatted valid JSON with all required PWA manifest fields (name, short_name, start_url, display, theme_color, background_color, icons array) before the application build completes",
+      "reqIds": [
+        "REQ-73"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-build-time-validation-to-check-that-all-icon-files-referenced-in-the-frontend-public-manifest-json-icons-array-192x192-and-512x512-sizes-actually-exist-in-frontend-public-assets-generated-directory-before-deployment",
+      "title": "Add build-time validation to check that all icon files referenced in the frontend/public/manifest.json icons array (192x192 and 512x512 sizes) actually exist in frontend/public/assets/generated directory before deployment",
+      "reqIds": [
+        "REQ-74"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-error-event-listeners-to-the-service-worker-in-frontend-public-sw-js-that-catch-and-log-any-runtime-errors-that-occur-during-fetch-interception-cache-operations-or-message-handling-to-help-diagnose-deployment-failures",
+      "title": "Add error event listeners to the service worker in frontend/public/sw.js that catch and log any runtime errors that occur during fetch interception, cache operations, or message handling to help diagnose deployment failures",
+      "reqIds": [
+        "REQ-75"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-all-mountain-sunrise-decorative-background-elements-from-the-layout-component-frontend-src-components-layout-tsx-that-are-currently-rendered-as-fixed-positioned-decorative-elements",
+      "title": "Remove all mountain sunrise decorative background elements from the Layout component (frontend/src/components/Layout.tsx) that are currently rendered as fixed positioned decorative elements",
+      "reqIds": [
+        "REQ-76"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-global-css-in-frontend-src-index-css-to-remove-any-background-image-declarations-related-to-mountain-sunrise-decorative-elements-and-ensure-all-pages-use-a-solid-dark-grey-background-color",
+      "title": "Update the global CSS in frontend/src/index.css to remove any background image declarations related to mountain sunrise decorative elements and ensure all pages use a solid dark grey background color",
+      "reqIds": [
+        "REQ-77"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-remove-any-css-classes-or-styles-in-frontend-src-components-layout-tsx-that-reference-or-position-mountain-sunrise-decorative-background-images",
+      "title": "Remove any CSS classes or styles in frontend/src/components/Layout.tsx that reference or position mountain/sunrise decorative background images",
+      "reqIds": [
+        "REQ-78"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Add Internet Identity login page with passkey/email/phone authentication that protects access to the main app",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Update motivational quote to 'Exercise today and be proud of yourself tomorrow'",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add personalized message 'mylove i know you can do this so i made this for you🙂' to landing page that fades away on scroll",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add small, subtle hidden compliments scattered throughout the page (hard to see but readable)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add at least 3 new exercise category tabs (Upper Body, Lower Body, Core, Cardio) with exercise ideas",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Create separate Tasks tab with daily fitness challenges, checkboxes, daily/monthly tracking, gym-themed completion animation, multiple-choice rewards, and midnight refresh",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add more customization options to Settings page",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Clean up and polish overall UI for smooth, cohesive experience",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Implement daily and monthly task completion tracking that stores user progress over time",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Automatically refresh daily tasks at midnight each day with a new set of challenges",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Fix the React error 'A <Select.Item /> must have a value prop that is not an empty string' in the Settings page by ensuring all Select.Item components in the ThemeSelector have non-empty value props (e.g., 'light', 'dark', 'energize', 'ocean', 'sunset', 'forest') that correspond to their respective theme options",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Add location-based recommended walks feature to Walking tab with distance, estimated time, difficulty level, scenic highlights, and calorie estimate for each walk",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Add Track Now, Save to Favorites, and Complete Walk buttons to each recommended walk with reward indication for completion",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-24",
+      "summary": "Update app-wide color scheme to dark grey background, white font color, and hot neon pink details/accents",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-25",
+      "summary": "Replace current tab navigation with hamburger menu (3 lines) in top-right corner that drops down vertically showing all tabs (Home, Tasks, Walking, Upper Body, Lower Body, Core, Cardio, Settings, etc.) on all screen sizes",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-26",
+      "summary": "Replace decorative background elements with clearer, higher-quality images of nice-looking mountains with beautiful sunrise throughout the app",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-27",
+      "summary": "Add 5-star rating system that appears after completing tracked OR recommended walks, displaying daily ratings at the bottom of the landing page organized by day",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-33",
+      "summary": "Update the backend data model to store walk ratings with each completed walk, including the rating value (1-5 stars), completion timestamp, and walk type (tracked or recommended)",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-34",
+      "summary": "Fix landing page text overlapping issue by properly spacing personalized message, motivational quote, and hamburger menu vertically so nothing overlaps",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-35",
+      "summary": "Enhance scroll fade effect on landing page so personalized message and other text elements gradually disappear as user scrolls down",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-36",
+      "summary": "Add staggered scroll-triggered fade effect to all 21 selected landing page elements (header logo/text, hero title spans, description, buttons, features section heading, and feature cards) that fade out at different scroll positions and reappear when scrolling back to the top",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-37",
+      "summary": "Add new Partner tab with love heart icon in hamburger menu that displays girlfriend's fitness data (all walking data including tracked/recommended walks with durations/distances, all task data with completion status, and daily 5-star ratings)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-38",
+      "summary": "Implement user profile system with toggle/selector to switch between viewing own data and girlfriend's data while both users share the same Internet Identity account",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-39",
+      "summary": "Create separate backend data storage for each user profile (user and girlfriend) while sharing the same authentication, tracking walks, tasks, and ratings independently for each person",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-41",
+      "summary": "Implement a user profile system in the backend that distinguishes between two profiles (user and girlfriend) while both share the same Internet Identity authentication account",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-47",
+      "summary": "Add backend methods to query walks, tasks, and ratings filtered by profile identifier",
+      "reqIds": [
+        "REQ-49"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-50",
+      "summary": "Ensure the ProfileContext initializes with a valid default profile value ('user' or 'girlfriend') and does not cause undefined state errors during app initialization",
+      "reqIds": [
+        "REQ-59"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-51",
+      "summary": "Test that all components using the useProfile hook (Layout, PartnerPage, PartnerWalkHistory, PartnerTaskHistory, PartnerWalkRatings, DailyWalkRatings) can successfully access the profile context without errors",
+      "reqIds": [
+        "REQ-60"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-52",
+      "summary": "Add animation effect to hamburger menu icon (three horizontal lines) when clicked, such as transforming into an X or smooth transition animation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-53",
+      "summary": "Change hamburger menu dropdown background to solid black (fully opaque) instead of transparent",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-54",
+      "summary": "Configure app as a Progressive Web App (PWA) with manifest file, service worker, and offline capabilities so users can install it on their phones from the browser",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-55",
+      "summary": "Add PWA installation instructions in the Settings page explaining how to install the app on mobile devices using 'Add to Home Screen'",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-59",
+      "summary": "Register the service worker in frontend/src/main.tsx after the React app renders by checking if ('serviceWorker' in navigator) and calling navigator.serviceWorker.register('/sw.js') with proper error handling",
+      "reqIds": [
+        "REQ-67"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-60",
+      "summary": "Add comprehensive console logging to the service worker registration code in frontend/src/main.tsx to track registration status, including logs for: registration attempt started, registration successful with service worker scope, registration failed with error details, and service worker update detected",
+      "reqIds": [
+        "REQ-69"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-62",
+      "summary": "Implement graceful degradation in the service worker registration code in frontend/src/main.tsx so that if service worker registration fails, the application continues to function as a regular web application without blocking deployment or causing runtime errors",
+      "reqIds": [
+        "REQ-71"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-63",
+      "summary": "Wrap the service worker registration logic in frontend/src/main.tsx in a try-catch block that catches and logs any registration errors without disrupting the React application initialization",
+      "reqIds": [
+        "REQ-72"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-64",
+      "summary": "Remove all mountain sunrise decorative background elements from all pages throughout the application",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-65",
+      "summary": "Apply solid dark grey background color to all pages across the entire application for a clean, uniform look",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-69",
+      "summary": "Verify that the solid dark grey background is consistently applied across all page components: LandingPage, TasksPage, WalkTrackingPage, ExerciseCategoryPage, SettingsPage, TransformationPage, StatsPage, PartnerPage, and LoginPage",
+      "reqIds": [
+        "REQ-79"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Fitness App",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
